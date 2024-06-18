@@ -1,0 +1,20 @@
+﻿<Window x:Class="Smart_Library_Management_System.User_Homepage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Smart_Library_Management_System"
+        mc:Ignorable="d"
+        Title="User Homepage" Height="720" Width="1280" ResizeMode="NoResize">
+    <Window.Background>
+        <ImageBrush ImageSource="/User Homepage.png"/>
+    </Window.Background>
+    <Grid>
+        <Button x:Name="btLogout" Content="Button" HorizontalAlignment="Left" Height="60" Margin="1205,0,0,0" VerticalAlignment="Top" Width="60" Opacity="0.01" Click="btLogout_Click"/>
+        <Button x:Name="btProfile" Content="Button" HorizontalAlignment="Left" Height="190" Margin="214,157,0,0" VerticalAlignment="Top" Width="190" Opacity="0.01" Click="btProfile_Click"/>
+        <Button x:Name="btBorrowBook" Content="Button" HorizontalAlignment="Center" Height="190" Margin="0,157,0,0" VerticalAlignment="Top" Width="190" Opacity="0.01" Click="btBorrowBook_Click"/>
+        <Button x:Name="btBookDocumentation"  Content="Button" HorizontalAlignment="Left" Height="190" Margin="841,157,0,0" VerticalAlignment="Top" Width="216" Opacity="0.01" Click="btBookDocumentation_Click"/>
+        <Button x:Name="btBookList" Content="Button" HorizontalAlignment="Center" Height="190" Margin="0,422,0,0" VerticalAlignment="Top" Width="190" Opacity="0.01" Click="btBookList_Click"/>
+
+    </Grid>
+</Window>

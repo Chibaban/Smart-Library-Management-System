@@ -41,7 +41,9 @@ namespace Smart_Library_Management_System
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            User_Homepage UH = new User_Homepage();
+            UH.Show();
+            this.Close();
         }
     }
 }
