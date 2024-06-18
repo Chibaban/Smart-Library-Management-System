@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LibWonder" Class="SLMSDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=CCL01-41;Initial Catalog=LibWonder;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False" SettingsObjectName="Smart_Library_Management_System.Properties.Settings" SettingsPropertyName="LibWonderConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Accounts" Member="Accounts">
+    <Type Name="Account">
+      <Column Name="Acc_ID" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Acc_Type" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="Char(8)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
+      <Column Name="First_Name" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Last_Name" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Acc_Image" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Account_Book_Documentation" Member="Book_Documentations" ThisKey="Acc_ID" OtherKey="Acc_ID" Type="Book_Documentation" />
+      <Association Name="Account_Log" Member="Logs" ThisKey="Acc_ID" OtherKey="Acc_ID" Type="Log" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Book_Documentation" Member="Book_Documentations">
+    <Type Name="Book_Documentation">
+      <Column Name="Doc_ID" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Book_ID" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Acc_ID" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Borrow_Image" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Borrow_Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Return_Image" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Return_Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Account_Book_Documentation" Member="Account" ThisKey="Acc_ID" OtherKey="Acc_ID" Type="Account" IsForeignKey="true" />
+      <Association Name="Book_Book_Documentation" Member="Book" ThisKey="Book_ID" OtherKey="Book_ID" Type="Book" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Books" Member="Books">
+    <Type Name="Book">
+      <Column Name="Book_ID" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Author" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Genre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Publish_Year" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Book_Image" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="QR_Path" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Book_Book_Documentation" Member="Book_Documentations" ThisKey="Book_ID" OtherKey="Book_ID" Type="Book_Documentation" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Logs" Member="Logs">
+    <Type Name="Log">
+      <Column Name="Log_ID" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Acc_ID" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Log_Activity" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Account_Log" Member="Account" ThisKey="Acc_ID" OtherKey="Acc_ID" Type="Account" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

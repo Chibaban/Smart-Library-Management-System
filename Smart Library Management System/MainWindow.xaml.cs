@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +21,13 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class MainWindow : Window
     {
+        SLMSDataContext _SLMS = null;
+        bool loginFlag = false;
+
         public MainWindow()
         {
             InitializeComponent();
+            _SLMS = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
         }
 
         private void cbShowPassword_Checked(object sender, RoutedEventArgs e)
@@ -39,11 +44,66 @@ namespace Smart_Library_Management_System
             tbPasswordCheck.Visibility=Visibility.Collapsed;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btSubmit_Click(object sender, RoutedEventArgs e)
         {
-            User_Homepage UH = new User_Homepage();
-            UH.Show();
-            this.Close();
+            loginFlag = false;
+
+            var loginQuery = from l in _SLMS.Accounts
+                             where
+
+                                l.Username == tbUsername.Text
+                             select l;
+
+            if (tbUsername.Text.Length > 0 && pbPassword.Password.Length > 0)
+            {
+                if (loginQuery.Count() == 1)
+                {
+                    foreach (var login in loginQuery)
+                    {
+                        if (login.Password == pbPassword.Password)
+                        {
+                            loginFlag = true;
+                        }
+                    }
+                }
+
+                if (loginFlag)
+                {
+                    foreach(var login in loginQuery)
+                    {
+                        if (login.Acc_Type == "Admin")
+                        {
+                            MessageBox.Show("Welcome Admin!");
+                            Admin_Homepage AH = new Admin_Homepage();
+                            AH.Show();
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Welcome User!");
+                            User_Homepage UP = new User_Homepage();
+                            UP.Show();
+                            this.Close();
+                        }
+                    }
+                }
+
+                else
+                {
+                    MessageBox.Show("Invalid Credentials!");
+                    tbUsername.Text = null;
+                    pbPassword.Password = null;
+                    tbPasswordCheck.Text = null;
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Please input a credential!");
+                tbUsername.Text = null;
+                pbPassword.Password = null;
+                tbPasswordCheck.Text = null;
+            }
         }
     }
 }
