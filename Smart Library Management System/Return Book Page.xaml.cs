@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Smart_Library_Management_System
 {
     /// <summary>
-    /// Interaction logic for Admin_User_Profile_Page.xaml
+    /// Interaction logic for Return_Book_Page.xaml
     /// </summary>
-    public partial class Admin_User_Profile_Page : Window
+    public partial class Return_Book_Page : Window
     {
-        public Admin_User_Profile_Page()
+        public Return_Book_Page()
         {
             InitializeComponent();
-        }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Edited Successfully");
         }
 
         private void btnUpload_Click(object sender, RoutedEventArgs e)
@@ -42,16 +37,21 @@ namespace Smart_Library_Management_System
             }
         }
 
-        private void btnHome_Click(object sender, RoutedEventArgs e)
-        {
-            Admin_Homepage AH = new Admin_Homepage();
-            AH.Show();
-            this.Close();
-        }
-
         private void btnTakeAPhoto_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Take A Photo");
+        }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Submitted Successfully");
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            User_Homepage UH = new User_Homepage();
+            UH.Show();
+            this.Close();
         }
     }
 }

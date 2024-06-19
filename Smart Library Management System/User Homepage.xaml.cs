@@ -40,17 +40,23 @@ namespace Smart_Library_Management_System
 
         private void btBorrowBook_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Borrow Book");
+            Borrow_Book_Page BBP = new Borrow_Book_Page();
+            BBP.Show();
+            this.Close();
         }
 
         private void btBookList_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Book List");
+            Book_List_Page BLB = new Book_List_Page();
+            BLB.Show();
+            this.Close();
         }
 
         private void btReturnBook_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Return Book");
+            Return_Book_Page RBP = new Return_Book_Page();
+            RBP.Show();
+            this.Close();
         }
     }
 }
