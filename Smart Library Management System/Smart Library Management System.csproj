@@ -59,6 +59,12 @@
     <Compile Include="Admin Homepage.xaml.cs">
       <DependentUpon>Admin Homepage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Admin User Profile Page.xaml.cs">
+      <DependentUpon>Admin User Profile Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Signup Page.xaml.cs">
+      <DependentUpon>Signup Page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SLMS.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -68,6 +74,10 @@
       <DependentUpon>User Homepage.xaml</DependentUpon>
     </Compile>
     <Page Include="Admin Homepage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Admin User Profile Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -83,6 +93,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Signup Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="User Homepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +147,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SIGN UP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ADMINUSER PROFILE.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

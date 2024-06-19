@@ -33,7 +33,9 @@ namespace Smart_Library_Management_System
 
         private void btProfile_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Profile");
+            Admin_User_Profile_Page AUPP = new Admin_User_Profile_Page();
+            AUPP.Show();
+            this.Close();
         }
 
         private void btBorrowBook_Click(object sender, RoutedEventArgs e)
@@ -41,14 +43,14 @@ namespace Smart_Library_Management_System
             MessageBox.Show("Borrow Book");
         }
 
-        private void btBookDocumentation_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Book Documentation");
-        }
-
         private void btBookList_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Book List");
+        }
+
+        private void btReturnBook_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Return Book");
         }
     }
 }

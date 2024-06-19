@@ -32,7 +32,9 @@ namespace Smart_Library_Management_System
 
         private void btProfile_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Profile");
+            Admin_User_Profile_Page AUPP = new Admin_User_Profile_Page();
+            AUPP.Show();
+            this.Close();
         }
 
         private void btBookList_Click(object sender, RoutedEventArgs e)

@@ -7,13 +7,14 @@
         mc:Ignorable="d"
         Title="Login Page" Height="720" Width="1280" ResizeMode="NoResize">
     <Window.Background>
-        <ImageBrush ImageSource="/LOG IN.png"/>
+        <ImageBrush ImageSource="C:\Users\22-0033c\Source\Repos\Smart-Library-Management-System\Smart Library Management System\LOG IN.png"/>
     </Window.Background>
-    <Grid>
+    <Grid Margin="-8,0,8,0">
         <TextBox x:Name="tbUsername" HorizontalAlignment="Center" Height="26" Margin="0,258,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
         <TextBox x:Name="tbPasswordCheck" HorizontalAlignment="Center" Height="26" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835" Margin="0,333,0,0" Visibility="Collapsed"/>
         <PasswordBox x:Name="pbPassword" HorizontalAlignment="Center" Margin="0,333,0,0" VerticalAlignment="Top" Width="228" Height="26" FontSize = "18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
         <CheckBox x:Name="cbShowPassword" Content="Show Password" HorizontalAlignment="Left" Margin="526,392,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.453,0.731" Foreground="#FF653835" FontFamily="Verdana" Checked="cbShowPassword_Checked" Unchecked="cbShowPassword_Unchecked"/>
-        <Button x:Name="btSubmit" Content="Submit" HorizontalAlignment="Center" Margin="0,426,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.353,0.019" Click="btSubmit_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF653835" FontSize="18" FontFamily="Verdana" Width="108"/>
+        <Button x:Name="btSubmit" Content="Submit" HorizontalAlignment="Left" Margin="568,422,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.353,0.019" Click="btSubmit_Click" Background="White" BorderBrush="{x:Null}" Foreground="#FF653835" FontSize="18" FontFamily="Verdana" Width="126" Height="33" Opacity="0.01"/>
+        <Button x:Name="btSignup" Content="Button" HorizontalAlignment="Left" Height="29" Margin="690,386,0,0" VerticalAlignment="Top" Width="71" Opacity="0.01" Click="btSignup_Click"/>
     </Grid>
 </Window>

@@ -1,0 +1,24 @@
+﻿<Window x:Class="Smart_Library_Management_System.Signup_Page"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Smart_Library_Management_System"
+        mc:Ignorable="d"
+        Title="Signup_Page" Height="720" Width="1280">
+    <Window.Background>
+        <ImageBrush ImageSource="/SIGN UP.png"/>
+    </Window.Background>
+    <Grid>
+        <TextBox x:Name="tbFirstName" HorizontalAlignment="Left" Height="26" Margin="669,208,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <TextBox x:Name="tbLastName" HorizontalAlignment="Left" Height="26" Margin="669,274,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <TextBox x:Name="tbUsername" HorizontalAlignment="Left" Height="26" Margin="669,340,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <TextBox x:Name="tbPassword" HorizontalAlignment="Left" Height="26" Margin="669,406,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <TextBox x:Name="tbRepeatPassword" HorizontalAlignment="Left" Height="26" Margin="669,472,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <Button x:Name="btnTakeAPhoto" Content="Button" HorizontalAlignment="Left" Height="32" Margin="313,434,0,0" VerticalAlignment="Top" Width="111" Opacity="0.01" Click="btnTakeAPhoto_Click"/>
+        <Button x:Name="btnUpload" Content="Button" HorizontalAlignment="Left" Height="32" Margin="174,434,0,0" VerticalAlignment="Top" Width="111" Opacity="0.01" Click="btnUpload_Click"/>
+        <Button x:Name="btnAlreadyAMember" Content="Button" HorizontalAlignment="Left" Height="25" Margin="754,519,0,0" VerticalAlignment="Top" Width="165" Click="btnAlreadyAMember_Click" Opacity="0.01"/>
+        <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="221,230,0,0" VerticalAlignment="Top" Width="160"/>
+        <Button x:Name="btnSubmit" Content="Button" HorizontalAlignment="Left" Height="29" Margin="722,556,0,0" VerticalAlignment="Top" Width="121" Opacity="0.01" Click="btnSubmit_Click"/>
+    </Grid>
+</Window>

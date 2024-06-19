@@ -105,5 +105,12 @@ namespace Smart_Library_Management_System
                 tbPasswordCheck.Text = null;
             }
         }
+
+        private void btSignup_Click(object sender, RoutedEventArgs e)
+        {
+            Signup_Page SP = new Signup_Page();
+            SP.Show();
+            this.Close();
+        }
     }
 }

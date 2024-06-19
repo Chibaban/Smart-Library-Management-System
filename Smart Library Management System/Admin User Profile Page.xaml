@@ -1,0 +1,26 @@
+﻿<Window x:Class="Smart_Library_Management_System.Admin_User_Profile_Page"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Smart_Library_Management_System"
+        mc:Ignorable="d"
+        Title="Admin_User_Profile_Page" Height="720" Width="1280">
+    <Window.Background>
+        <ImageBrush ImageSource="/ADMINUSER PROFILE.png"/>
+    </Window.Background>
+    <Grid>
+        <TextBox x:Name="tbAccountID" HorizontalAlignment="Left" Height="26" Margin="683,208,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <TextBox x:Name="tbAccountType" HorizontalAlignment="Left" Height="26" Margin="683,253,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <TextBox x:Name="tbUsername" HorizontalAlignment="Left" Height="26" Margin="683,298,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <TextBox x:Name="tbPassword" HorizontalAlignment="Left" Height="26" Margin="683,343,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <TextBox x:Name="tbFirstName" HorizontalAlignment="Left" Height="26" Margin="683,388,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <TextBox x:Name="tbLastName" HorizontalAlignment="Left" Height="26" Margin="683,433,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <Button x:Name="btnSave" Content="Button" HorizontalAlignment="Left" Height="37" Margin="741,518,0,0" VerticalAlignment="Top" Width="117" Opacity="0.01" Click="btnSave_Click"/>
+        <Button x:Name="btnTakeAPhoto" Content="Button" HorizontalAlignment="Left" Height="38" Margin="360,446,0,0" VerticalAlignment="Top" Width="120" Opacity="0.01"/>
+        <Button x:Name="btnUpload" Content="Button" HorizontalAlignment="Left" Height="38" Margin="223,446,0,0" VerticalAlignment="Top" Width="118" Opacity="0.01" Click="btnUpload_Click"/>
+        <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="278,201,0,0" VerticalAlignment="Top" Width="160"/>
+        <Button x:Name="btnHome" Content="Button" HorizontalAlignment="Left" Height="70" Margin="10,0,0,0" VerticalAlignment="Top" Width="80" Opacity="0.01" Click="btnHome_Click"/>
+
+    </Grid>
+</Window>
