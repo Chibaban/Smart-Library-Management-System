@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Admin_User_Profile_Page" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
-        <ImageBrush ImageSource="/ADMINUSER PROFILE.png"/>
+        <ImageBrush ImageSource="C:\Users\22-0033c\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\ADMINUSER PROFILE.png"/>
     </Window.Background>
     <Grid>
         <TextBox x:Name="tbAccountID" HorizontalAlignment="Left" Height="26" Margin="683,208,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Signup_Page" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
-        <ImageBrush ImageSource="/SIGN UP.png"/>
+        <ImageBrush ImageSource="C:\Users\22-0033c\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\SIGN UP.png"/>
     </Window.Background>
     <Grid>
         <TextBox x:Name="tbFirstName" HorizontalAlignment="Left" Height="26" Margin="669,208,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>

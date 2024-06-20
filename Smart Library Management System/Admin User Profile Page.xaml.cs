@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Smart_Library_Management_System
 {
@@ -23,6 +24,46 @@ namespace Smart_Library_Management_System
         public Admin_User_Profile_Page()
         {
             InitializeComponent();
+        }
+
+        public Admin_User_Profile_Page(string username)
+        {
+            InitializeComponent();
+
+            var accountType = from a in Connections._slms.Accounts
+                              where
+                              a.Username == username
+                              select a;
+            
+            foreach (var account in accountType)
+            {
+                if (account.Acc_Type == "Admin")
+                {
+                    if (username == account.Username)
+                    {
+                        tbAccountID.Text = User.Account_ID;
+                        tbAccountType.Text = User.AccountType;
+                        tbUsername.Text = User.AccountUsername;
+                        tbPassword.Text = User.AccountPassword;
+                        tbFirstName.Text = User.FirstName;
+                        tbLastName.Text = User.LastName;
+                    }
+                }
+                else
+                {
+                    if (username == account.Username)
+                    {
+                        tbAccountID.Text = User.Account_ID;
+                        tbAccountType.Text = User.AccountType;
+                        tbUsername.Text = User.AccountUsername;
+                        tbPassword.Text = User.AccountPassword;
+                        tbFirstName.Text = User.FirstName;
+                        tbLastName.Text = User.LastName;
+                        imagePicture.Source = ;
+                    }
+                }
+            }
+     
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

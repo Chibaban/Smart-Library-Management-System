@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="User Homepage" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
-        <ImageBrush ImageSource="C:\Users\22-0033c\Source\Repos\Smart-Library-Management-System\Smart Library Management System\User Homepage.png"/>
+        <ImageBrush ImageSource="C:\Users\22-0033c\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\User Homepage.png"/>
     </Window.Background>
     <Grid>
         <Button x:Name="btLogout" Content="Button" HorizontalAlignment="Left" Height="60" Margin="1205,0,0,0" VerticalAlignment="Top" Width="60" Opacity="0.01" Click="btLogout_Click"/>

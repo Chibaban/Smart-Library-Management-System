@@ -7,18 +7,18 @@
         mc:Ignorable="d"
         Title="Borrow_Book_Page" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
-        <ImageBrush ImageSource="/BORROW BOOK (USER).png"/>
+        <ImageBrush ImageSource="C:\Users\22-0033c\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\BORROW BOOK (USER).png"/>
     </Window.Background>
     <Grid Margin="0,3,0,-3">
         <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="72,220,0,0" VerticalAlignment="Top" Width="160"/>
         <TextBox x:Name="tbBookTitle" HorizontalAlignment="Left" Height="26" Margin="463,288,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
-        <TextBox x:Name="tbAuthor" HorizontalAlignment="Left" Height="26" Margin="463,333,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <TextBox x:Name="tbAuthor" HorizontalAlignment="Left" Height="26" Margin="463,332,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
         <TextBox x:Name="tbGenre" HorizontalAlignment="Left" Height="26" Margin="463,378,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
         <TextBox x:Name="tbPublishDate" HorizontalAlignment="Left" Height="26" Margin="463,423,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
         <TextBox x:Name="tbStatus" HorizontalAlignment="Left" Height="26" Margin="463,468,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
-        <Button x:Name="btnSubmit" Content="Button" HorizontalAlignment="Left" Margin="524,555,0,0" VerticalAlignment="Top" Height="42" Width="118" Opacity="0.01" Click="btnSubmit_Click"/>
-        <Button x:Name="btnUpload" Content="Button" HorizontalAlignment="Left" Margin="92,452,0,0" VerticalAlignment="Top" Height="42" Width="118" Opacity="0.01" Click="btnUpload_Click"/>
-        <Button x:Name="btnTakeAPhoto" Content="Button" HorizontalAlignment="Left" Margin="90,504,0,0" VerticalAlignment="Top" Height="42" Width="121" Opacity="0.01" Click="btnTakeAPhoto_Click"/>
+        <Button x:Name="btnSubmit" Content="Button" HorizontalAlignment="Left" Margin="524,555,0,0" VerticalAlignment="Top" Height="42" Width="118" Click="btnSubmit_Click" Opacity="0.01"/>
+        <Button x:Name="btnUpload" Content="Button" HorizontalAlignment="Left" Margin="92,452,0,0" VerticalAlignment="Top" Height="42" Width="118" Click="btnUpload_Click" Opacity="0.01"/>
+        <Button x:Name="btnTakeAPhoto" Content="Button" HorizontalAlignment="Left" Margin="90,504,0,0" VerticalAlignment="Top" Height="42" Width="121" Click="btnTakeAPhoto_Click" Opacity="0.01"/>
         <Button x:Name="btnHome" Content="Button" HorizontalAlignment="Left" Height="70" Margin="10,0,0,0" VerticalAlignment="Top" Width="80" Opacity="0.01" Click="btnHome_Click"/>
         <TextBox x:Name="tbSearchBar" HorizontalAlignment="Left" Height="26" Margin="848,132,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="246" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
         <Button x:Name="btnRefresh" Content="Button" HorizontalAlignment="Left" Margin="1097,170,0,0" VerticalAlignment="Top" Height="50" Width="52" Opacity="0.01"/>

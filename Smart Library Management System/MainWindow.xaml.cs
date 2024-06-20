@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,13 +24,11 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class MainWindow : Window
     {
-        SLMSDataContext _SLMS = null;
         bool loginFlag = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            _SLMS = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
         }
 
         private void cbShowPassword_Checked(object sender, RoutedEventArgs e)
@@ -48,9 +49,8 @@ namespace Smart_Library_Management_System
         {
             loginFlag = false;
 
-            var loginQuery = from l in _SLMS.Accounts
+            var loginQuery = from l in Connections._slms.Accounts
                              where
-
                                 l.Username == tbUsername.Text
                              select l;
 
@@ -64,29 +64,46 @@ namespace Smart_Library_Management_System
                         {
                             loginFlag = true;
                         }
+                        if (loginFlag)
+                        {
+                            string acc_Type = String.Empty;
+                            acc_Type = login.Acc_Type;
+
+                            if (acc_Type == "Admin")
+                            {
+                                User.Account_ID = login.Acc_ID;
+                                User.AccountType = acc_Type;
+                                User.AccountUsername = login.Username;
+                                User.AccountPassword = login.Password;
+                                User.FirstName = login.First_Name;
+                                User.LastName = login.Last_Name;
+                                User.UserProfilePic = login.Acc_Image.ToString();
+
+                                MessageBox.Show("Welcome Admin!");
+                                Admin_Homepage AH = new Admin_Homepage(acc_Type);
+                                AH.Show();
+                                this.Close();
+                            }
+                            else
+                            {
+                                User.Account_ID = login.Acc_ID;
+                                User.AccountType = acc_Type;
+                                User.AccountUsername = login.Username;
+                                User.AccountPassword = login.Password;
+                                User.FirstName = login.First_Name;
+                                User.LastName = login.Last_Name;
+                                User.UserProfilePic = login.Acc_Image.ToString();
+
+                                MessageBox.Show("Welcome User!");
+                                User_Homepage UP = new User_Homepage(acc_Type);
+                                UP.Show();
+                                this.Close();
+                            }
+                        }
                     }
                 }
 
-                if (loginFlag)
-                {
-                    foreach(var login in loginQuery)
-                    {
-                        if (login.Acc_Type == "Admin")
-                        {
-                            MessageBox.Show("Welcome Admin!");
-                            Admin_Homepage AH = new Admin_Homepage();
-                            AH.Show();
-                            this.Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Welcome User!");
-                            User_Homepage UP = new User_Homepage();
-                            UP.Show();
-                            this.Close();
-                        }
-                    }
-                }
+                
 
                 else
                 {
@@ -108,6 +125,7 @@ namespace Smart_Library_Management_System
 
         private void btSignup_Click(object sender, RoutedEventArgs e)
         {
+
             Signup_Page SP = new Signup_Page();
             SP.Show();
             this.Close();

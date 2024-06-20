@@ -26,7 +26,7 @@ namespace Smart_Library_Management_System.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CCL02-32;Initial Catalog=LibWonder;Integrated Security=True;Connect T" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CCL01-41;Initial Catalog=LibWonder;Integrated Security=True;Connect T" +
             "imeout=30;Encrypt=False;TrustServerCertificate=False")]
         public string LibWonderConnectionString {
             get {

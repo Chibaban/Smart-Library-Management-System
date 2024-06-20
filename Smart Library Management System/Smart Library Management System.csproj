@@ -77,6 +77,7 @@
     <Compile Include="Borrow Book Page.xaml.cs">
       <DependentUpon>Borrow Book Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Connections.cs" />
     <Compile Include="Logs Page.xaml.cs">
       <DependentUpon>Logs Page.xaml</DependentUpon>
     </Compile>
@@ -94,6 +95,7 @@
     <Compile Include="User Homepage.xaml.cs">
       <DependentUpon>User Homepage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User.cs" />
     <Page Include="Account List.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,49 +188,52 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="LOG IN.png" />
+    <Resource Include="Pictures\LOG IN.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="User Homepage.png" />
+    <Resource Include="Pictures\User Homepage.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Admin Homepage.png" />
+    <Resource Include="Pictures\Admin Homepage.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="SIGN UP.png" />
+    <Resource Include="Pictures\SIGN UP.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ADMINUSER PROFILE.png" />
+    <Resource Include="Pictures\ADMINUSER PROFILE.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="BORROW BOOK %28USER%29.png" />
+    <Resource Include="Pictures\BORROW BOOK %28USER%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="RETURN BOOK %28USER%29.png" />
+    <Resource Include="Pictures\RETURN BOOK %28USER%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="BOOK LIST %28USER%29 CLEAN.png" />
+    <Resource Include="Pictures\BOOK LIST %28USER%29 CLEAN.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="BOOK LIST %28ADMIN%29 CLEAN.png" />
+    <Resource Include="Pictures\BOOK LIST %28ADMIN%29 CLEAN.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="BOOK LIST %28ADMIN%29.png" />
+    <Resource Include="Pictures\BOOK LIST %28ADMIN%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="BOOK DOCUMENTATION CLEAN.png" />
+    <Resource Include="Pictures\BOOK DOCUMENTATION CLEAN.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="BOOK DOCUMENTATION.png" />
+    <Resource Include="Pictures\BOOK DOCUMENTATION.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="LOGS %28ADMIN%29.png" />
+    <Resource Include="Pictures\LOGS %28ADMIN%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ACCOUNT LIST %28ADMIN%29.png" />
+    <Resource Include="Pictures\ACCOUNT LIST %28ADMIN%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\UserImages\garfield.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

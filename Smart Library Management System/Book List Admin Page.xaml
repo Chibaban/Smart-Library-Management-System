@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Book_List_Admin_Page" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
-        <ImageBrush ImageSource="/BOOK LIST (ADMIN).png"/>
+        <ImageBrush ImageSource="C:\Users\22-0033c\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\BOOK LIST (ADMIN).png"/>
     </Window.Background>
     <Grid Margin="0,3,0,-3">
         <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="65,145,0,0" VerticalAlignment="Top" Width="160"/>

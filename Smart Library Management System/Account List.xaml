@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Account_List" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
-        <ImageBrush ImageSource="/ACCOUNT LIST (ADMIN).png"/>
+        <ImageBrush ImageSource="C:\Users\22-0033c\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\ACCOUNT LIST (ADMIN).png"/>
     </Window.Background>
     <Grid Margin="0,3,0,-3">
         <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="56,256,0,0" VerticalAlignment="Top" Width="160"/>
