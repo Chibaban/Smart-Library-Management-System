@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Smart_Library_Management_System"
         mc:Ignorable="d"
-        Title="Admin_Homepage" Height="720" Width="1280" ResizeMode="NoResize">
+        Title="Admin_Homepage" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <ImageBrush ImageSource="/Admin Homepage.png"/>
     </Window.Background>

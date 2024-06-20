@@ -39,22 +39,30 @@ namespace Smart_Library_Management_System
 
         private void btBookList_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Book List");
+            Book_List_Admin_Page BLAP = new Book_List_Admin_Page();
+            BLAP.Show();
+            this.Close();
         }
 
         private void btBookDocumentation_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Book Documentation");
+            Book_Documentation_Page BDP = new Book_Documentation_Page();
+            BDP.Show();
+            this.Close();
         }
 
         private void btLogs_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Logs");
+            Logs_Page LogsP = new Logs_Page();
+            LogsP.Show();
+            this.Close();
         }
 
         private void btAccountList_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Accounts");
+            Account_List ALP = new Account_List();
+            ALP.Show();
+            this.Close();
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Smart_Library_Management_System"
         mc:Ignorable="d"
-        Title="Borrow_Book_Page" Height="720" Width="1280" ResizeMode="NoResize">
+        Title="Borrow_Book_Page" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <ImageBrush ImageSource="/BORROW BOOK (USER).png"/>
     </Window.Background>

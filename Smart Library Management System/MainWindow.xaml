@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Smart_Library_Management_System"
         mc:Ignorable="d"
-        Title="Login Page" Height="720" Width="1280" ResizeMode="NoResize">
+        Title="Login Page" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
-        <ImageBrush ImageSource="C:\Users\Admin\source\repos\Smart-Library-Management-System\Smart Library Management System\LOG IN.png"/>
+        <ImageBrush ImageSource="C:\Users\22-0033c\Source\Repos\Smart-Library-Management-System\Smart Library Management System\LOG IN.png"/>
     </Window.Background>
     <Grid Margin="-8,0,8,0">
         <TextBox x:Name="tbUsername" HorizontalAlignment="Center" Height="26" Margin="0,258,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>

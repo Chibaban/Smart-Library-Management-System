@@ -60,7 +60,7 @@ namespace Smart_Library_Management_System
                 {
                     foreach (var login in loginQuery)
                     {
-                        if (login.Password == pbPassword.Password)
+                        if (login.Password == pbPassword.Password || login.Password == tbPasswordCheck.Text)
                         {
                             loginFlag = true;
                         }

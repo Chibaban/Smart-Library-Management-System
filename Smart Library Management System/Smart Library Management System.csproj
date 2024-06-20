@@ -56,17 +56,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Account List.xaml.cs">
+      <DependentUpon>Account List.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Admin Homepage.xaml.cs">
       <DependentUpon>Admin Homepage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Admin User Profile Page.xaml.cs">
       <DependentUpon>Admin User Profile Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Book Documentation Page.xaml.cs">
+      <DependentUpon>Book Documentation Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Book List Admin Page.xaml.cs">
+      <DependentUpon>Book List Admin Page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Book List Page.xaml.cs">
       <DependentUpon>Book List Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="Borrow Book Page.xaml.cs">
       <DependentUpon>Borrow Book Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logs Page.xaml.cs">
+      <DependentUpon>Logs Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="Return Book Page.xaml.cs">
       <DependentUpon>Return Book Page.xaml</DependentUpon>
@@ -82,6 +94,10 @@
     <Compile Include="User Homepage.xaml.cs">
       <DependentUpon>User Homepage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Account List.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Admin Homepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -90,11 +106,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Book Documentation Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Book List Admin Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Book List Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Borrow Book Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Logs Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +211,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="BOOK LIST %28USER%29 CLEAN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="BOOK LIST %28ADMIN%29 CLEAN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="BOOK LIST %28ADMIN%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="BOOK DOCUMENTATION CLEAN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="BOOK DOCUMENTATION.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LOGS %28ADMIN%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ACCOUNT LIST %28ADMIN%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
