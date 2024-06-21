@@ -16,6 +16,6 @@ namespace Smart_Library_Management_System
         public  static string AccountPassword { get; set;}
         public static string FirstName { get; set;}
         public static string LastName { get; set;} 
-        public static string UserProfilePic { get; set;}
+        public static BitmapImage UserProfilePic { get; set;}
     }
 }

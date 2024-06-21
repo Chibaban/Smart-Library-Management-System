@@ -64,47 +64,47 @@ namespace Smart_Library_Management_System
                         {
                             loginFlag = true;
                         }
-                        if (loginFlag)
-                        {
-                            string acc_Type = String.Empty;
-                            acc_Type = login.Acc_Type;
-
-                            if (acc_Type == "Admin")
-                            {
-                                User.Account_ID = login.Acc_ID;
-                                User.AccountType = acc_Type;
-                                User.AccountUsername = login.Username;
-                                User.AccountPassword = login.Password;
-                                User.FirstName = login.First_Name;
-                                User.LastName = login.Last_Name;
-                                User.UserProfilePic = login.Acc_Image.ToString();
-
-                                MessageBox.Show("Welcome Admin!");
-                                Admin_Homepage AH = new Admin_Homepage(acc_Type);
-                                AH.Show();
-                                this.Close();
-                            }
-                            else
-                            {
-                                User.Account_ID = login.Acc_ID;
-                                User.AccountType = acc_Type;
-                                User.AccountUsername = login.Username;
-                                User.AccountPassword = login.Password;
-                                User.FirstName = login.First_Name;
-                                User.LastName = login.Last_Name;
-                                User.UserProfilePic = login.Acc_Image.ToString();
-
-                                MessageBox.Show("Welcome User!");
-                                User_Homepage UP = new User_Homepage(acc_Type);
-                                UP.Show();
-                                this.Close();
-                            }
-                        }
                     }
                 }
 
-                
+                if (loginFlag)
+                {
+                    foreach (var login in loginQuery)
+                    {
+                        string acc_Type = String.Empty;
+                        acc_Type = login.Acc_Type;
 
+                        if (acc_Type == "Admin")
+                        {
+                            User.Account_ID = login.Acc_ID;
+                            User.AccountType = acc_Type;
+                            User.AccountUsername = login.Username;
+                            User.AccountPassword = login.Password;
+                            User.FirstName = login.First_Name;
+                            User.LastName = login.Last_Name;
+
+                            MessageBox.Show("Welcome Admin!");
+                            Admin_Homepage AH = new Admin_Homepage(acc_Type);
+                            AH.Show();
+                            this.Close();
+                        }
+                        else
+                        {
+                            User.Account_ID = login.Acc_ID;
+                            User.AccountType = acc_Type;
+                            User.AccountUsername = login.Username;
+                            User.AccountPassword = login.Password;
+                            User.FirstName = login.First_Name;
+                            User.LastName = login.Last_Name;
+
+                            MessageBox.Show("Welcome User!");
+                            User_Homepage UP = new User_Homepage(acc_Type);
+                            UP.Show();
+                            this.Close();
+                        }
+
+                    }
+                }
                 else
                 {
                     MessageBox.Show("Invalid Credentials!");
@@ -112,7 +112,6 @@ namespace Smart_Library_Management_System
                     pbPassword.Password = null;
                     tbPasswordCheck.Text = null;
                 }
-
             }
             else
             {

@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Smart_Library_Management_System"
         mc:Ignorable="d"
-        Title="Admin_User_Profile_Page" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Admin_User_Profile_Page" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Window.Background>
-        <ImageBrush ImageSource="C:\Users\22-0033c\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\ADMINUSER PROFILE.png"/>
+        <ImageBrush ImageSource="C:\Users\Admin\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\ADMINUSER PROFILE.png"/>
     </Window.Background>
     <Grid>
-        <TextBox x:Name="tbAccountID" HorizontalAlignment="Left" Height="26" Margin="683,208,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
-        <TextBox x:Name="tbAccountType" HorizontalAlignment="Left" Height="26" Margin="683,253,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
-        <TextBox x:Name="tbUsername" HorizontalAlignment="Left" Height="26" Margin="683,298,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <TextBox x:Name="tbAccountID" HorizontalAlignment="Left" Height="26" Margin="683,208,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835" IsEnabled="False"/>
+        <TextBox x:Name="tbAccountType" HorizontalAlignment="Left" Height="26" Margin="683,253,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835" IsEnabled="False"/>
+        <TextBox x:Name="tbUsername" HorizontalAlignment="Left" Height="26" Margin="683,298,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835" IsEnabled="False"/>
         <TextBox x:Name="tbPassword" HorizontalAlignment="Left" Height="26" Margin="683,343,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
         <TextBox x:Name="tbFirstName" HorizontalAlignment="Left" Height="26" Margin="683,388,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
         <TextBox x:Name="tbLastName" HorizontalAlignment="Left" Height="26" Margin="683,433,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="239" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>

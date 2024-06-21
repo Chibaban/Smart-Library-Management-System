@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Logs_Page" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
-        <ImageBrush ImageSource="C:\Users\22-0033c\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\LOGS (ADMIN).png"/>
+        <ImageBrush ImageSource="C:\Users\Admin\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\LOGS (ADMIN).png"/>
     </Window.Background>
     <Grid Margin="0,3,0,-3">
         <TextBox x:Name="tbLogID" HorizontalAlignment="Left" Height="26" Margin="376,311,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>

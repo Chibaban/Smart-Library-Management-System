@@ -105,6 +105,13 @@ namespace Smart_Library_Management_System
 				return this.GetTable<Log>();
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_UpdateAccount")]
+		public int Prod_UpdateAccount([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_Type", DbType="VarChar(10)")] string acc_Type, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Username", DbType="Char(8)")] string username, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="VarChar(8)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="First_Name", DbType="NVarChar(20)")] string first_Name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Last_Name", DbType="NVarChar(20)")] string last_Name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_Image", DbType="Image")] System.Data.Linq.Binary acc_Image)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), acc_ID, acc_Type, username, password, first_Name, last_Name, acc_Image);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Accounts")]

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Return_Book_Page" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
-        <ImageBrush ImageSource="C:\Users\22-0033c\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\RETURN BOOK (USER).png"/>
+        <ImageBrush ImageSource="C:\Users\Admin\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\RETURN BOOK (USER).png"/>
     </Window.Background>
     <Grid Margin="0,3,0,-3">
         <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="72,220,0,0" VerticalAlignment="Top" Width="160"/>
