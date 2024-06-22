@@ -78,4 +78,18 @@
     <Parameter Name="Acc_Image" Parameter="acc_Image" Type="System.Data.Linq.Binary" DbType="Image" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.Prod_BorrowBook" Method="Prod_BorrowBook">
+    <Parameter Name="Book_ID" Parameter="book_ID" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Acc_ID" Parameter="acc_ID" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Borrow_Image" Parameter="borrow_Image" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Parameter Name="Borrow_Date" Parameter="borrow_Date" Type="System.DateTime" DbType="Date" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Prod_ReturnBook" Method="Prod_ReturnBook">
+    <Parameter Name="Book_ID" Parameter="book_ID" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Acc_ID" Parameter="acc_ID" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Return_Image" Parameter="return_Image" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Parameter Name="Return_Date" Parameter="return_Date" Type="System.DateTime" DbType="Date" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

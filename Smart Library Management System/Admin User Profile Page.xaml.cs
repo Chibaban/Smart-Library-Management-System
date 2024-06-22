@@ -151,8 +151,7 @@ namespace Smart_Library_Management_System
                 return ms.ToArray();
             }
         }
-
-        public byte[] BitmapSourceToByteArray(BitmapSource bitmapSource)
+        private byte[] BitmapSourceToByteArray(BitmapSource bitmapSource)
         {
             byte[] byteArray;
             using (MemoryStream ms = new MemoryStream())
@@ -164,7 +163,6 @@ namespace Smart_Library_Management_System
             }
             return byteArray;
         }
-
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog();
@@ -176,7 +174,6 @@ namespace Smart_Library_Management_System
                 imagePicture.Source = new BitmapImage(new Uri(openDialog.FileName));
             }
         }
-
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             var accountType = from a in Connections._slms.Accounts
@@ -204,12 +201,10 @@ namespace Smart_Library_Management_System
 
 
         }
-
         private void btnTakeAPhoto_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Take A Photo");
         }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var accountType = from a in Connections._slms.Accounts

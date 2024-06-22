@@ -20,14 +20,10 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Book_Documentation_Page : Window
     {
-        SLMSDataContext _SLMS = null;
-
         public Book_Documentation_Page()
         {
             InitializeComponent();
-            _SLMS = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
-
-            var BooksList = from books in _SLMS.Book_Documentations
+            var BooksList = from books in Connections._slms.Book_Documentations
                                select books.Doc_ID;
 
             lbBooks.ItemsSource = BooksList.ToList();
@@ -46,7 +42,7 @@ namespace Smart_Library_Management_System
 
             string searchBook = tbSearchBar.Text;
 
-            var query = from entry in _SLMS.Book_Documentations
+            var query = from entry in Connections._slms.Book_Documentations
                         where entry.Book_ID.Contains(searchBook)
                         select entry;
 
@@ -65,7 +61,7 @@ namespace Smart_Library_Management_System
             if (lbBooks.SelectedIndex >= 0 && lbBooks.SelectedIndex < lbBooks.Items.Count)
             {
                 var selectedBook = lbBooks.SelectedItem.ToString();
-                var BookInfo = _SLMS.Book_Documentations.FirstOrDefault(o => o.Doc_ID == selectedBook);
+                var BookInfo = Connections._slms.Book_Documentations.FirstOrDefault(o => o.Doc_ID == selectedBook);
                 if (BookInfo != null)
                 {
                     tbDocumentationID.Text = BookInfo.Doc_ID;
@@ -117,7 +113,7 @@ namespace Smart_Library_Management_System
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            var BookDocumentationData = from books in _SLMS.Book_Documentations
+            var BookDocumentationData = from books in Connections._slms.Book_Documentations
                               select books.Book_ID;
 
             lbBooks.ItemsSource = BookDocumentationData.ToList();

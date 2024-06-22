@@ -10,8 +10,8 @@
         <ImageBrush ImageSource="\Pictures\BOOK DOCUMENTATION.png"/>
     </Window.Background>
     <Grid Margin="0,3,0,-3">
-        <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="65,145,0,0" VerticalAlignment="Top" Width="160"/>
-        <Image x:Name="imageQR" HorizontalAlignment="Left" Height="150" Margin="65,431,0,0" VerticalAlignment="Top" Width="160"/>
+        <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="65,145,0,0" VerticalAlignment="Top" Width="160" Stretch="UniformToFill"/>
+        <Image x:Name="imageQR" HorizontalAlignment="Left" Height="150" Margin="65,431,0,0" VerticalAlignment="Top" Width="160" Stretch="UniformToFill"/>
         <TextBox x:Name="tbDocumentationID" HorizontalAlignment="Left" Height="26" Margin="497,322,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
         <TextBox x:Name="tbBookID" HorizontalAlignment="Left" Height="26" Margin="497,367,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
         <TextBox x:Name="tbAccountID" HorizontalAlignment="Left" Height="26" Margin="497,412,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
