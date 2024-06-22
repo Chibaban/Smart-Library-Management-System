@@ -19,16 +19,16 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Admin_Homepage : Window
     {
-        string _Acc_Type = String.Empty;
+        string _acc_ID = String.Empty;
 
         public Admin_Homepage()
         {
             InitializeComponent();
         }
-        public Admin_Homepage(string AccType)
+        public Admin_Homepage(string accId)
         {
             InitializeComponent();
-            _Acc_Type = AccType;
+            _acc_ID = accId;
         }
         private void btLogout_Click(object sender, RoutedEventArgs e)
         {
@@ -39,16 +39,16 @@ namespace Smart_Library_Management_System
 
         private void btProfile_Click(object sender, RoutedEventArgs e)
         {
-            var query = from l in  Connections._slms.Accounts
-                        where l.Acc_Type == _Acc_Type
-                        select l;
+            //var query = from l in  Connections._slms.Accounts
+            //            where l.Acc_ID == _acc_ID
+            //            select l;
 
-            string name = String.Empty;
-            foreach (var username in query)
-            {
-                name = username.Username;
-            }
-            Admin_User_Profile_Page AUPP = new Admin_User_Profile_Page(name);
+            //string name = String.Empty;
+            //foreach (var username in query)
+            //{
+            //    name = username.Username;
+            //}
+            Admin_User_Profile_Page AUPP = new Admin_User_Profile_Page(_acc_ID);
             AUPP.Show();
             this.Close();
         }

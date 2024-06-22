@@ -119,6 +119,13 @@ namespace Smart_Library_Management_System
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), acc_ID, book_ID, title, author, genre, publish_Year, status, book_Image, qR_Path);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_CreateBookDocumentation")]
+		public int Prod_CreateBookDocumentation([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Doc_ID", DbType="VarChar(10)")] string doc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_ID", DbType="VarChar(10)")] string book_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Borrow_Image", DbType="VarChar(MAX)")] string borrow_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Borrow_Date", DbType="Date")] System.Nullable<System.DateTime> borrow_Date, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Return_Image", DbType="VarChar(MAX)")] string return_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Return_Date", DbType="Date")] System.Nullable<System.DateTime> return_Date)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), doc_ID, book_ID, acc_ID, borrow_Image, borrow_Date, return_Image, return_Date);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Accounts")]

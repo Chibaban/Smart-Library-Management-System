@@ -21,13 +21,10 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Book_List_Admin_Page : Window
     {
-        SLMSDataContext _SLMS = null;
-
         public Book_List_Admin_Page()
         {
             InitializeComponent();
-            _SLMS = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
-            var BooksList = from books in _SLMS.Books
+            var BooksList = from books in Connections._slms.Books
                                select books.Title;
 
             lbBooksList.ItemsSource = BooksList.ToList();
@@ -79,7 +76,7 @@ namespace Smart_Library_Management_System
             if (lbBooksList.SelectedIndex >= 0 && lbBooksList.SelectedIndex < lbBooksList.Items.Count)
             {
                 var selectedBook = lbBooksList.SelectedItem.ToString();
-                var BookInfo = _SLMS.Books.FirstOrDefault(o => o.Title == selectedBook);
+                var BookInfo = Connections._slms.Books.FirstOrDefault(o => o.Title == selectedBook);
                 if (BookInfo != null)
                 {
                     tbBookID.Text = BookInfo.Book_ID;
@@ -89,31 +86,34 @@ namespace Smart_Library_Management_System
                     tbPublishDate.Text = BookInfo.Publish_Year.ToString();
                     tbStatus.Text = BookInfo.Status;
 
-                    if (BookInfo.Book_Image != null)
-                    {
-                        BitmapImage bitmapImage = new BitmapImage();
-                        using (MemoryStream stream = new MemoryStream(BookInfo.Book_Image.ToArray()))
-                        {
-                            bitmapImage.BeginInit();
-                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                            bitmapImage.StreamSource = stream;
-                            bitmapImage.EndInit();
-                        }
+                    //if (BookInfo.Book_Image != null)
+                    //{
+                    //    BitmapImage bitmapImage = new BitmapImage();
+                    //    using (MemoryStream stream = new MemoryStream(BookInfo.Book_Image.ToArray()))
+                    //    {
+                    //        bitmapImage.BeginInit();
+                    //        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    //        bitmapImage.StreamSource = stream;
+                    //        bitmapImage.EndInit();
+                    //    }
 
-                        imagePicture.Source = bitmapImage;
-                    }
-                    else
-                    {
-                        // If no photo is available, clear the image control
-                        imagePicture.Source = null;
-                    }
+                    //    imagePicture.Source = bitmapImage;
+                    //}
+                    //else
+                    //{
+                    //    // If no photo is available, clear the image control
+                    //    imagePicture.Source = null;
+                    //}
+
+                    imagePicture.Source = null;
+                    imageQR.Source = null;
                 }
             }
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-           var existingBooks = _SLMS.Books.FirstOrDefault(o => o.Book_ID == tbBookID.Text);
+           var existingBooks = Connections._slms.Books.FirstOrDefault(o => o.Book_ID == tbBookID.Text);
 
             if (existingBooks != null) 
             {
@@ -132,16 +132,18 @@ namespace Smart_Library_Management_System
                     existingBooks.Book_Image = imageData;
                 }
 
-                if (tbTitle.Text == existingBooks.Title)
-                {
-                    MessageBox.Show("You can't have the same book title.");
-                    tbTitle.Text = null;
-                }
-                else
-                {
-                    _SLMS.SubmitChanges();
-                    MessageBox.Show("GUMANA");
-                }
+                //if (tbTitle.Text == existingBooks.Title)
+                //{
+                //    MessageBox.Show("You can't have the same book title.");
+                //    tbTitle.Text = null;
+                //}
+                //else
+                //{
+                //    _SLMS.SubmitChanges();
+                //    MessageBox.Show("GUMANA");
+                //}
+                Connections._slms.SubmitChanges();
+                MessageBox.Show("GUMANA");
             }
             else
             {
@@ -159,6 +161,33 @@ namespace Smart_Library_Management_System
                 encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
                 encoder.Save(ms);
                 return ms.ToArray();
+            }
+        }
+
+        private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchEntry = tbSearchBar.Text;
+            var existingBooks = Connections._slms.Books.ToList();
+            lbBooksList.ItemsSource = null;
+            lbBooksList.Items.Clear();
+
+            if (searchEntry.Length > 0)
+            {
+                var filteredBooks = existingBooks.Where(b => b.Title.ToLower().Contains(searchEntry.ToLower())).ToList();
+
+                foreach (var book in filteredBooks)
+                {
+
+                    lbBooksList.Items.Add(book.Title);
+                }
+
+            }
+            else
+            {
+                foreach (var book in existingBooks)
+                {
+                    lbBooksList.Items.Add(book.Title);
+                }
             }
         }
     }

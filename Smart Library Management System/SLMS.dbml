@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LibWonder" Class="SLMSDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-ETCNUFV\SQLEXPRESS;Initial Catalog=LibWonder;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False" SettingsObjectName="Smart_Library_Management_System.Properties.Settings" SettingsPropertyName="LibWonderConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=JOSH\MSSERVERDEV;Initial Catalog=LibWonder;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False" SettingsObjectName="Smart_Library_Management_System.Properties.Settings" SettingsPropertyName="LibWonderConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Accounts" Member="Accounts">
     <Type Name="Account">
       <Column Name="Acc_ID" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -68,6 +68,16 @@
     <Parameter Name="Status" Parameter="status" Type="System.String" DbType="VarChar(20)" />
     <Parameter Name="Book_Image" Parameter="book_Image" Type="System.Data.Linq.Binary" DbType="Image" />
     <Parameter Name="QR_Path" Parameter="qR_Path" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Prod_CreateBookDocumentation" Method="Prod_CreateBookDocumentation">
+    <Parameter Name="Doc_ID" Parameter="doc_ID" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Book_ID" Parameter="book_ID" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Acc_ID" Parameter="acc_ID" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Borrow_Image" Parameter="borrow_Image" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="Borrow_Date" Parameter="borrow_Date" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Return_Image" Parameter="return_Image" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="Return_Date" Parameter="return_Date" Type="System.DateTime" DbType="Date" />
     <Return Type="System.Int32" />
   </Function>
 </Database>
