@@ -58,4 +58,16 @@
     <Parameter Name="Acc_Image" Parameter="acc_Image" Type="System.Data.Linq.Binary" DbType="Image" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.Prod_AddBook" Method="Prod_AddBook">
+    <Parameter Name="Acc_ID" Parameter="acc_ID" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Book_ID" Parameter="book_ID" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Title" Parameter="title" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Author" Parameter="author" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Genre" Parameter="genre" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Publish_Year" Parameter="publish_Year" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="Status" Parameter="status" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="Book_Image" Parameter="book_Image" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Parameter Name="QR_Path" Parameter="qR_Path" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

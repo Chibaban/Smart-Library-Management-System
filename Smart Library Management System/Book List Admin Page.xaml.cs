@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,16 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Book_List_Admin_Page : Window
     {
+        SLMSDataContext _SLMS = null;
+
         public Book_List_Admin_Page()
         {
             InitializeComponent();
+            _SLMS = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
+            var BooksList = from books in _SLMS.Books
+                               select books.Title;
+
+            lbBooksList.ItemsSource = BooksList.ToList();
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
@@ -64,6 +72,94 @@ namespace Smart_Library_Management_System
         private void btnQRImageTakeAPhoto_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Take A Photo");
+        }
+
+        private void lbBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbBooksList.SelectedIndex >= 0 && lbBooksList.SelectedIndex < lbBooksList.Items.Count)
+            {
+                var selectedBook = lbBooksList.SelectedItem.ToString();
+                var BookInfo = _SLMS.Books.FirstOrDefault(o => o.Title == selectedBook);
+                if (BookInfo != null)
+                {
+                    tbBookID.Text = BookInfo.Book_ID;
+                    tbTitle.Text = BookInfo.Title;
+                    tbAuthor.Text = BookInfo.Author;
+                    tbGenre.Text = BookInfo.Genre;
+                    tbPublishDate.Text = BookInfo.Publish_Year.ToString();
+                    tbStatus.Text = BookInfo.Status;
+
+                    if (BookInfo.Book_Image != null)
+                    {
+                        BitmapImage bitmapImage = new BitmapImage();
+                        using (MemoryStream stream = new MemoryStream(BookInfo.Book_Image.ToArray()))
+                        {
+                            bitmapImage.BeginInit();
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.StreamSource = stream;
+                            bitmapImage.EndInit();
+                        }
+
+                        imagePicture.Source = bitmapImage;
+                    }
+                    else
+                    {
+                        // If no photo is available, clear the image control
+                        imagePicture.Source = null;
+                    }
+                }
+            }
+        }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+           var existingBooks = _SLMS.Books.FirstOrDefault(o => o.Book_ID == tbBookID.Text);
+
+            if (existingBooks != null) 
+            {
+                existingBooks.Title = tbTitle.Text;
+                existingBooks.Author = tbAuthor.Text;
+                existingBooks.Genre = tbGenre.Text;
+
+                int publishYear = int.Parse(tbPublishDate.Text);
+                existingBooks.Publish_Year = (short?)publishYear;
+
+                existingBooks.Status = tbStatus.Text;
+
+                if (imagePicture.Source != null)
+                {
+                    byte[] imageData = ConvertImageToByteArray(imagePicture);
+                    existingBooks.Book_Image = imageData;
+                }
+
+                if (tbTitle.Text == existingBooks.Title)
+                {
+                    MessageBox.Show("You can't have the same book title.");
+                    tbTitle.Text = null;
+                }
+                else
+                {
+                    _SLMS.SubmitChanges();
+                    MessageBox.Show("GUMANA");
+                }
+            }
+            else
+            {
+
+                //_SLMS.Prod_AddBook(tbBookID.Text, tbTitle.Text, tbAuthor.Text, tbGenre.Text, tbPublishDate.Text.ToString(), tbStatus.Text, ConvertImageToByteArray(imagePicture));
+                //_SLMS.SubmitChanges();
+            }
+        }
+
+        private byte[] ConvertImageToByteArray(Image image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
+                encoder.Save(ms);
+                return ms.ToArray();
+            }
         }
     }
 }

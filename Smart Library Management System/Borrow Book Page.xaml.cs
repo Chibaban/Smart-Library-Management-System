@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,16 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Borrow_Book_Page : Window
     {
+        SLMSDataContext _SLMS = null;
         public Borrow_Book_Page()
         {
             InitializeComponent();
+            _SLMS = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
+
+            var BooksList = from books in _SLMS.Books
+                            select books.Title;
+
+            lbBooks.ItemsSource = BooksList.ToList();
         }
 
         private void btnUpload_Click(object sender, RoutedEventArgs e)
@@ -44,7 +52,7 @@ namespace Smart_Library_Management_System
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Submitted Successfully");
+            
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
@@ -52,6 +60,42 @@ namespace Smart_Library_Management_System
             User_Homepage UH = new User_Homepage();
             UH.Show();
             this.Close();
+        }
+
+        private void lbBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbBooks.SelectedIndex >= 0 && lbBooks.SelectedIndex < lbBooks.Items.Count)
+            {
+                var selectedBook = lbBooks.SelectedItem.ToString();
+                var BookInfo = _SLMS.Books.FirstOrDefault(o => o.Title == selectedBook);
+                if (BookInfo != null)
+                {
+                    tbBookTitle.Text = BookInfo.Title;
+                    tbAuthor.Text = BookInfo.Author;
+                    tbGenre.Text = BookInfo.Genre;
+                    tbPublishDate.Text = BookInfo.Publish_Year.ToString();
+                    tbStatus.Text = BookInfo.Status;
+
+                    if (BookInfo.Book_Image != null)
+                    {
+                        BitmapImage bitmapImage = new BitmapImage();
+                        using (MemoryStream stream = new MemoryStream(BookInfo.Book_Image.ToArray()))
+                        {
+                            bitmapImage.BeginInit();
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.StreamSource = stream;
+                            bitmapImage.EndInit();
+                        }
+
+                        imagePicture.Source = bitmapImage;
+                    }
+                    else
+                    {
+                        // If no photo is available, clear the image control
+                        imagePicture.Source = null;
+                    }
+                }
+            }
         }
     }
 }
