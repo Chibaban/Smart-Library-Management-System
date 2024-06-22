@@ -44,20 +44,20 @@ namespace Smart_Library_Management_System
         {
             lbBooks.ItemsSource = null;
 
-            string searchAccount = tbSearchBar.Text;
+            string searchBook = tbSearchBar.Text;
 
             var query = from entry in _SLMS.Book_Documentations
-                        where entry.Book_ID.Contains(searchAccount)
+                        where entry.Book_ID.Contains(searchBook)
                         select entry;
 
-            List<string> AccountDescription = new List<string>();
+            List<string> BookDescription = new List<string>();
 
             foreach (var entry in query)
             {
-                AccountDescription.Add(entry.Book_ID);
+                BookDescription.Add(entry.Book_ID);
             }
 
-            lbBooks.ItemsSource = AccountDescription;
+            lbBooks.ItemsSource = BookDescription;
         }
 
         private void lbBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -113,6 +113,14 @@ namespace Smart_Library_Management_System
                     }
                 }
             }
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            var BookDocumentationData = from books in _SLMS.Book_Documentations
+                              select books.Book_ID;
+
+            lbBooks.ItemsSource = BookDocumentationData.ToList();
         }
     }
 }

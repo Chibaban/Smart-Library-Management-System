@@ -161,5 +161,33 @@ namespace Smart_Library_Management_System
                 return ms.ToArray();
             }
         }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            var BooksData = from books in _SLMS.Books
+                              select books.Title;
+
+            lbBooksList.ItemsSource = BooksData.ToList();
+        }
+
+        private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lbBooksList.ItemsSource = null;
+
+            string searchBook = tbSearchBar.Text;
+
+            var query = from entry in _SLMS.Books
+                        where entry.Title.Contains(searchBook)
+                        select entry;
+
+            List<string> BookDescription = new List<string>();
+
+            foreach (var entry in query)
+            {
+                BookDescription.Add(entry.Title);
+            }
+
+            lbBooksList.ItemsSource = BookDescription;
+        }
     }
 }

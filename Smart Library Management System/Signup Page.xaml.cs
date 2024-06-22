@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +22,11 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Signup_Page : Window
     {
+        SLMSDataContext _SLMS = null;
         public Signup_Page()
         {
             InitializeComponent();
+            _SLMS = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
         }
 
         private void btnTakeAPhoto_Click(object sender, RoutedEventArgs e)
@@ -51,7 +55,25 @@ namespace Smart_Library_Management_System
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Member Added Successfully");
+            if (tbPassword.Text == tbRepeatPassword.Text)
+            {
+                _SLMS.Prod_CreateAccount(tbUsername.Text, tbPassword.Text, tbFirstName.Text, tbLastName.Text, ConvertImageToByteArray(imagePicture));
+            }
+            else
+            {
+                MessageBox.Show("Password does not match!");
+                tbRepeatPassword.Text = string.Empty;
+            }
+        }
+        private byte[] ConvertImageToByteArray(Image image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
+                encoder.Save(ms);
+                return ms.ToArray();
+            }
         }
     }
 }
