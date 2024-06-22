@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Login Page" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
-        <ImageBrush ImageSource="C:\Users\Admin\source\repos\Smart-Library-Management-System\Smart Library Management System\Pictures\LOG IN.png"/>
+        <ImageBrush ImageSource="\Pictures\LOG IN.png"/>
     </Window.Background>
     <Grid Margin="-8,0,8,0">
         <TextBox x:Name="tbUsername" HorizontalAlignment="Center" Height="26" Margin="0,258,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="228" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>

@@ -21,13 +21,11 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Borrow_Book_Page : Window
     {
-        SLMSDataContext _SLMS = null;
         public Borrow_Book_Page()
         {
             InitializeComponent();
-            _SLMS = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
 
-            var BooksList = from books in _SLMS.Books
+            var BooksList = from books in Connections._slms.Books
                             select books.Title;
 
             lbBooks.ItemsSource = BooksList.ToList();
@@ -52,7 +50,19 @@ namespace Smart_Library_Management_System
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            
+            string book_id = string.Empty;
+            var getBooks = from books in Connections._slms.Books
+                            select books;
+
+            foreach (var title in getBooks)
+            {
+                if (title.Title == tbBookTitle.Text)
+                {
+                    book_id = title.Book_ID;
+                }
+            }
+
+            Connections._slms.p
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
@@ -67,7 +77,7 @@ namespace Smart_Library_Management_System
             if (lbBooks.SelectedIndex >= 0 && lbBooks.SelectedIndex < lbBooks.Items.Count)
             {
                 var selectedBook = lbBooks.SelectedItem.ToString();
-                var BookInfo = _SLMS.Books.FirstOrDefault(o => o.Title == selectedBook);
+                var BookInfo = Connections._slms.Books.FirstOrDefault(o => o.Title == selectedBook);
                 if (BookInfo != null)
                 {
                     tbBookTitle.Text = BookInfo.Title;
@@ -75,6 +85,7 @@ namespace Smart_Library_Management_System
                     tbGenre.Text = BookInfo.Genre;
                     tbPublishDate.Text = BookInfo.Publish_Year.ToString();
                     tbStatus.Text = BookInfo.Status;
+                    
 
                     if (BookInfo.Book_Image != null)
                     {

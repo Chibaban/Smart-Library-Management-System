@@ -24,36 +24,35 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Admin_User_Profile_Page : Window
     {
-        SLMSDataContext _SLMS = null;
-        private string _username = "";
+        private string _AccId = "";
 
         public Admin_User_Profile_Page()
         {
             InitializeComponent();
-            _SLMS = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
         }
 
-        public Admin_User_Profile_Page(string username)
+        public Admin_User_Profile_Page(string Acc_ID)
         {
             InitializeComponent();
+            _AccId = Acc_ID;
 
             var accountType = from a in Connections._slms.Accounts
                               where
-                              a.Username == username
+                              a.Acc_ID == Acc_ID
                               select a;
-            
+
             foreach (var account in accountType)
             {
                 if (account.Acc_Type == "Admin")
                 {
-                    if (username == account.Username)
+                    if (_AccId == account.Acc_ID)
                     {
-                        tbAccountID.Text = User.Account_ID;
-                        tbAccountType.Text = User.AccountType;
-                        tbUsername.Text = User.AccountUsername;
-                        tbPassword.Text = User.AccountPassword;
-                        tbFirstName.Text = User.FirstName;
-                        tbLastName.Text = User.LastName;
+                        tbAccountID.Text = account.Acc_ID;
+                        tbAccountType.Text = account.Acc_Type;
+                        tbUsername.Text = account.Username;
+                        tbPassword.Text = account.Password;
+                        tbFirstName.Text = account.First_Name;
+                        tbLastName.Text = account.Last_Name;
 
                         if (account.Acc_Image != null)
                         {
@@ -73,21 +72,21 @@ namespace Smart_Library_Management_System
                         {
                             // If no photo is available, clear the image control
                             imagePicture.Source = null;
-                            MessageBox.Show("NULL");
+                            MessageBox.Show("No image was found");
                         }
                     }
                 }
 
                 else
                 {
-                    if (username == account.Username)
+                    if (_AccId == account.Acc_ID)
                     {
-                        tbAccountID.Text = User.Account_ID;
-                        tbAccountType.Text = User.AccountType;
-                        tbUsername.Text = User.AccountUsername;
-                        tbPassword.Text = User.AccountPassword;
-                        tbFirstName.Text = User.FirstName;
-                        tbLastName.Text = User.LastName;
+                        tbAccountID.Text = account.Acc_ID;
+                        tbAccountType.Text = account.Acc_Type;
+                        tbUsername.Text = account.Username;
+                        tbPassword.Text = account.Password;
+                        tbFirstName.Text = account.First_Name;
+                        tbLastName.Text = account.Last_Name;
 
                         if (account.Acc_Image != null)
                         {
@@ -107,12 +106,12 @@ namespace Smart_Library_Management_System
                         {
                             // If no photo is available, clear the image control
                             imagePicture.Source = null;
-                            MessageBox.Show("NULL");
+                            MessageBox.Show("No image was found");
                         }
                     }
                 }
             }
-     
+
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -127,24 +126,43 @@ namespace Smart_Library_Management_System
 
                 if (imagePicture.Source != null)
                 {
-                    byte[] imageData = ConvertImageToByteArray(imagePicture);
+                    byte[] imageData = ConvertImageToByteArray(imagePicture.Source);
                     existingAccounts.Acc_Image = imageData;
                 }
             }
 
-            Connections._slms.Prod_UpdateAccount(tbAccountID.Text, tbAccountType.Text, tbUsername.Text, tbPassword.Text, tbFirstName.Text, tbLastName.Text, ConvertImageToByteArray(imagePicture));
+            Connections._slms.Prod_UpdateAccount(tbAccountID.Text, tbAccountType.Text, tbUsername.Text, tbPassword.Text, tbFirstName.Text, tbLastName.Text, ConvertImageToByteArray(imagePicture.Source));
             MessageBox.Show("Edited Successfully");
         }
 
-        private byte[] ConvertImageToByteArray(Image image)
+        private byte[] ConvertImageToByteArray(ImageSource imageSource)
         {
+            var bitmapSource = imageSource as BitmapSource;
+            if (bitmapSource == null)
+            {
+                throw new ArgumentException("ImageSource must be a BitmapSource");
+            }
+
             using (MemoryStream ms = new MemoryStream())
             {
-                BitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
+                BitmapEncoder encoder = new BmpBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
                 encoder.Save(ms);
                 return ms.ToArray();
             }
+        }
+
+        public byte[] BitmapSourceToByteArray(BitmapSource bitmapSource)
+        {
+            byte[] byteArray;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                encoder.Save(ms);
+                byteArray = ms.ToArray();
+            }
+            return byteArray;
         }
 
         private void btnUpload_Click(object sender, RoutedEventArgs e)
@@ -161,9 +179,30 @@ namespace Smart_Library_Management_System
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            Admin_Homepage AH = new Admin_Homepage();
-            AH.Show();
-            this.Close();
+            var accountType = from a in Connections._slms.Accounts
+                              where
+                              a.Acc_ID == _AccId
+                              select a;
+            foreach (var account in accountType)
+            {
+                if (account.Acc_ID == _AccId)
+                {
+                    if (account.Acc_Type == "Admin")
+                    {
+                        Admin_Homepage AH = new Admin_Homepage(_AccId);
+                        AH.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        User_Homepage UH = new User_Homepage(_AccId);
+                        UH.Show();
+                        this.Close();
+                    }
+                }
+            }
+
+
         }
 
         private void btnTakeAPhoto_Click(object sender, RoutedEventArgs e)
@@ -175,46 +214,50 @@ namespace Smart_Library_Management_System
         {
             var accountType = from a in Connections._slms.Accounts
                               where
-                              a.Username == _username
+                              a.Acc_ID == _AccId
                               select a;
 
             foreach (var login in accountType)
             {
                 if (login != null)
                 {
-                    //User.Account_ID = login.Acc_ID;
-                    //User.AccountType = login.Acc_Type;
-                    //User.AccountUsername = login.Username;
-                    //User.AccountPassword = login.Password;
-                    //User.FirstName = login.First_Name;
-                    //User.LastName = login.Last_Name;
-
-                    login.Acc_ID = User.Account_ID;
-                    login.Acc_Type = User.AccountType;
-                    login.Username = User.AccountUsername;
-                    login.Password = User.AccountPassword;
-                    login.First_Name = User.FirstName;
-                    login.Last_Name = User.LastName;
-
-
-                    if (login.Acc_Image != null)
+                    if (login.Acc_ID == _AccId)
                     {
-                        BitmapImage bitmapImage = new BitmapImage();
-                        using (MemoryStream stream = new MemoryStream(login.Acc_Image.ToArray()))
+                        login.Acc_ID = tbAccountID.Text;
+                        login.Acc_Type = tbAccountType.Text;
+                        login.Username = tbUsername.Text;
+                        login.Password = tbPassword.Text;
+                        login.First_Name = tbFirstName.Text;
+                        login.Last_Name = tbLastName.Text;
+
+                        User.Account_ID = tbAccountID.Text;
+                        User.AccountType = tbAccountType.Text;
+                        User.AccountUsername = tbUsername.Text;
+                        User.AccountPassword = tbPassword.Text;
+                        User.FirstName = tbFirstName.Text;
+                        User.LastName = tbLastName.Text;
+
+                        if (login.Acc_Image != null)
                         {
-                            bitmapImage.BeginInit();
-                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                            bitmapImage.StreamSource = stream;
-                            bitmapImage.EndInit();
+                            BitmapImage bitmapImage = new BitmapImage();
+                            using (MemoryStream stream = new MemoryStream(login.Acc_Image.ToArray()))
+                            {
+                                bitmapImage.BeginInit();
+                                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                                bitmapImage.StreamSource = stream;
+                                bitmapImage.EndInit();
+                            }
+
+                            imagePicture.Source = bitmapImage;
+                            login.Acc_Image = BitmapSourceToByteArray(bitmapImage);
+                            User.UserProfilePic = bitmapImage;
                         }
 
-                        imagePicture.Source = bitmapImage;
-                    }
-
-                    else
-                    {
-                        // If no photo is available, clear the image control
-                        imagePicture.Source = null;
+                        else
+                        {
+                            // If no photo is available, clear the image control
+                            imagePicture.Source = null;
+                        }
                     }
                 }
             }

@@ -54,24 +54,54 @@ namespace Smart_Library_Management_System
                     tbPublishDate.Text = BookInfo.Publish_Year.ToString();
                     tbStatus.Text = BookInfo.Status;
 
-                    if (BookInfo.Book_Image != null)
-                    {
-                        BitmapImage bitmapImage = new BitmapImage();
-                        using (MemoryStream stream = new MemoryStream(BookInfo.Book_Image.ToArray()))
-                        {
-                            bitmapImage.BeginInit();
-                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                            bitmapImage.StreamSource = stream;
-                            bitmapImage.EndInit();
-                        }
+                    //if (BookInfo.Book_Image != null)
+                    //{
+                    //    BitmapImage bitmapImage = new BitmapImage();
+                    //    using (MemoryStream stream = new MemoryStream(BookInfo.Book_Image.ToArray()))
+                    //    {
+                    //        bitmapImage.BeginInit();
+                    //        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    //        bitmapImage.StreamSource = stream;
+                    //        bitmapImage.EndInit();
+                    //    }
 
-                        imagePicture.Source = bitmapImage;
-                    }
-                    else
-                    {
-                        // If no photo is available, clear the image control
-                        imagePicture.Source = null;
-                    }
+                    //    imagePicture.Source = bitmapImage;
+                    //}
+                    //else
+                    //{
+                    //    // If no photo is available, clear the image control
+                    //    imagePicture.Source = null;
+                    //}
+
+                    imagePicture.Source = null;
+                    imageQR.Source = null;
+                }
+            }
+        }
+
+        private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchEntry = tbSearchBar.Text;
+            var existingBooks = _SLMS.Books.ToList();
+            lbBooks.ItemsSource = null;
+            lbBooks.Items.Clear();
+
+            if (searchEntry.Length > 0)
+            {
+                var filteredBooks = existingBooks.Where(b => b.Title.ToLower().Contains(searchEntry.ToLower())).ToList();
+
+                foreach (var book in filteredBooks)
+                {
+
+                    lbBooks.Items.Add(book.Title);
+                }
+
+            }
+            else
+            {
+                foreach (var book in existingBooks)
+                {
+                    lbBooks.Items.Add(book.Title);
                 }
             }
         }

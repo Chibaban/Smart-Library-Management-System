@@ -84,7 +84,7 @@ namespace Smart_Library_Management_System
                             User.LastName = login.Last_Name;
 
                             MessageBox.Show("Welcome Admin!");
-                            Admin_Homepage AH = new Admin_Homepage(acc_Type);
+                            Admin_Homepage AH = new Admin_Homepage(login.Acc_ID);
                             AH.Show();
                             this.Close();
                         }
@@ -98,7 +98,7 @@ namespace Smart_Library_Management_System
                             User.LastName = login.Last_Name;
 
                             MessageBox.Show("Welcome User!");
-                            User_Homepage UP = new User_Homepage(acc_Type);
+                            User_Homepage UP = new User_Homepage(login.Acc_ID);
                             UP.Show();
                             this.Close();
                         }
