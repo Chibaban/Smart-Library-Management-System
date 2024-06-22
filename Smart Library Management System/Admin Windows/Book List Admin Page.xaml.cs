@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Smart_Library_Management_System.Admin_Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +26,7 @@ namespace Smart_Library_Management_System
         {
             InitializeComponent();
             var BooksList = from books in Connections._slms.Books
-                               select books.Title;
+                            select books.Title;
 
             lbBooksList.ItemsSource = BooksList.ToList();
         }
@@ -50,23 +51,6 @@ namespace Smart_Library_Management_System
         }
 
         private void btnBookImageTakeAPhoto_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Take A Photo");
-        }
-
-        private void btnQRImageUpload_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.Filter = "Image files|*.bmp;*.jpg;*.png";
-            openDialog.FilterIndex = 1;
-
-            if (openDialog.ShowDialog() == true)
-            {
-                imagePicture.Source = new BitmapImage(new Uri(openDialog.FileName));
-            }
-        }
-
-        private void btnQRImageTakeAPhoto_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Take A Photo");
         }
@@ -113,9 +97,9 @@ namespace Smart_Library_Management_System
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-           var existingBooks = Connections._slms.Books.FirstOrDefault(o => o.Book_ID == tbBookID.Text);
+            var existingBooks = Connections._slms.Books.FirstOrDefault(o => o.Book_ID == tbBookID.Text);
 
-            if (existingBooks != null) 
+            if (existingBooks != null)
             {
                 existingBooks.Title = tbTitle.Text;
                 existingBooks.Author = tbAuthor.Text;
@@ -163,7 +147,7 @@ namespace Smart_Library_Management_System
                 return ms.ToArray();
             }
         }
-        
+
         private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchEntry = tbSearchBar.Text;
@@ -189,13 +173,21 @@ namespace Smart_Library_Management_System
                     lbBooksList.Items.Add(book.Title);
                 }
             }
+        }
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            var BooksData = from books in _SLMS.Books
-                              select books.Title;
+            var BooksData = from books in Connections._slms.Books
+                            select books.Title;
 
             lbBooksList.ItemsSource = BooksData.ToList();
         }
-    }
+
+        private void btnGenerateQR_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateQRCode generateQRCode = new GenerateQRCode();
+            generateQRCode.Show();
+            this.Close();
+        }
+    } 
 }

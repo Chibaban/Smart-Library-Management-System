@@ -15,6 +15,5 @@
         <Button x:Name="btBorrowBook" Content="Button" HorizontalAlignment="Center" Height="190" Margin="0,157,0,0" VerticalAlignment="Top" Width="190" Opacity="0.01" Click="btBorrowBook_Click"/>
         <Button x:Name="btReturnBook"  Content="Button" HorizontalAlignment="Left" Height="190" Margin="841,157,0,0" VerticalAlignment="Top" Width="216" Opacity="0.01" Click="btReturnBook_Click"/>
         <Button x:Name="btBookList" Content="Button" HorizontalAlignment="Center" Height="190" Margin="0,422,0,0" VerticalAlignment="Top" Width="190" Opacity="0.01" Click="btBookList_Click"/>
-
     </Grid>
 </Window>

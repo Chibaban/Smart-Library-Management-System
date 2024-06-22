@@ -17,14 +17,13 @@ using System.Windows.Shapes;
 namespace Smart_Library_Management_System
 {
     /// <summary>
-    /// Interaction logic for Borrow_Book_Page.xaml
+    /// Interaction logic for Return_Book_Page.xaml
     /// </summary>
-    public partial class Borrow_Book_Page : Window
+    public partial class Return_Book_Page : Window
     {
-        public Borrow_Book_Page()
+        public Return_Book_Page()
         {
             InitializeComponent();
-
             var BooksList = from books in Connections._slms.Books
                             select books.Title;
 
@@ -50,9 +49,10 @@ namespace Smart_Library_Management_System
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            DateTime dt = DateTime.Now;
             string book_id = string.Empty;
             var getBooks = from books in Connections._slms.Books
-                            select books;
+                           select books;
 
             foreach (var title in getBooks)
             {
@@ -62,7 +62,15 @@ namespace Smart_Library_Management_System
                 }
             }
 
-            Connections._slms.p
+            byte[] imageData = null;
+            if (imagePicture.Source != null)
+            {
+                if (imagePicture.Source != null)
+                {
+                    imageData = ConvertImageToByteArray(imagePicture.Source);
+                }
+            }
+            Connections._slms.Prod_ReturnBook(book_id, User.Account_ID, imageData, dt);
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
@@ -85,7 +93,6 @@ namespace Smart_Library_Management_System
                     tbGenre.Text = BookInfo.Genre;
                     tbPublishDate.Text = BookInfo.Publish_Year.ToString();
                     tbStatus.Text = BookInfo.Status;
-                    
 
                     if (BookInfo.Book_Image != null)
                     {
@@ -111,7 +118,7 @@ namespace Smart_Library_Management_System
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            var BooksData = from books in _SLMS.Books
+            var BooksData = from books in Connections._slms.Books
                             select books.Title;
 
             lbBooks.ItemsSource = BooksData.ToList();
@@ -123,7 +130,7 @@ namespace Smart_Library_Management_System
 
             string searchBook = tbSearchBar.Text;
 
-            var query = from entry in _SLMS.Books
+            var query = from entry in Connections._slms.Books
                         where entry.Title.Contains(searchBook)
                         select entry;
 
@@ -136,5 +143,22 @@ namespace Smart_Library_Management_System
 
             lbBooks.ItemsSource = BookDescription;
         }
+        private byte[] ConvertImageToByteArray(ImageSource imageSource)
+        {
+            var bitmapSource = imageSource as BitmapSource;
+            if (bitmapSource == null)
+            {
+                throw new ArgumentException("ImageSource must be a BitmapSource");
+            }
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BitmapEncoder encoder = new BmpBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                encoder.Save(ms);
+                return ms.ToArray();
+            }
+        }
+
     }
 }

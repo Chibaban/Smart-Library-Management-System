@@ -50,41 +50,50 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="zxing, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.9\lib\net48\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.9\lib\net48\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Account List.xaml.cs">
+    <Compile Include="Admin Windows\Account List.xaml.cs">
       <DependentUpon>Account List.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Admin Homepage.xaml.cs">
+    <Compile Include="Admin Windows\Admin Homepage.xaml.cs">
       <DependentUpon>Admin Homepage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Admin User Profile Page.xaml.cs">
       <DependentUpon>Admin User Profile Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Book Documentation Page.xaml.cs">
+    <Compile Include="Admin Windows\Book Documentation Page.xaml.cs">
       <DependentUpon>Book Documentation Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Book List Admin Page.xaml.cs">
+    <Compile Include="Admin Windows\Book List Admin Page.xaml.cs">
       <DependentUpon>Book List Admin Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Book List Page.xaml.cs">
+    <Compile Include="Admin Windows\GenerateQRCode.xaml.cs">
+      <DependentUpon>GenerateQRCode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Member Windows\Book List Page.xaml.cs">
       <DependentUpon>Book List Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Borrow Book Page.xaml.cs">
+    <Compile Include="Member Windows\Borrow Book Page.xaml.cs">
       <DependentUpon>Borrow Book Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Connections.cs" />
-    <Compile Include="Logs Page.xaml.cs">
+    <Compile Include="Models\Connections.cs" />
+    <Compile Include="Admin Windows\Logs Page.xaml.cs">
       <DependentUpon>Logs Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Return Book Page.xaml.cs">
+    <Compile Include="Member Windows\Return Book Page.xaml.cs">
       <DependentUpon>Return Book Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Signup Page.xaml.cs">
+    <Compile Include="Member Windows\Signup Page.xaml.cs">
       <DependentUpon>Signup Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="SLMS.designer.cs">
@@ -92,15 +101,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SLMS.dbml</DependentUpon>
     </Compile>
-    <Compile Include="User Homepage.xaml.cs">
+    <Compile Include="Member Windows\User Homepage.xaml.cs">
       <DependentUpon>User Homepage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="User.cs" />
-    <Page Include="Account List.xaml">
+    <Compile Include="Models\User.cs" />
+    <Page Include="Admin Windows\Account List.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Admin Homepage.xaml">
+    <Page Include="Admin Windows\Admin Homepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,23 +117,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Book Documentation Page.xaml">
+    <Page Include="Admin Windows\Book Documentation Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Book List Admin Page.xaml">
+    <Page Include="Admin Windows\Book List Admin Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Book List Page.xaml">
+    <Page Include="Admin Windows\GenerateQRCode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Borrow Book Page.xaml">
+    <Page Include="Member Windows\Book List Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Logs Page.xaml">
+    <Page Include="Member Windows\Borrow Book Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Admin Windows\Logs Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,15 +153,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Return Book Page.xaml">
+    <Page Include="Member Windows\Return Book Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Signup Page.xaml">
+    <Page Include="Member Windows\Signup Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="User Homepage.xaml">
+    <Page Include="Member Windows\User Homepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,6 +184,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -218,9 +232,6 @@
     <Resource Include="Pictures\BOOK LIST %28ADMIN%29 CLEAN.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\BOOK LIST %28ADMIN%29.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Pictures\BOOK DOCUMENTATION CLEAN.png" />
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +245,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\UserImages\garfield.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\BOOK LIST %28ADMIN%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\CREATE QR.png" />
+    <Resource Include="Pictures\SCAN QR CODE.png" />
+    <Resource Include="Pictures\TAKE PHOTO.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

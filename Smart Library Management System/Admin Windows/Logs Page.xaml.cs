@@ -79,5 +79,13 @@ namespace Smart_Library_Management_System
                 }
             }
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e) 
+        {
+            var BooksData = from books in Connections._slms.Logs
+                            select books.Log_ID;
+
+            lbLogs.ItemsSource = BooksData.ToList();
+        }
     }
 }

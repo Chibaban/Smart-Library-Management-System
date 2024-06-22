@@ -20,13 +20,10 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Book_List_Page : Window
     {
-        SLMSDataContext _SLMS = null;
         public Book_List_Page()
         {
             InitializeComponent();
-            _SLMS = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
-
-            var BooksList = from books in _SLMS.Books
+            var BooksList = from books in Connections._slms.Books
                             select books.Title;
 
             lbBooks.ItemsSource = BooksList.ToList();
@@ -44,7 +41,7 @@ namespace Smart_Library_Management_System
             if (lbBooks.SelectedIndex >= 0 && lbBooks.SelectedIndex < lbBooks.Items.Count)
             {
                 var selectedBook = lbBooks.SelectedItem.ToString();
-                var BookInfo = _SLMS.Books.FirstOrDefault(o => o.Title == selectedBook);
+                var BookInfo = Connections._slms.Books.FirstOrDefault(o => o.Title == selectedBook);
                 if (BookInfo != null)
                 {
                     tbBookID.Text = BookInfo.Book_ID;
@@ -54,27 +51,27 @@ namespace Smart_Library_Management_System
                     tbPublishDate.Text = BookInfo.Publish_Year.ToString();
                     tbStatus.Text = BookInfo.Status;
 
-                    //if (BookInfo.Book_Image != null)
-                    //{
-                    //    BitmapImage bitmapImage = new BitmapImage();
-                    //    using (MemoryStream stream = new MemoryStream(BookInfo.Book_Image.ToArray()))
-                    //    {
-                    //        bitmapImage.BeginInit();
-                    //        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    //        bitmapImage.StreamSource = stream;
-                    //        bitmapImage.EndInit();
-                    //    }
+                    if (BookInfo.Book_Image != null)
+                    {
+                        BitmapImage bitmapImage = new BitmapImage();
+                        using (MemoryStream stream = new MemoryStream(BookInfo.Book_Image.ToArray()))
+                        {
+                            bitmapImage.BeginInit();
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.StreamSource = stream;
+                            bitmapImage.EndInit();
+                        }
 
-                    //    imagePicture.Source = bitmapImage;
-                    //}
-                    //else
-                    //{
-                    //    // If no photo is available, clear the image control
-                    //    imagePicture.Source = null;
-                    //}
+                        imagePicture.Source = bitmapImage;
+                    }
+                    else
+                    {
+                        // If no photo is available, clear the image control
+                        imagePicture.Source = null;
+                    }
 
-                    imagePicture.Source = null;
-                    imageQR.Source = null;
+                    //imagePicture.Source = null;
+                    //imageQR.Source = null;
                 }
             }
         }
@@ -82,7 +79,7 @@ namespace Smart_Library_Management_System
         private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchEntry = tbSearchBar.Text;
-            var existingBooks = _SLMS.Books.ToList();
+            var existingBooks = Connections._slms.Books.ToList();
             lbBooks.ItemsSource = null;
             lbBooks.Items.Clear();
 
@@ -108,30 +105,10 @@ namespace Smart_Library_Management_System
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            var BooksData = from books in _SLMS.Books
+            var BooksData = from books in Connections._slms.Books
                               select books.Title;
 
             lbBooks.ItemsSource = BooksData.ToList();
-        }
-
-        private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            lbBooks.ItemsSource = null;
-
-            string searchBook = tbSearchBar.Text;
-
-            var query = from entry in _SLMS.Books
-                        where entry.Title.Contains(searchBook)
-                        select entry;
-
-            List<string> BookDescription = new List<string>();
-
-            foreach (var entry in query)
-            {
-                BookDescription.Add(entry.Title);
-            }
-
-            lbBooks.ItemsSource = BookDescription;
         }
     }
 }
