@@ -163,7 +163,7 @@ namespace Smart_Library_Management_System
                 return ms.ToArray();
             }
         }
-
+        
         private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchEntry = tbSearchBar.Text;
@@ -189,6 +189,13 @@ namespace Smart_Library_Management_System
                     lbBooksList.Items.Add(book.Title);
                 }
             }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            var BooksData = from books in _SLMS.Books
+                              select books.Title;
+
+            lbBooksList.ItemsSource = BooksData.ToList();
         }
     }
 }
