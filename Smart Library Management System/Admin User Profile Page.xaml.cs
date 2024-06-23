@@ -113,7 +113,6 @@ namespace Smart_Library_Management_System
             }
 
         }
-
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             var existingAccounts = Connections._slms.Accounts.FirstOrDefault(o => o.Acc_ID == tbAccountID.Text);
@@ -132,6 +131,7 @@ namespace Smart_Library_Management_System
             }
 
             Connections._slms.Prod_UpdateAccount(tbAccountID.Text, tbAccountType.Text, tbUsername.Text, tbPassword.Text, tbFirstName.Text, tbLastName.Text, ConvertImageToByteArray(imagePicture.Source));
+            Connections._slms.SubmitChanges();
             MessageBox.Show("Edited Successfully");
         }
 
@@ -256,6 +256,7 @@ namespace Smart_Library_Management_System
                     }
                 }
             }
+            Connections._slms.SubmitChanges();
         }
     }
 }

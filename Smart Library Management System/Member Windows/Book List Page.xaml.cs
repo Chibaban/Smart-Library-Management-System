@@ -20,6 +20,7 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Book_List_Page : Window
     {
+        private string acc_ID = string.Empty;
         public Book_List_Page()
         {
             InitializeComponent();
@@ -29,6 +30,15 @@ namespace Smart_Library_Management_System
             lbBooks.ItemsSource = BooksList.ToList();
         }
 
+        public Book_List_Page(string acc_id)
+        {
+            InitializeComponent();
+            acc_ID = acc_id;
+            var BooksList = from books in Connections._slms.Books
+                            select books.Title;
+
+            lbBooks.ItemsSource = BooksList.ToList();
+        }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             User_Homepage UH = new User_Homepage();

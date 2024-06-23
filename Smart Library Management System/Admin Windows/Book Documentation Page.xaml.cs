@@ -20,6 +20,7 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Book_Documentation_Page : Window
     {
+        private string acc_Id = "";
         public Book_Documentation_Page()
         {
             InitializeComponent();
@@ -28,14 +29,21 @@ namespace Smart_Library_Management_System
 
             lbBooks.ItemsSource = BooksList.ToList();
         }
+        public Book_Documentation_Page(string acc_ID)
+        {
+            InitializeComponent();
+            acc_Id = acc_ID;
+            var BooksList = from books in Connections._slms.Book_Documentations
+                            select books.Doc_ID;
 
+            lbBooks.ItemsSource = BooksList.ToList();
+        }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             Admin_Homepage AH = new Admin_Homepage();
             AH.Show();
             this.Close();
         }
-
         private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             lbBooks.ItemsSource = null;
@@ -55,7 +63,6 @@ namespace Smart_Library_Management_System
 
             lbBooks.ItemsSource = BookDescription;
         }
-
         private void lbBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbBooks.SelectedIndex >= 0 && lbBooks.SelectedIndex < lbBooks.Items.Count)
@@ -110,7 +117,6 @@ namespace Smart_Library_Management_System
                 }
             }
         }
-
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             var BookDocumentationData = from books in Connections._slms.Book_Documentations

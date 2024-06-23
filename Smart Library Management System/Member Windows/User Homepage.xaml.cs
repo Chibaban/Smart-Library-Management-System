@@ -58,21 +58,21 @@ namespace Smart_Library_Management_System
 
         private void btBorrowBook_Click(object sender, RoutedEventArgs e)
         {
-            Borrow_Book_Page BBP = new Borrow_Book_Page();
+            Borrow_Book_Page BBP = new Borrow_Book_Page(_Acc_ID);
             BBP.Show();
             this.Close();
         }
 
         private void btBookList_Click(object sender, RoutedEventArgs e)
         {
-            Book_List_Page BLB = new Book_List_Page();
+            Book_List_Page BLB = new Book_List_Page(_Acc_ID);
             BLB.Show();
             this.Close();
         }
 
         private void btReturnBook_Click(object sender, RoutedEventArgs e)
         {
-            Return_Book_Page RBP = new Return_Book_Page();
+            Return_Book_Page RBP = new Return_Book_Page(_Acc_ID);
             RBP.Show();
             this.Close();
         }

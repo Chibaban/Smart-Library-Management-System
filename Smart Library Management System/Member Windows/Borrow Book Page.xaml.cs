@@ -21,10 +21,21 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Borrow_Book_Page : Window
     {
+        private string Acc_ID = "";
         public Borrow_Book_Page()
         {
             InitializeComponent();
 
+            var BooksList = from books in Connections._slms.Books
+                            select books.Title;
+
+            lbBooks.ItemsSource = BooksList.ToList();
+        }
+
+        public Borrow_Book_Page(string acc_id)
+        {
+            InitializeComponent();
+            Acc_ID = acc_id;
             var BooksList = from books in Connections._slms.Books
                             select books.Title;
 
@@ -65,10 +76,13 @@ namespace Smart_Library_Management_System
             {
                 if (imagePicture.Source != null)
                 {
-                    imageData = ConvertImageToByteArray(imagePicture.Source);
+                    BitmapImage bitImage = imagePicture.Source as BitmapImage;
+                    imageData = ConvertImageToByteArray(bitImage);
                 }
             }
             Connections._slms.Prod_BorrowBook(book_id, User.Account_ID, imageData, dt);
+            MessageBox.Show($"Borrowed book named {tbBookTitle.Text} successfully");
+            Connections._slms.SubmitChanges();
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
@@ -81,6 +95,7 @@ namespace Smart_Library_Management_System
             if (lbBooks.SelectedIndex >= 0 && lbBooks.SelectedIndex < lbBooks.Items.Count)
             {
                 var selectedBook = lbBooks.SelectedItem.ToString();
+                
                 var BookInfo = Connections._slms.Books.FirstOrDefault(o => o.Title == selectedBook);
                 if (BookInfo != null)
                 {
@@ -89,27 +104,13 @@ namespace Smart_Library_Management_System
                     tbGenre.Text = BookInfo.Genre;
                     tbPublishDate.Text = BookInfo.Publish_Year.ToString();
                     tbStatus.Text = BookInfo.Status;
-                    
+                    imagePicture.Source = null;
 
-                    if (BookInfo.Book_Image != null)
+                    if(tbStatus.Text == "Borrowed")
                     {
-                        BitmapImage bitmapImage = new BitmapImage();
-                        using (MemoryStream stream = new MemoryStream(BookInfo.Book_Image.ToArray()))
-                        {
-                            bitmapImage.BeginInit();
-                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                            bitmapImage.StreamSource = stream;
-                            bitmapImage.EndInit();
-                        }
-
-                        imagePicture.Source = bitmapImage;
+                        DisableButtons();
                     }
-                    else
-                    {
-                        // If no photo is available, clear the image control
-                        imagePicture.Source = null;
-                    }
-                }
+                } 
             }
         }
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
@@ -154,6 +155,23 @@ namespace Smart_Library_Management_System
                 return ms.ToArray();
             }
         }
-
+        private byte[] BitmapSourceToByteArray(BitmapSource bitmapSource)
+        {
+            byte[] byteArray;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                encoder.Save(ms);
+                byteArray = ms.ToArray();
+            }
+            return byteArray;
+        }
+        private void DisableButtons()
+        {
+            btnUpload.IsEnabled = false;
+            btnTakeAPhoto.IsEnabled = false;
+            btnSubmit.IsEnabled = false;
+        }
     }
 }
