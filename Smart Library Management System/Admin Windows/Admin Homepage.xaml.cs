@@ -36,7 +36,6 @@ namespace Smart_Library_Management_System
             LP.Show();
             this.Close();
         }
-
         private void btProfile_Click(object sender, RoutedEventArgs e)
         {
             //var query = from l in  Connections._slms.Accounts
@@ -52,31 +51,27 @@ namespace Smart_Library_Management_System
             AUPP.Show();
             this.Close();
         }
-
         private void btBookList_Click(object sender, RoutedEventArgs e)
         {
-            Book_List_Admin_Page BLAP = new Book_List_Admin_Page();
+            Book_List_Admin_Page BLAP = new Book_List_Admin_Page(_acc_ID);
             BLAP.Show();
             this.Close();
         }
-
         private void btBookDocumentation_Click(object sender, RoutedEventArgs e)
         {
-            Book_Documentation_Page BDP = new Book_Documentation_Page();
+            Book_Documentation_Page BDP = new Book_Documentation_Page(_acc_ID);
             BDP.Show();
             this.Close();
         }
-
         private void btLogs_Click(object sender, RoutedEventArgs e)
         {
-            Logs_Page LogsP = new Logs_Page();
+            Logs_Page LogsP = new Logs_Page(_acc_ID);
             LogsP.Show();
             this.Close();
         }
-
         private void btAccountList_Click(object sender, RoutedEventArgs e)
         {
-            Account_List ALP = new Account_List();
+            Account_List ALP = new Account_List(_acc_ID);
             ALP.Show();
             this.Close();
         }

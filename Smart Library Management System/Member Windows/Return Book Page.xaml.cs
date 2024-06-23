@@ -21,11 +21,26 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Return_Book_Page : Window
     {
+        private string acc_ID = string.Empty;
+        SLMSDataContext slms = null;
         public Return_Book_Page()
         {
             InitializeComponent();
             var BooksList = from books in Connections._slms.Books
                             select books.Title;
+
+            
+            lbBooks.ItemsSource = BooksList.ToList();
+        }
+
+        public Return_Book_Page(string acc_id)
+        {
+            InitializeComponent();
+            acc_ID = acc_id;
+
+            var BooksList = from books in Connections._slms.Book_Documentations
+                            where books.Acc_ID == acc_ID
+                            select books;
 
             lbBooks.ItemsSource = BooksList.ToList();
         }
@@ -59,6 +74,7 @@ namespace Smart_Library_Management_System
                 if (title.Title == tbBookTitle.Text)
                 {
                     book_id = title.Book_ID;
+                    title.Status = "Borrowed";
                 }
             }
 
@@ -67,19 +83,22 @@ namespace Smart_Library_Management_System
             {
                 if (imagePicture.Source != null)
                 {
-                    imageData = ConvertImageToByteArray(imagePicture.Source);
+                    BitmapImage bitmapImage = imagePicture.Source as BitmapImage;
+                    imageData = ConvertImageToByteArray(bitmapImage);
                 }
             }
-            Connections._slms.Prod_ReturnBook(book_id, User.Account_ID, imageData, dt);
-        }
 
+            Connections._slms.Prod_ReturnBook(book_id, User.Account_ID, imageData, dt);
+            Connections._slms.SubmitChanges();
+
+            SLMSDataContext slms = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
+        }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             User_Homepage UH = new User_Homepage();
             UH.Show();
             this.Close();
         }
-
         private void lbBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbBooks.SelectedIndex >= 0 && lbBooks.SelectedIndex < lbBooks.Items.Count)
@@ -115,7 +134,6 @@ namespace Smart_Library_Management_System
                 }
             }
         }
-
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             var BooksData = from books in Connections._slms.Books
@@ -123,7 +141,6 @@ namespace Smart_Library_Management_System
 
             lbBooks.ItemsSource = BooksData.ToList();
         }
-
         private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             lbBooks.ItemsSource = null;
@@ -159,6 +176,27 @@ namespace Smart_Library_Management_System
                 return ms.ToArray();
             }
         }
-
+        private byte[] BitmapSourceToByteArray(BitmapSource bitmapSource)
+        {
+            byte[] byteArray;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                encoder.Save(ms);
+                byteArray = ms.ToArray();
+            }
+            return byteArray;
+        }
+        private void DisableButtons()
+        {
+            btnTakeAPhoto.IsEnabled = false;
+            btnUpload.IsEnabled = false;
+        }
+        private void EnableButtons() 
+        { 
+            btnTakeAPhoto.IsEnabled = true;
+            btnUpload.IsEnabled = true;
+        }
     }
 }

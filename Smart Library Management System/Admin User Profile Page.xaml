@@ -19,7 +19,7 @@
         <Button x:Name="btnSave" Content="Button" HorizontalAlignment="Left" Height="37" Margin="741,518,0,0" VerticalAlignment="Top" Width="117" Opacity="0.01" Click="btnSave_Click"/>
         <Button x:Name="btnTakeAPhoto" Content="Button" HorizontalAlignment="Left" Height="38" Margin="360,446,0,0" VerticalAlignment="Top" Width="120" Opacity="0.01" Click="btnTakeAPhoto_Click"/>
         <Button x:Name="btnUpload" Content="Button" HorizontalAlignment="Left" Height="38" Margin="223,446,0,0" VerticalAlignment="Top" Width="118" Opacity="0.01" Click="btnUpload_Click"/>
-        <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="278,201,0,0" VerticalAlignment="Top" Width="160"/>
+        <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="278,201,0,0" VerticalAlignment="Top" Width="160" Stretch="UniformToFill"/>
         <Button x:Name="btnHome" Content="Button" HorizontalAlignment="Left" Height="70" Margin="10,0,0,0" VerticalAlignment="Top" Width="80" Opacity="0.01" Click="btnHome_Click"/>
     </Grid>
 </Window>

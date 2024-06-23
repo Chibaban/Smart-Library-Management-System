@@ -86,6 +86,8 @@
     <Compile Include="Member Windows\Borrow Book Page.xaml.cs">
       <DependentUpon>Borrow Book Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountList.cs" />
+    <Compile Include="Models\BookList.cs" />
     <Compile Include="Models\Connections.cs" />
     <Compile Include="Admin Windows\Logs Page.xaml.cs">
       <DependentUpon>Logs Page.xaml</DependentUpon>
@@ -96,6 +98,7 @@
     <Compile Include="Member Windows\Signup Page.xaml.cs">
       <DependentUpon>Signup Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Logs.cs" />
     <Compile Include="SLMS.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

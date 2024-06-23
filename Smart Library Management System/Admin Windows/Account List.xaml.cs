@@ -21,31 +21,38 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Account_List : Window
     {
-        SLMSDataContext _SLMS = null;
+        private string acc_id = string.Empty;
         public Account_List()
         {
             InitializeComponent();
-            _SLMS = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
 
-            var AccountsList = from accounts in _SLMS.Accounts
+            var AccountsList = from accounts in Connections._slms.Accounts
                                select accounts.Username;
 
             lbAccounts.ItemsSource = AccountsList.ToList();
         }
+        public Account_List(string acc_ID)
+        {
+            InitializeComponent();
+            acc_id = acc_ID;
 
+            var AccountsList = from accounts in Connections._slms.Accounts
+                               select accounts.Username;
+
+            lbAccounts.ItemsSource = AccountsList.ToList();
+        }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             Admin_Homepage AH = new Admin_Homepage();
             AH.Show();
             this.Close();
         }
-
         private void lbAccounts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbAccounts.SelectedIndex >= 0 && lbAccounts.SelectedIndex < lbAccounts.Items.Count)
             {
                 var selectedAccount = lbAccounts.SelectedItem.ToString();
-                var AccountInfo = _SLMS.Accounts.FirstOrDefault(o => o.Username == selectedAccount);
+                var AccountInfo = Connections._slms.Accounts.FirstOrDefault(o => o.Username == selectedAccount);
                 if (AccountInfo != null)
                 {
                     tbAccountID.Text = AccountInfo.Acc_ID;
@@ -76,14 +83,13 @@ namespace Smart_Library_Management_System
                 }
             }
         }
-
         private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             lbAccounts.ItemsSource = null;
 
             string searchAccount = tbSearchBar.Text;
 
-            var query = from entry in _SLMS.Accounts
+            var query = from entry in Connections._slms.Accounts
                         where entry.Username.Contains(searchAccount)
                         select entry;
 
@@ -96,10 +102,9 @@ namespace Smart_Library_Management_System
 
             lbAccounts.ItemsSource = AccountDescription;
         }
-
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            var AccountData = from accounts in _SLMS.Accounts
+            var AccountData = from accounts in Connections._slms.Accounts
                               select accounts.Username;
 
             lbAccounts.ItemsSource = AccountData.ToList();

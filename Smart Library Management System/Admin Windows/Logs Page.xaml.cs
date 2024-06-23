@@ -22,6 +22,7 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Logs_Page : Window
     {
+        private string accId = "";
         public Logs_Page()
         {
             InitializeComponent();
@@ -29,14 +30,19 @@ namespace Smart_Library_Management_System
                             select Logs.Log_ID;
             lbLogs.ItemsSource = LogList;
         }
-
+        public Logs_Page(string acc_ID)
+        {
+            InitializeComponent();
+            var LogList = from Logs in Connections._slms.Logs
+                          select Logs.Log_ID;
+            lbLogs.ItemsSource = LogList;
+        }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            Admin_Homepage AH = new Admin_Homepage();
+            Admin_Homepage AH = new Admin_Homepage(accId);
             AH.Show();
             this.Close();
         }
-
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbLogs.SelectedIndex >= 0 && lbLogs.SelectedIndex < lbLogs.Items.Count)
@@ -52,7 +58,6 @@ namespace Smart_Library_Management_System
                 }
             }
         }
-
         private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchEntry = tbSearchBar.Text;
@@ -79,7 +84,6 @@ namespace Smart_Library_Management_System
                 }
             }
         }
-
         private void btnRefresh_Click(object sender, EventArgs e) 
         {
             var BooksData = from books in Connections._slms.Logs
