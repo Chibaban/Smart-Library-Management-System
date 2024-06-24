@@ -102,6 +102,9 @@
     <Compile Include="Member Windows\FindBook.xaml.cs">
       <DependentUpon>FindBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Member Windows\TakeAPhoto.xaml.cs">
+      <DependentUpon>TakeAPhoto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountList.cs" />
     <Compile Include="Models\BookList.cs" />
     <Compile Include="Models\Connections.cs" />
@@ -177,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Member Windows\Signup Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Member Windows\TakeAPhoto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -259,7 +266,6 @@
   <ItemGroup>
     <Resource Include="Pictures\CREATE QR.png" />
     <Resource Include="Pictures\SCAN QR CODE.png" />
-    <Resource Include="Pictures\TAKE PHOTO.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\BORROW BOOK %28USER%29.png" />
@@ -267,6 +273,9 @@
   <ItemGroup>
     <Resource Include="Pictures\BOOK LIST %28ADMIN%29.png" />
     <Resource Include="Pictures\BOOK LIST %28USER%29 CLEAN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\TAKE PHOTO.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -17,7 +17,6 @@ using AForge.Imaging;
 using AForge.Video.DirectShow;
 using System.Drawing;
 using ZXing;
-using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Threading;
 using System.IO;
 
