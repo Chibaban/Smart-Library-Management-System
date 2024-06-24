@@ -5,31 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Smart_Library_Management_System.Member_Windows"
         mc:Ignorable="d"
-        Title="FindBook" Height="720" Width="1280" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="Window_Closing" Loaded="Grid_Loaded">
+        Title="FindBook" 
+        Height="720" 
+        Width="1280" 
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize" 
+        Closing="Window_Closing"
+        FontFamily="Verdana"
+        FontSize="16">
     <Window.Background>
         <ImageBrush ImageSource="\Pictures\SCAN QR CODE.png"/>
     </Window.Background>
-    <Grid>
+    <Grid Loaded="Grid_Loaded">
         <ComboBox x:Name="cmbCamList"
             HorizontalAlignment="Left" 
-            Margin="851,249,0,0" 
-            VerticalAlignment="Top" Width="355" Height="43" SelectionChanged="cmbCamList_SelectionChanged"/>
+            Margin="841,247,0,0" 
+            VerticalAlignment="Top" 
+                  Width="355" 
+                  Height="48"
+                  FontSize="20"
+                  VerticalContentAlignment="Center"/>
         <Image x:Name="imgScan"
             HorizontalAlignment="Left" 
-            Height="440" 
-            Margin="79,187,0,0" 
-            VerticalAlignment="Top" Width="675"/>
+            Height="428" 
+            Margin="77,191,0,0" 
+            VerticalAlignment="Top" Width="672"/>
         <Button x:Name="btnHome"
                 HorizontalAlignment="Left" 
-                Margin="20,0,0,0" 
+                Margin="19,7,0,0" 
                 VerticalAlignment="Top" 
                 Height="71" 
-                Width="68" Click="btnHome_Click"/>
+                Width="68" 
+                Click="btnHome_Click"
+                Opacity="0.01"/>
         <Button x:Name="btnScan" 
                 HorizontalAlignment="Left" 
-                Margin="981,606,0,0" 
+                Margin="974,590,0,0" 
                 VerticalAlignment="Top" 
-                Height="52" Width="96" RenderTransformOrigin="7.307,7.45" Click="btnScan_Click"/>
+                Height="52" Width="96"  
+                Click="btnScan_Click"
+                Opacity="0.01"/>
 
     </Grid>
 </Window>
