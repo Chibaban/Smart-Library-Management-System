@@ -35,6 +35,7 @@
         <Button x:Name="btnSubmit" Content="Button" HorizontalAlignment="Left" Height="41" Margin="582,555,0,0" VerticalAlignment="Top" Width="120" Opacity="0.01" Click="btnSubmit_Click"/>
         <Button x:Name="btnBookImageUpload" Content="Button" HorizontalAlignment="Left" Height="42" Margin="257,177,0,0" VerticalAlignment="Top" Width="120" Opacity="0.01" Click="btnBookImageUpload_Click"/>
         <Button x:Name="btnBookImageTakeAPhoto" Content="Button" HorizontalAlignment="Left" Height="42" Margin="254,228,0,0" VerticalAlignment="Top" Width="123" Opacity="0.01" Click="btnBookImageTakeAPhoto_Click"/>
-        <Button x:Name="btnGenerateQR" HorizontalAlignment="Left" Margin="272,498,0,0" VerticalAlignment="Top" Height="39" Width="81" Click="btnGenerateQR_Click" Opacity="0.01"/>
+        <Button x:Name="btnGenerateQR" HorizontalAlignment="Left" Margin="267,515,0,0" VerticalAlignment="Top" Height="38" Width="93" Click="btnGenerateQR_Click" Opacity="0.01"/>
+        <Button x:Name="btnUploadQR" Content="" HorizontalAlignment="Left" Margin="267,462,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.681,-0.689" Height="38" Width="93" Click="btnUploadQR_Click" Opacity="0"/>
     </Grid>
 </Window>

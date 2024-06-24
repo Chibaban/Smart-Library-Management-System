@@ -20,7 +20,6 @@ namespace Smart_Library_Management_System
     public partial class Admin_Homepage : Window
     {
         string _acc_ID = String.Empty;
-
         public Admin_Homepage()
         {
             InitializeComponent();

@@ -1,0 +1,35 @@
+﻿<Window x:Class="Smart_Library_Management_System.Member_Windows.FindBook"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Smart_Library_Management_System.Member_Windows"
+        mc:Ignorable="d"
+        Title="FindBook" Height="720" Width="1280" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="Window_Closing" Loaded="Grid_Loaded">
+    <Window.Background>
+        <ImageBrush ImageSource="\Pictures\SCAN QR CODE.png"/>
+    </Window.Background>
+    <Grid>
+        <ComboBox x:Name="cmbCamList"
+            HorizontalAlignment="Left" 
+            Margin="851,249,0,0" 
+            VerticalAlignment="Top" Width="355" Height="43" SelectionChanged="cmbCamList_SelectionChanged"/>
+        <Image x:Name="imgScan"
+            HorizontalAlignment="Left" 
+            Height="440" 
+            Margin="79,187,0,0" 
+            VerticalAlignment="Top" Width="675"/>
+        <Button x:Name="btnHome"
+                HorizontalAlignment="Left" 
+                Margin="20,0,0,0" 
+                VerticalAlignment="Top" 
+                Height="71" 
+                Width="68" Click="btnHome_Click"/>
+        <Button x:Name="btnScan" 
+                HorizontalAlignment="Left" 
+                Margin="981,606,0,0" 
+                VerticalAlignment="Top" 
+                Height="52" Width="96" RenderTransformOrigin="7.307,7.45" Click="btnScan_Click"/>
+
+    </Grid>
+</Window>

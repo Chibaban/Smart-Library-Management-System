@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Smart_Library_Management_System.Member_Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +32,6 @@ namespace Smart_Library_Management_System
 
             lbBooks.ItemsSource = BooksList.ToList();
         }
-
         public Borrow_Book_Page(string acc_id)
         {
             InitializeComponent();
@@ -58,31 +58,47 @@ namespace Smart_Library_Management_System
         }
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            DateTime dt = DateTime.Now;
-            string book_id = string.Empty;
-            var getBooks = from books in Connections._slms.Books
-                            select books;
-
-            foreach (var title in getBooks)
+            try
             {
-                if (title.Title == tbBookTitle.Text)
+                while (true)
                 {
-                    book_id = title.Book_ID;
+                    DateTime dt = DateTime.Now;
+                    string book_id = string.Empty;
+                    var getBooks = from books in Connections._slms.Books
+                                   select books;
+
+                    foreach (var title in getBooks)
+                    {
+                        if (title.Title == tbBookTitle.Text)
+                        {
+                            book_id = title.Book_ID;
+                        }
+                    }
+
+                    byte[] imageData = null;
+                    if (imagePicture.Source != null)
+                    {
+                        if (imagePicture.Source != null)
+                        {
+                            BitmapImage bitImage = imagePicture.Source as BitmapImage;
+                            imageData = ConvertImageToByteArray(bitImage);
+                        }
+                        else
+                        {
+                            MessageBox.Show("There must a picture of the book to be borrowed!");
+                            break;
+                        }
+                    }
+                    Connections._slms.Prod_BorrowBook(book_id, User.Account_ID, imageData, dt);
+                    MessageBox.Show($"Borrowed book named {tbBookTitle.Text} successfully");
+                    Connections._slms.SubmitChanges();
                 }
             }
-
-            byte[] imageData = null;
-            if (imagePicture.Source != null)
+            catch (Exception)
             {
-                if (imagePicture.Source != null)
-                {
-                    BitmapImage bitImage = imagePicture.Source as BitmapImage;
-                    imageData = ConvertImageToByteArray(bitImage);
-                }
+
+                throw;
             }
-            Connections._slms.Prod_BorrowBook(book_id, User.Account_ID, imageData, dt);
-            MessageBox.Show($"Borrowed book named {tbBookTitle.Text} successfully");
-            Connections._slms.SubmitChanges();
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
@@ -172,6 +188,12 @@ namespace Smart_Library_Management_System
             btnUpload.IsEnabled = false;
             btnTakeAPhoto.IsEnabled = false;
             btnSubmit.IsEnabled = false;
+        }
+        private void btBookQRSearch_Click(object sender, RoutedEventArgs e)
+        {
+            FindBook fb = new FindBook();
+            fb.Show();
+            this.Close();
         }
     }
 }

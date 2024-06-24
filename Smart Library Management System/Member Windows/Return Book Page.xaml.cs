@@ -32,7 +32,6 @@ namespace Smart_Library_Management_System
             
             lbBooks.ItemsSource = BooksList.ToList();
         }
-
         public Return_Book_Page(string acc_id)
         {
             InitializeComponent();
@@ -44,7 +43,6 @@ namespace Smart_Library_Management_System
 
             lbBooks.ItemsSource = BooksList.ToList();
         }
-
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog();
@@ -56,42 +54,62 @@ namespace Smart_Library_Management_System
                 imagePicture.Source = new BitmapImage(new Uri(openDialog.FileName));
             }
         }
-
         private void btnTakeAPhoto_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Take A Photo");
         }
-
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            DateTime dt = DateTime.Now;
-            string book_id = string.Empty;
-            var getBooks = from books in Connections._slms.Books
-                           select books;
-
-            foreach (var title in getBooks)
+            try
             {
-                if (title.Title == tbBookTitle.Text)
+                while (true)
                 {
-                    book_id = title.Book_ID;
-                    title.Status = "Borrowed";
+                    DateTime dt = DateTime.Now;
+                    string book_id = string.Empty;
+                    var getBooks = from books in Connections._slms.Books
+                                   select books;
+
+                    foreach (var title in getBooks)
+                    {
+                        if (title.Title == tbBookTitle.Text)
+                        {
+                            book_id = title.Book_ID;
+                            title.Status = "Borrowed";
+                        }
+                    }
+
+                    byte[] imageData = null;
+                    if (imagePicture.Source != null)
+                    {
+                        if (imagePicture.Source != null)
+                        {
+                            BitmapImage bitmapImage = imagePicture.Source as BitmapImage;
+                            imageData = ConvertImageToByteArray(bitmapImage);
+                        }
+                        else
+                        {
+                            MessageBox.Show("There must be a picture of the book to be returned!");
+                            break;
+                        }
+                    }
+
+                    Connections._slms.Prod_ReturnBook(book_id, User.Account_ID, imageData, dt);
+                    Connections._slms.SubmitChanges();
+
+                    SLMSDataContext slms = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
+
+                    var BooksList = from books in slms.Book_Documentations
+                                    where books.Acc_ID == acc_ID
+                                    select books;
+
+                    lbBooks.ItemsSource = BooksList.ToList();
                 }
             }
-
-            byte[] imageData = null;
-            if (imagePicture.Source != null)
+            catch (Exception)
             {
-                if (imagePicture.Source != null)
-                {
-                    BitmapImage bitmapImage = imagePicture.Source as BitmapImage;
-                    imageData = ConvertImageToByteArray(bitmapImage);
-                }
+
+                throw;
             }
-
-            Connections._slms.Prod_ReturnBook(book_id, User.Account_ID, imageData, dt);
-            Connections._slms.SubmitChanges();
-
-            SLMSDataContext slms = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
