@@ -3,6 +3,7 @@ using Smart_Library_Management_System.Member_Windows;
 using Smart_Library_Management_System.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Borrow_Book_Page : Window
     {
+        private Bitmap imageCaptured = null;
         SLMSDataContext libContext = null;
         private string Acc_ID = "";
         private string decodedMessage = string.Empty;
@@ -39,6 +41,18 @@ namespace Smart_Library_Management_System
         {
             InitializeComponent();
             Acc_ID = acc_id;
+            var BooksList = from books in Connections._slms.Books
+                            orderby books.Title
+                            select books.Title;
+
+            lbBooks.ItemsSource = BooksList.ToList();
+        }
+        public Borrow_Book_Page(string acc_id, Bitmap image)
+        {
+            InitializeComponent();
+            Acc_ID = acc_id;
+            imageCaptured = image;
+
             var BooksList = from books in Connections._slms.Books
                             orderby books.Title
                             select books.Title;
@@ -66,7 +80,6 @@ namespace Smart_Library_Management_System
 
 
         }
-
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog();
@@ -80,7 +93,12 @@ namespace Smart_Library_Management_System
         }
         private void btnTakeAPhoto_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Take A Photo");
+            TakeAPhoto takeAPhoto = new TakeAPhoto(Acc_ID);   
+
+            if(imageCaptured != null)
+            {
+                imagePicture.Source = imageCaptured;
+            }
         }
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
