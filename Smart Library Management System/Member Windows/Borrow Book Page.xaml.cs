@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Smart_Library_Management_System.Member_Windows;
+using Smart_Library_Management_System.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +23,9 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Borrow_Book_Page : Window
     {
+        SLMSDataContext libContext = null;
         private string Acc_ID = "";
+        private string decodedMessage = string.Empty;
         public Borrow_Book_Page()
         {
             InitializeComponent();
@@ -37,10 +40,33 @@ namespace Smart_Library_Management_System
             InitializeComponent();
             Acc_ID = acc_id;
             var BooksList = from books in Connections._slms.Books
+                            orderby books.Title
                             select books.Title;
 
             lbBooks.ItemsSource = BooksList.ToList();
         }
+        public Borrow_Book_Page(byte[] convertedTitle, string acc_ID)
+        {
+            InitializeComponent();
+            Acc_ID = acc_ID;
+            decodedMessage = Encoding.UTF8.GetString(convertedTitle);
+
+            var BooksList = from books in Connections._slms.Books
+                            select books.Title;
+
+            lbBooks.ItemsSource = BooksList.ToList();
+            foreach (string bookTitle in BooksList)
+            {
+                if (bookTitle == decodedMessage)
+                {
+                    lbBooks.SelectedItem = bookTitle;
+                }
+            }
+
+
+
+        }
+
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog();
@@ -102,7 +128,7 @@ namespace Smart_Library_Management_System
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            User_Homepage UH = new User_Homepage();
+            User_Homepage UH = new User_Homepage(Acc_ID);
             UH.Show();
             this.Close();
         }
@@ -191,7 +217,7 @@ namespace Smart_Library_Management_System
         }
         private void btBookQRSearch_Click(object sender, RoutedEventArgs e)
         {
-            FindBook fb = new FindBook();
+            FindBook fb = new FindBook(Acc_ID);
             fb.Show();
             this.Close();
         }

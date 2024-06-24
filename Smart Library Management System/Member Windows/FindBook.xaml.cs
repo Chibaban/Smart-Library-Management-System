@@ -41,16 +41,19 @@ namespace Smart_Library_Management_System.Member_Windows
         public FindBook(string acc_ID)
         {
             InitializeComponent();
+            acc_Id = acc_ID;
         }
 
 
         private void btnScan_Click(object sender, RoutedEventArgs e)
         {
-            StartOrChangeCamera();
-            vcd = new VideoCaptureDevice();
+            vcd = new VideoCaptureDevice(fic[cmbCamList.SelectedIndex].MonikerString);
+            vcd.NewFrame += Vcd_NewFrame;
+            vcd.Start();
+
             timer1 = new DispatcherTimer();
             timer1.Tick += timer1_Tick;
-            timer1.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            timer1.Interval = new TimeSpan(0, 0, 0, 1, 0);
             timer1.Start();
         }
         private void Vcd_NewFrame(object sender, NewFrameEventArgs eventArgs)
@@ -77,6 +80,7 @@ namespace Smart_Library_Management_System.Member_Windows
             foreach (FilterInfo fi in fic)
                 cmbCamList.Items.Add(fi.Name);
             cmbCamList.SelectedIndex = 0;
+            vcd = new VideoCaptureDevice();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -86,26 +90,12 @@ namespace Smart_Library_Management_System.Member_Windows
                 StopCameraWorking();
             }
         }
-
-        private void StartOrChangeCamera()
-        {
-            vcd = new VideoCaptureDevice(fic[cmbCamList.SelectedIndex].MonikerString);
-            vcd.NewFrame += Vcd_NewFrame;
-            vcd.Start();
-        }
-
-        private void cmbCamList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            vcd = new VideoCaptureDevice(fic[cmbCamList.SelectedIndex].MonikerString);
-            vcd.NewFrame += Vcd_NewFrame;
-            vcd.Start();
-        }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
+            SLMSDataContext sLMSDataContext = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
             BarcodeReader Reader = new BarcodeReader();
             Reader.Options.PossibleFormats = new List<BarcodeFormat>() { BarcodeFormat.QR_CODE };
-            Reader.Options.TryHarder = true; 
+            Reader.Options.TryHarder = true;
 
             Bitmap bitmap;
             using (MemoryStream stream = new MemoryStream())
@@ -120,10 +110,29 @@ namespace Smart_Library_Management_System.Member_Windows
             if (result != null)
             {
                 string decoded = result.Text.Trim();
+                MessageBox.Show(decoded);
                 if (!string.IsNullOrEmpty(decoded))
                 {
-                    StopCameraWorking();
-                    MessageBox.Show(decoded);
+                    var lookTitle = from title in sLMSDataContext.Books
+                                    where title.Title == decoded    
+                                    select title;
+                    foreach (var book in lookTitle)
+                    {
+                        if (book.Title == decoded)
+                        {
+                            byte[] convDecoded = Encoding.UTF8.GetBytes(decoded);
+                            Borrow_Book_Page brp = new Borrow_Book_Page(convDecoded, acc_Id);
+                            brp.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Book not found in the database.");
+                            Borrow_Book_Page brp = new Borrow_Book_Page(acc_Id);
+                            brp.Show();
+                        }
+                        break;
+                    }
+                    this.Close();
                 }
             }
             else
