@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Smart_Library_Management_System.Models
 {
-    internal class AccountList
+    public class AccountList
     {
         public string acc_id {  get; set; }
         public string acc_type { get; set; }

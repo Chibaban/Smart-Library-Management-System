@@ -1,7 +1,8 @@
 ﻿using Microsoft.Win32;
-using Smart_Library_Management_System.Admin_Windows;
+using Smart_Library_Management_System.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,12 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ZXing;
+using ZXing.QrCode;
 
 namespace Smart_Library_Management_System
 {
@@ -22,6 +26,8 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Book_List_Admin_Page : Window
     {
+        List<BookList> books = new List<BookList>();
+        List<string> bookTitles = new List<string>();
         private string acc_id = "";
         public Book_List_Admin_Page()
         {
@@ -36,9 +42,34 @@ namespace Smart_Library_Management_System
             InitializeComponent();
             acc_id = acc_ID;
             var BooksList = from books in Connections._slms.Books
+                            orderby books.Title
                             select books.Title;
-
             lbBooksList.ItemsSource = BooksList.ToList();
+
+            var forBookClass = from books in Connections._slms.Books
+                               select books;
+
+            foreach (var book in forBookClass) 
+            {
+                books.Add(new BookList
+                {
+                    bookID = book.Book_ID,
+                    bookTitle = book.Title,
+                    author = book.Author,
+                    genre = book.Genre,
+                    publishYear = (int)book.Publish_Year,
+                    status = book.Status,
+                    book_Image = book.Book_Image.ToArray(),
+                    qr_Image = book.QR_Path.ToArray()
+                });
+            }
+
+            foreach (BookList book in books)
+            {
+                bookTitles.Add(book.bookTitle);
+            }
+
+            lbBooksList.ItemsSource = bookTitles;
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
@@ -59,7 +90,6 @@ namespace Smart_Library_Management_System
         }
         private void btnBookImageTakeAPhoto_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Take A Photo");
         }
         private void lbBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -94,6 +124,19 @@ namespace Smart_Library_Management_System
                         // If no photo is available, clear the image control
                         imagePicture.Source = null;
                     }
+                    if (BookInfo.QR_Path != null)
+                    {
+                        BitmapImage bitmapImage = new BitmapImage();
+                        using (MemoryStream stream = new MemoryStream(BookInfo.QR_Path.ToArray()))
+                        {
+                            bitmapImage.BeginInit();
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.StreamSource = stream;
+                            bitmapImage.EndInit();
+                        }
+
+                        imageQR.Source = bitmapImage;
+                    }
 
                     //imagePicture.Source = null;
                     //imageQR.Source = null;
@@ -102,11 +145,17 @@ namespace Smart_Library_Management_System
         }
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            var existingBooks = Connections._slms.Books.FirstOrDefault(o => o.Book_ID == tbBookID.Text);
+            var existingBooks = Connections._slms.Books.FirstOrDefault(o => o.Title == tbTitle.Text);
 
-            while (true)
+            if (existingBooks != null)
             {
-                if (existingBooks != null)
+                if (string.IsNullOrEmpty(tbTitle.Text) || string.IsNullOrEmpty(tbAuthor.Text) || string.IsNullOrEmpty(tbGenre.Text)
+                    || string.IsNullOrEmpty(tbPublishDate.Text) || string.IsNullOrEmpty(tbStatus.Text)
+                    || imagePicture.Source == null || imageQR.Source == null)
+                {
+                    MessageBox.Show("Please fill out all possible fields to fill.");
+                }
+                else
                 {
                     existingBooks.Title = tbTitle.Text;
                     existingBooks.Author = tbAuthor.Text;
@@ -126,7 +175,7 @@ namespace Smart_Library_Management_System
                         if (imagePicture.Source != null)
                         {
                             BitmapImage bitmapImage = imagePicture.Source as BitmapImage;
-                            imagePic = BitmapSourceToByteArray(bitmapImage);
+                            imagePic = BitmapImageToByteArray(bitmapImage);
                             existingBooks.Book_Image = imagePic;
                         }
                         else
@@ -136,9 +185,9 @@ namespace Smart_Library_Management_System
                         }
                         if (imageQR.Source != null)
                         {
-                            BitmapImage bitmapImage = imageQR.Source as BitmapImage;
-                            imageQRPath = BitmapSourceToByteArray(bitmapImage);
-                            existingBooks.Book_Image = imageQRPath;
+                            BitmapSource bitmapImage = imageQR.Source as BitmapSource;
+                            imageQRPath = BitmapImageToByteArray(bitmapImage);
+                            existingBooks.QR_Path = imageQRPath;
                         }
                         else
                         {
@@ -146,51 +195,131 @@ namespace Smart_Library_Management_System
                             ifNoError = false;
                         }
 
-                        //if (tbTitle.Text == existingBooks.Title)
-                        //{
-                        //    MessageBox.Show("You can't have the same book title.");
-                        //    tbTitle.Text = null;
-                        //}
-                        //else
-                        //{
-                        //    ifNoError = false;
-                        //}
-                        if (imageQR.Source != null)
-                        {
-                            BitmapImage bitmapImage = imageQR.Source as BitmapImage;
-                            imageQRPath = BitmapSourceToByteArray(bitmapImage);
-                            existingBooks.Book_Image = imageQRPath;
-                        }
-                        else
-                        {
-                            ifNoError = false;
-                        }
 
-                        Connections._slms.Prod_AddBook(acc_id, tbBookID.Text, tbTitle.Text, tbAuthor.Text, tbGenre.Text, short.Parse(tbPublishDate.Text.ToString()), tbStatus.Text, imagePic, imageQRPath);
+                        Connections._slms.Prod_UpdateBookDetails(acc_id, tbBookID.Text, tbTitle.Text, tbAuthor.Text, tbGenre.Text, short.Parse(tbPublishDate.Text.ToString()), tbStatus.Text, imagePic, imageQRPath);
                         Connections._slms.SubmitChanges();
-                        MessageBox.Show("GUMANA");
+                        MessageBox.Show($"Updated {tbTitle.Text} successfully!");
 
+                        foreach (BookList book in books)
+                        {
+                            if (book.bookTitle == tbTitle.Text)
+                            {
+                                book.bookID = tbBookID.Text;
+                                book.bookTitle = tbTitle.Text;
+                                book.author = tbAuthor.Text;
+                                book.genre = tbGenre.Text;
+                                book.status = tbStatus.Text;
+                                book.book_Image = imagePic;
+                                book.qr_Image = imageQRPath;
+                            }
+                        }
                     }
                     else
                     {
                         ResetInputObjects();
-                        break;
                     }
                 }
             }
-
-        }
-        private byte[] ConvertImageToByteArray(Image image)
-        {
-            using (MemoryStream ms = new MemoryStream())
+            else
             {
-                BitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
-                encoder.Save(ms);
-                return ms.ToArray();
+                if(string.IsNullOrEmpty(tbTitle.Text) || string.IsNullOrEmpty(tbAuthor.Text) || string.IsNullOrEmpty(tbGenre.Text)
+                    || string.IsNullOrEmpty(tbPublishDate.Text) || string.IsNullOrEmpty(tbStatus.Text)
+                    || imagePicture.Source == null || imageQR.Source == null)
+                {
+                    MessageBox.Show("Please fill out all possible fields to fill.");
+                }
+                else
+                {
+                    //existingBooks.Title = tbTitle.Text;
+                    //existingBooks.Author = tbAuthor.Text;
+                    //existingBooks.Genre = tbGenre.Text;
+
+                    //int publishYear = int.Parse(tbPublishDate.Text);
+                    //existingBooks.Publish_Year = (short?)publishYear;
+
+                    //existingBooks.Status = tbStatus.Text;
+
+                    bool ifNoError = true;
+                    byte[] imagePic = null;
+                    byte[] imageQRPath = null;
+
+                    if (ifNoError)
+                    {
+                        if (imagePicture.Source != null)
+                        {
+                            BitmapImage bitmapImage = imagePicture.Source as BitmapImage;
+                            imagePic = BitmapImageToByteArray(bitmapImage);
+                         }
+                        else
+                        {
+                            MessageBox.Show("Book image must not be empty!");
+                            ifNoError = false;
+                        }
+                        if (imageQR.Source != null)
+                        {
+                            BitmapSource bitmapImage = imageQR.Source as BitmapSource;
+                            imageQRPath = BitmapImageToByteArray(bitmapImage);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Generate a QR Code first!");
+                            ifNoError = false;
+                        }
+
+                        foreach(string title in bookTitles)
+                        {
+                            if (tbTitle.Text == title)
+                            {
+                                MessageBox.Show("You can't have the same book title.");
+                                tbTitle.Text = null;
+                                ifNoError = false;
+                                break;
+                            }
+                        }
+                        
+
+                        Connections._slms.Prod_AddBook(acc_id, tbTitle.Text, tbAuthor.Text, tbGenre.Text, short.Parse(tbPublishDate.Text.ToString()), tbStatus.Text, imagePic, imageQRPath);
+                        Connections._slms.SubmitChanges();
+                        MessageBox.Show($"Added {tbTitle.Text} successfully!");
+
+                        SLMSDataContext newLibContext = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
+
+                        //Checks for the new book added and adds it to the list
+                        var Lookforbook = newLibContext.Books.First(b => b.Book_ID == $"BK{books.Count()+1}");
+                        books.Add(new BookList
+                        {
+                            bookID = tbBookID.Text,
+                            bookTitle = tbTitle.Text,
+                            author = tbAuthor.Text,
+                            genre = tbGenre.Text,
+                            publishYear = int.Parse(tbPublishDate.Text),
+                            status = tbStatus.Text,
+                            book_Image = imagePic,
+                            qr_Image = imageQRPath
+                        });
+
+                        //bookTitles.Clear();
+                        //foreach (BookList book in books)
+                        //{
+                        //    bookTitles.Add(book.bookTitle);
+                        //}
+
+                        //Reload contents of existing window
+                        this.Content = null;
+                        Book_List_Admin_Page blap = new Book_List_Admin_Page(acc_id);
+                        blap.Show();
+                        this.Close();
+
+                        //lbBooksList.ItemsSource = bookTitles;
+                    }
+                    else
+                    {
+                        ResetInputObjects();
+                    }
+                }
             }
         }
-        private byte[] BitmapSourceToByteArray(BitmapSource bitmapSource)
+        private byte[] BitmapImageToByteArray(BitmapSource bitmapSource)
         {
             byte[] byteArray;
             using (MemoryStream ms = new MemoryStream())
@@ -237,9 +366,29 @@ namespace Smart_Library_Management_System
         }
         private void btnGenerateQR_Click(object sender, RoutedEventArgs e)
         {
-            GenerateQRCode generateQRCode = new GenerateQRCode();
-            generateQRCode.Show();
-            this.Close();
+            
+            if (tbTitle.Text != "")
+            {
+                string QRCodeText = tbTitle.Text;
+                BarcodeWriter barcode = new BarcodeWriter();
+                barcode.Format = BarcodeFormat.QR_CODE;
+                barcode.Options.Height = 150;
+                barcode.Options.Width = 160;
+
+                Bitmap QRImage = barcode.Write(QRCodeText);
+                BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
+                   QRImage.GetHbitmap(),
+                   IntPtr.Zero,
+                   Int32Rect.Empty,
+                   BitmapSizeOptions.FromEmptyOptions()
+                   );
+
+                imageQR.Source = bitmapSource; 
+            }
+            else
+            {
+                MessageBox.Show("Make sure to have a book title first!");
+            }
         }
         private void ResetInputObjects()
         {

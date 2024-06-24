@@ -21,6 +21,7 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Account_List : Window
     {
+        List<Account> accounts = new List<Account>();
         private string acc_id = string.Empty;
         public Account_List()
         {
@@ -40,6 +41,22 @@ namespace Smart_Library_Management_System
                                select accounts.Username;
 
             lbAccounts.ItemsSource = AccountsList.ToList();
+
+            var forAccountList = from acc in Connections._slms.Accounts
+                                 select acc;
+            foreach (var acc in forAccountList) 
+            { 
+                accounts.Add(new Account
+                {
+                    Acc_ID = acc.Acc_ID,
+                    Acc_Type = acc.Acc_Type,
+                    Username = acc.Username,
+                    Password = acc.Password,
+                    First_Name = acc.First_Name,
+                    Last_Name = acc.Last_Name,
+                    Acc_Image = acc.Acc_Image.ToArray(),
+                });
+            }
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
