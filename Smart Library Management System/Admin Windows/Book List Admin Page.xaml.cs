@@ -104,59 +104,79 @@ namespace Smart_Library_Management_System
         {
             var existingBooks = Connections._slms.Books.FirstOrDefault(o => o.Book_ID == tbBookID.Text);
 
-            if (existingBooks != null)
+            while (true)
             {
-                existingBooks.Title = tbTitle.Text;
-                existingBooks.Author = tbAuthor.Text;
-                existingBooks.Genre = tbGenre.Text;
-
-                int publishYear = int.Parse(tbPublishDate.Text);
-                existingBooks.Publish_Year = (short?)publishYear;
-
-                existingBooks.Status = tbStatus.Text;
-
-                bool ifNoError = true;
-                byte[] imagePic = null;
-                byte[] imageQRPath = null;
-
-                if (ifNoError)
+                if (existingBooks != null)
                 {
-                    if (imagePicture.Source != null)
-                    {
-                        BitmapImage bitmapImage = imagePicture.Source as BitmapImage;
-                        imagePic = BitmapSourceToByteArray(bitmapImage);
-                        existingBooks.Book_Image = imagePic;
-                    }
-                    else
-                    {
-                        ifNoError = false;
-                    }
+                    existingBooks.Title = tbTitle.Text;
+                    existingBooks.Author = tbAuthor.Text;
+                    existingBooks.Genre = tbGenre.Text;
 
-                    if (tbTitle.Text == existingBooks.Title)
-                    {
-                        MessageBox.Show("You can't have the same book title.");
-                        tbTitle.Text = null;
-                    }
-                    else
-                    {
-                        ifNoError = false;
-                    }
-                    if(imageQR.Source != null)
-                    {
-                        BitmapImage bitmapImage = imageQR.Source as BitmapImage;
-                        imageQRPath = BitmapSourceToByteArray(bitmapImage);
-                        existingBooks.Book_Image = imageQRPath;
-                    }
-                    else
-                    {
-                        ifNoError = false;
-                    }
+                    int publishYear = int.Parse(tbPublishDate.Text);
+                    existingBooks.Publish_Year = (short?)publishYear;
 
+                    existingBooks.Status = tbStatus.Text;
+
+                    bool ifNoError = true;
+                    byte[] imagePic = null;
+                    byte[] imageQRPath = null;
+
+                    if (ifNoError)
+                    {
+                        if (imagePicture.Source != null)
+                        {
+                            BitmapImage bitmapImage = imagePicture.Source as BitmapImage;
+                            imagePic = BitmapSourceToByteArray(bitmapImage);
+                            existingBooks.Book_Image = imagePic;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Book image must not be empty!");
+                            ifNoError = false;
+                        }
+                        if (imageQR.Source != null)
+                        {
+                            BitmapImage bitmapImage = imageQR.Source as BitmapImage;
+                            imageQRPath = BitmapSourceToByteArray(bitmapImage);
+                            existingBooks.Book_Image = imageQRPath;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Generate a QR Code first!");
+                            ifNoError = false;
+                        }
+
+                        //if (tbTitle.Text == existingBooks.Title)
+                        //{
+                        //    MessageBox.Show("You can't have the same book title.");
+                        //    tbTitle.Text = null;
+                        //}
+                        //else
+                        //{
+                        //    ifNoError = false;
+                        //}
+                        if (imageQR.Source != null)
+                        {
+                            BitmapImage bitmapImage = imageQR.Source as BitmapImage;
+                            imageQRPath = BitmapSourceToByteArray(bitmapImage);
+                            existingBooks.Book_Image = imageQRPath;
+                        }
+                        else
+                        {
+                            ifNoError = false;
+                        }
+
+                        Connections._slms.Prod_AddBook(acc_id, tbBookID.Text, tbTitle.Text, tbAuthor.Text, tbGenre.Text, short.Parse(tbPublishDate.Text.ToString()), tbStatus.Text, imagePic, imageQRPath);
+                        Connections._slms.SubmitChanges();
+                        MessageBox.Show("GUMANA");
+
+                    }
+                    else
+                    {
+                        ResetInputObjects();
+                        break;
+                    }
                 }
-
-                Connections._slms.Prod_AddBook(acc_id, tbBookID.Text, tbTitle.Text, tbAuthor.Text, tbGenre.Text, short.Parse(tbPublishDate.Text.ToString()), tbStatus.Text, imagePic, imageQRPath);
-                Connections._slms.SubmitChanges();
-                MessageBox.Show("GUMANA");
             }
 
         }
@@ -220,6 +240,28 @@ namespace Smart_Library_Management_System
             GenerateQRCode generateQRCode = new GenerateQRCode();
             generateQRCode.Show();
             this.Close();
+        }
+        private void ResetInputObjects()
+        {
+            tbTitle.Text = string.Empty;
+            tbTitle.Text = string.Empty;
+            tbAuthor.Text = string.Empty;
+            tbGenre.Text = string.Empty;
+            tbPublishDate.Text = string.Empty;
+            tbStatus.Text = string.Empty;
+            imagePicture.Source = null;
+            imageQR.Source = null;
+        }
+        private void btnUploadQR_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openDialog = new OpenFileDialog();
+            openDialog.Filter = "Image files|*.bmp;*.jpg;*.png";
+            openDialog.FilterIndex = 1;
+
+            if (openDialog.ShowDialog() == true)
+            {
+                imageQR.Source = new BitmapImage(new Uri(openDialog.FileName));
+            }
         }
     } 
 }

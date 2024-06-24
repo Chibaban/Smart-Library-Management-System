@@ -31,14 +31,12 @@ namespace Smart_Library_Management_System
             InitializeComponent();
             _Acc_ID = _acc_id;
         }
-
         private void btLogout_Click(object sender, RoutedEventArgs e)
         {
             MainWindow LP = new MainWindow();
             LP.Show();
             this.Close();
         }
-
         private void btProfile_Click(object sender, RoutedEventArgs e)
         {
             //var query = from l in Connections._slms.Accounts
@@ -55,21 +53,18 @@ namespace Smart_Library_Management_System
             AUPP.Show();
             this.Close();
         }
-
         private void btBorrowBook_Click(object sender, RoutedEventArgs e)
         {
             Borrow_Book_Page BBP = new Borrow_Book_Page(_Acc_ID);
             BBP.Show();
             this.Close();
         }
-
         private void btBookList_Click(object sender, RoutedEventArgs e)
         {
             Book_List_Page BLB = new Book_List_Page(_Acc_ID);
             BLB.Show();
             this.Close();
         }
-
         private void btReturnBook_Click(object sender, RoutedEventArgs e)
         {
             Return_Book_Page RBP = new Return_Book_Page(_Acc_ID);

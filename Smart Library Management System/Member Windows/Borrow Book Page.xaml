@@ -32,6 +32,6 @@
                 </TransformGroup>
             </ListBox.RenderTransform>
         </ListBox>
-
+        <Button x:Name="btBookQRSearch" Content="" HorizontalAlignment="Left" Margin="776,117,0,0" VerticalAlignment="Top" Width="52" Height="52" Opacity="0.01" Click="btBookQRSearch_Click"/>
     </Grid>
 </Window>

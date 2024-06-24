@@ -113,13 +113,6 @@ namespace Smart_Library_Management_System
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_AddBook")]
-		public int Prod_AddBook([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_ID", DbType="VarChar(10)")] string book_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Title", DbType="NVarChar(50)")] string title, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Author", DbType="NVarChar(50)")] string author, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Genre", DbType="VarChar(50)")] string genre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Publish_Year", DbType="SmallInt")] System.Nullable<short> publish_Year, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="VarChar(20)")] string status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_Image", DbType="Image")] System.Data.Linq.Binary book_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QR_Path", DbType="VarBinary(MAX)")] System.Data.Linq.Binary qR_Path)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), acc_ID, book_ID, title, author, genre, publish_Year, status, book_Image, qR_Path);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_CreateAccount")]
 		public int Prod_CreateAccount([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Username", DbType="Char(8)")] string username, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="VarChar(8)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="First_Name", DbType="NVarChar(20)")] string first_Name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Last_Name", DbType="NVarChar(20)")] string last_Name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_Image", DbType="Image")] System.Data.Linq.Binary acc_Image)
 		{
@@ -138,6 +131,20 @@ namespace Smart_Library_Management_System
 		public int Prod_BorrowBook([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_ID", DbType="VarChar(10)")] string book_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Borrow_Image", DbType="VarBinary(MAX)")] System.Data.Linq.Binary borrow_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Borrow_Date", DbType="Date")] System.Nullable<System.DateTime> borrow_Date)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), book_ID, acc_ID, borrow_Image, borrow_Date);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_UpdateBookDetails")]
+		public int Prod_UpdateBookDetails([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_ID", DbType="VarChar(10)")] string book_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Title", DbType="NVarChar(50)")] string title, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Author", DbType="NVarChar(50)")] string author, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Genre", DbType="VarChar(50)")] string genre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Publish_Year", DbType="SmallInt")] System.Nullable<short> publish_Year, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="VarChar(20)")] string status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_Image", DbType="VarBinary(MAX)")] System.Data.Linq.Binary book_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QR_Path", DbType="VarBinary(MAX)")] System.Data.Linq.Binary qR_Path)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), acc_ID, book_ID, title, author, genre, publish_Year, status, book_Image, qR_Path);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_AddBook")]
+		public int Prod_AddBook([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_ID", DbType="VarChar(10)")] string book_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Title", DbType="NVarChar(50)")] string title, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Author", DbType="NVarChar(50)")] string author, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Genre", DbType="VarChar(50)")] string genre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Publish_Year", DbType="SmallInt")] System.Nullable<short> publish_Year, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="VarChar(20)")] string status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_Image", DbType="VarBinary(MAX)")] System.Data.Linq.Binary book_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QR_Path", DbType="VarBinary(MAX)")] System.Data.Linq.Binary qR_Path)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), acc_ID, book_ID, title, author, genre, publish_Year, status, book_Image, qR_Path);
 			return ((int)(result.ReturnValue));
 		}
 	}
