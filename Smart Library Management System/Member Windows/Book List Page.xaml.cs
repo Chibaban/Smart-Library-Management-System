@@ -79,7 +79,19 @@ namespace Smart_Library_Management_System
                         // If no photo is available, clear the image control
                         imagePicture.Source = null;
                     }
+                    if (BookInfo.QR_Path != null)
+                    {
+                        BitmapImage bitmapImage = new BitmapImage();
+                        using (MemoryStream stream = new MemoryStream(BookInfo.QR_Path.ToArray()))
+                        {
+                            bitmapImage.BeginInit();
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.StreamSource = stream;
+                            bitmapImage.EndInit();
+                        }
 
+                        imageQR.Source = bitmapImage;
+                    }
                     //imagePicture.Source = null;
                     //imageQR.Source = null;
                 }

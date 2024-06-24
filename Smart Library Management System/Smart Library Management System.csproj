@@ -93,9 +93,6 @@
     <Compile Include="Admin Windows\Book List Admin Page.xaml.cs">
       <DependentUpon>Book List Admin Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Admin Windows\GenerateQRCode.xaml.cs">
-      <DependentUpon>GenerateQRCode.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Member Windows\Book List Page.xaml.cs">
       <DependentUpon>Book List Page.xaml</DependentUpon>
     </Compile>
@@ -144,10 +141,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Admin Windows\Book List Admin Page.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Admin Windows\GenerateQRCode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
