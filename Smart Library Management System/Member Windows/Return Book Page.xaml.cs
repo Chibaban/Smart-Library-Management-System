@@ -6,17 +6,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
 namespace Smart_Library_Management_System
 {
     /// <summary>
@@ -124,12 +116,11 @@ namespace Smart_Library_Management_System
             {
                 BitmapImage bmpImg = ConvertBitmapToBitmapImage(TempImageStorer.image);
 
-                int cropWidth = 320; // Adjust as needed
-                int cropHeight = 300; // Adjust as needed
+                int cropWidth = 320; 
+                int cropHeight = 300; 
                 int cropX = (bmpImg.PixelWidth - cropWidth) / 2;
                 int cropY = (bmpImg.PixelHeight - cropHeight) / 2;
 
-                // Create a cropped version of the image
                 CroppedBitmap croppedImage = new CroppedBitmap(
                     bmpImg,
                     new Int32Rect(cropX, cropY, cropWidth, cropHeight)
@@ -216,46 +207,82 @@ namespace Smart_Library_Management_System
         }
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            var BooksData = from books in Connections._slms.Books
-                            select books.Title;
+            slms = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
 
-            lbBooks.ItemsSource = BooksData.ToList();
+            var bookList = from bookdetails in slms.Books
+                           select bookdetails;
+
+            List<string> bookTitles = new List<string>();
+
+            foreach (var book in books) //loops on each BookList
+            {
+
+                var userborrowedbooks = from books2 in slms.Books
+                                        where books2.Book_ID == book.bookID
+                                        select books2.Book_ID;
+                foreach (string borrowedBooks in userborrowedbooks)
+                {
+                    foreach (var bd in bookList)
+                    {
+                        if (borrowedBooks == bd.Book_ID)
+                        {
+                            bBooks.Add(new UserBorrowedBooksList
+                            {
+                                bID = bd.Book_ID,
+                                bTitle = bd.Title,
+                                bAuthor = bd.Author,
+                                bGenre = bd.Genre,
+                                bPublishYear = (int)bd.Publish_Year,
+                                bStatus = bd.Status,
+                                bBook_Image = bd.Book_Image.ToArray(),
+                                bQr_Image = bd.QR_Path.ToArray(),
+                            });
+                            bookTitles.Add(bd.Title);
+                            break;
+
+                        }
+                    }
+                }
+            }
+
+            lbBooks.ItemsSource = bookTitles.ToList();
+            tbBookTitle.Text = string.Empty;
+            tbAuthor.Text = string.Empty;
+            tbGenre.Text = string.Empty;
+            tbPublishDate.Text = string.Empty;
+            tbStatus.Text = string.Empty;
+            imagePicture.Source = null;
+            tbSearchBar.Text = string.Empty;
+
+            DisableButtons();
         }
         private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             lbBooks.ItemsSource = null;
 
             string searchBook = tbSearchBar.Text;
+            List<string> bookTitles = new List<string>();
 
-            var query = from entry in Connections._slms.Books
-                        where entry.Title.Contains(searchBook)
-                        select entry;
-
-            List<string> BookDescription = new List<string>();
-
-            foreach (var entry in query)
+            if (string.IsNullOrEmpty(searchBook))
             {
-                BookDescription.Add(entry.Title);
+                // If the search bar is empty, show the original list
+                foreach (var book in bBooks)
+                {
+                    bookTitles.Add(book.bTitle);
+                }
+            }
+            else
+            {
+                // If the search bar is not empty, filter the original list
+                var searchResults = bBooks.Where(b => b.bTitle.ToLower().Contains(searchBook.ToLower()));
+                foreach (var book in searchResults)
+                {
+                    bookTitles.Add(book.bTitle);
+                }
             }
 
-            lbBooks.ItemsSource = BookDescription;
+            lbBooks.ItemsSource = bookTitles;
         }
-        //private byte[] ConvertImageToByteArray(ImageSource imageSource)
-        //{
-        //    var bitmapSource = imageSource as BitmapSource;
-        //    if (bitmapSource == null)
-        //    {
-        //        throw new ArgumentException("ImageSource must be a BitmapSource");
-        //    }
-
-        //    using (MemoryStream ms = new MemoryStream())
-        //    {
-        //        BitmapEncoder encoder = new BmpBitmapEncoder();
-        //        encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-        //        encoder.Save(ms);
-        //        return ms.ToArray();
-        //    }
-        //}
         private byte[] BitmapSourceToByteArray(BitmapSource bitmapSource)
         {
             byte[] byteArray;

@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 
@@ -38,12 +37,13 @@ namespace Smart_Library_Management_System
             InitializeComponent();
             Acc_ID = acc_id;
 
-            var BooksList = from books in Connections._slms.Books
+            libContext = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
+
+            var BooksList = from books in libContext.Books
                             orderby books.Title
                             select books.Title;
 
             lbBooks.ItemsSource = BooksList.ToList();
-            libContext = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
             var booksFiller = from b in libContext.Books
                               select b;
 
@@ -202,10 +202,38 @@ namespace Smart_Library_Management_System
         }
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            var BooksData = from books in Connections._slms.Books
+            var BooksList = from books in libContext.Books
+                            orderby books.Title
                             select books.Title;
 
-            lbBooks.ItemsSource = BooksData.ToList();
+            lbBooks.ItemsSource = BooksList.ToList();
+            var booksFiller = from b in libContext.Books
+                              select b;
+
+            foreach (var book in booksFiller)
+            {
+                bookList.Add(new BookList
+                {
+                    bookID = book.Book_ID,
+                    bookTitle = book.Title,
+                    author = book.Author,
+                    genre = book.Genre,
+                    publishYear = (int)book.Publish_Year,
+                    status = book.Status,
+                    book_Image = book.Book_Image.ToArray(),
+                    qr_Image = book.QR_Path.ToArray()
+                });
+            }
+
+            tbBookTitle.Text = string.Empty;
+            tbAuthor.Text = string.Empty;
+            tbGenre.Text = string.Empty;
+            tbPublishDate.Text = string.Empty;
+            tbStatus.Text = string.Empty;
+            imagePicture.Source = null;
+            tbSearchBar.Text = string.Empty;
+
+            DisableFields();
         }
         private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -226,22 +254,6 @@ namespace Smart_Library_Management_System
 
             lbBooks.ItemsSource = BookDescription;
         }
-        //private byte[] ConvertImageToByteArray(ImageSource imageSource)
-        //{
-        //    var bitmapSource = imageSource as BitmapSource;
-        //    if (bitmapSource == null)
-        //    {
-        //        throw new ArgumentException("ImageSource must be a BitmapSource");
-        //    }
-
-        //    using (MemoryStream ms = new MemoryStream())
-        //    {
-        //        BitmapEncoder encoder = new BmpBitmapEncoder();
-        //        encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-        //        encoder.Save(ms);
-        //        return ms.ToArray();
-        //    }
-        //}
         private byte[] BitmapSourceToByteArray(BitmapSource bitmapSource)
         {
             byte[] byteArray;
