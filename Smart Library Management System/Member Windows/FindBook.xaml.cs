@@ -28,7 +28,6 @@ namespace Smart_Library_Management_System.Member_Windows
     public partial class FindBook : Window
     {
         private string acc_Id = string.Empty;
-        private byte[] _scannedBook = null;
         FilterInfoCollection fic = null;
         VideoCaptureDevice vcd = null;
         DispatcherTimer timer1 = null;

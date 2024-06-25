@@ -19,6 +19,7 @@ using System.Drawing;
 using ZXing;
 using System.Windows.Threading;
 using System.IO;
+using Smart_Library_Management_System.Models;
 
 namespace Smart_Library_Management_System.Member_Windows
 {
@@ -49,17 +50,24 @@ namespace Smart_Library_Management_System.Member_Windows
         private void btnCapture_Click(object sender, RoutedEventArgs e)
         {
             Bitmap bmp = null;
-            using (MemoryStream stream = new MemoryStream())
-            {
-                BitmapEncoder encoder = new BmpBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)imgScan.Source));
-                encoder.Save(stream);
-                bmp = new Bitmap(stream);
-            }
+            TempImageStorer.memStream?.Dispose(); 
+            TempImageStorer.memStream = new MemoryStream();
+
+            BitmapEncoder encoder = new BmpBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create((BitmapSource)imgScan.Source));
+            encoder.Save(TempImageStorer.memStream);
+            bmp = new Bitmap(TempImageStorer.memStream);
+
+            TempImageStorer.image = bmp;
 
             MessageBox.Show("You successfully took a photo of the book!");
-            Borrow_Book_Page borrow_Book_Page = new Borrow_Book_Page(acc_Id, bmp);
-            borrow_Book_Page.Show();
+            if (vcd.IsRunning)
+            {
+                vcd.SignalToStop();
+                vcd = null;
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
+            }
             this.Close();
         }
         private void Vcd_NewFrame(object sender, NewFrameEventArgs eventArgs)
@@ -75,8 +83,6 @@ namespace Smart_Library_Management_System.Member_Windows
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            Borrow_Book_Page b = new Borrow_Book_Page(acc_Id);
-            b.Show();
             this.Close();
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -91,15 +97,11 @@ namespace Smart_Library_Management_System.Member_Windows
         {
             if (vcd.IsRunning)
             {
-                StopCameraWorking();
+                vcd.SignalToStop();
+                vcd = null;
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
             }
-        }
-        private void StopCameraWorking()
-        {
-            vcd.SignalToStop();
-            vcd = null;
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
         }
         private byte[] BitmapImageToByteArray(BitmapSource bitmapSource)
         {
