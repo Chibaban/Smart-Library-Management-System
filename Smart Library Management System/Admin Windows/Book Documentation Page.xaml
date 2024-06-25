@@ -10,13 +10,13 @@
         <ImageBrush ImageSource="\Pictures\BOOK DOCUMENTATION.png"/>
     </Window.Background>
     <Grid Margin="0,3,0,-3">
-        <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="65,145,0,0" VerticalAlignment="Top" Width="160" Stretch="UniformToFill"/>
-        <Image x:Name="imageQR" HorizontalAlignment="Left" Height="150" Margin="65,431,0,0" VerticalAlignment="Top" Width="160" Stretch="UniformToFill"/>
-        <TextBox x:Name="tbDocumentationID" HorizontalAlignment="Left" Height="26" Margin="497,322,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
-        <TextBox x:Name="tbBookID" HorizontalAlignment="Left" Height="26" Margin="497,367,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
-        <TextBox x:Name="tbAccountID" HorizontalAlignment="Left" Height="26" Margin="497,412,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
-        <TextBox x:Name="tbBorrowDate" HorizontalAlignment="Left" Height="26" Margin="497,457,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
-        <TextBox x:Name="tbReturnDate" HorizontalAlignment="Left" Height="26" Margin="497,502,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835"/>
+        <Image x:Name="imageBorrow" HorizontalAlignment="Left" Height="150" Margin="65,145,0,0" VerticalAlignment="Top" Width="160" Stretch="UniformToFill"/>
+        <Image x:Name="imageReturn" HorizontalAlignment="Left" Height="150" Margin="65,431,0,0" VerticalAlignment="Top" Width="160" Stretch="UniformToFill"/>
+        <Label x:Name="lbDocumentationID" HorizontalAlignment="Left" Height="30" Margin="497,322,0,0" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Foreground="#FF653835"/>
+        <Label x:Name="lbBookID" HorizontalAlignment="Left" Height="30" Margin="497,367,0,0" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Foreground="#FF653835"/>
+        <Label x:Name="lbAccountID" HorizontalAlignment="Left" Height="30" Margin="497,412,0,0" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Foreground="#FF653835"/>
+        <Label x:Name="lbBorrowDate" HorizontalAlignment="Left" Height="30" Margin="497,457,0,0" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Foreground="#FF653835"/>
+        <Label x:Name="lbReturnDate" HorizontalAlignment="Left" Height="30" Margin="497,502,0,0" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Foreground="#FF653835"/>
         <Button x:Name="btnHome" Content="Button" HorizontalAlignment="Left" Height="70" Margin="10,0,0,0" VerticalAlignment="Top" Width="80" Opacity="0.01" Click="btnHome_Click"/>
         <TextBox x:Name="tbSearchBar" HorizontalAlignment="Left" Height="26" Margin="848,132,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="246" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835" TextChanged="tbSearchBar_TextChanged"/>
         <Button x:Name="btnRefresh" Content="Button" HorizontalAlignment="Left" Margin="1094,163,0,0" VerticalAlignment="Top" Height="50" Width="52" Opacity="0.01" Click="btnRefresh_Click"/>
@@ -30,5 +30,13 @@
                 </TransformGroup>
             </ListBox.RenderTransform>
         </ListBox>
+        <Button x:Name="btnChangeStatus"
+                HorizontalAlignment="Left" 
+                Margin="553,223,0,0" 
+                VerticalAlignment="Top" 
+                Height="41" 
+                Width="117" 
+                Click="btnChangeStatus_Click"
+                Opacity="100"/>
     </Grid>
 </Window>

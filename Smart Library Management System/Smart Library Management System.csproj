@@ -102,6 +102,7 @@
     <Compile Include="Member Windows\FindBook.xaml.cs">
       <DependentUpon>FindBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserBorrowedBooksList.cs" />
     <Compile Include="TakeAPhoto.xaml.cs">
       <DependentUpon>TakeAPhoto.xaml</DependentUpon>
     </Compile>
@@ -253,9 +254,6 @@
     <Resource Include="Pictures\BOOK DOCUMENTATION CLEAN.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\BOOK DOCUMENTATION.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Pictures\LOGS %28ADMIN%29.png" />
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +275,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\TAKE PHOTO.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\BOOK DOCUMENTATION.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

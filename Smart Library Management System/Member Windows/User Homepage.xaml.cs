@@ -25,7 +25,6 @@ namespace Smart_Library_Management_System
         {
             InitializeComponent();
         }
-
         public User_Homepage(string _acc_id)
         {
             InitializeComponent();
