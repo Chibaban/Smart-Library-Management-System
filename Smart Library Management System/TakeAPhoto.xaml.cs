@@ -5,7 +5,6 @@ using AForge;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using System.Drawing;
-using ZXing;
 using System.IO;
 using Smart_Library_Management_System.Models;
 
