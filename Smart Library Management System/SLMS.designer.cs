@@ -113,13 +113,6 @@ namespace Smart_Library_Management_System
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_CreateAccount")]
-		public int Prod_CreateAccount([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Username", DbType="Char(8)")] string username, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="VarChar(8)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="First_Name", DbType="NVarChar(20)")] string first_Name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Last_Name", DbType="NVarChar(20)")] string last_Name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_Image", DbType="Image")] System.Data.Linq.Binary acc_Image)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), username, password, first_Name, last_Name, acc_Image);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_BorrowBook")]
 		public int Prod_BorrowBook([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_ID", DbType="VarChar(10)")] string book_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Borrow_Image", DbType="VarBinary(MAX)")] System.Data.Linq.Binary borrow_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Borrow_Date", DbType="Date")] System.Nullable<System.DateTime> borrow_Date)
 		{
@@ -152,6 +145,13 @@ namespace Smart_Library_Management_System
 		public int Prod_ReturnBook([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_ID", DbType="VarChar(10)")] string book_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Return_Image", DbType="Image")] System.Data.Linq.Binary return_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Return_Date", DbType="Date")] System.Nullable<System.DateTime> return_Date)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), book_ID, acc_ID, return_Image, return_Date);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_CreateAccount")]
+		public int Prod_CreateAccount([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Username", DbType="Char(8)")] string username, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="VarChar(8)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="First_Name", DbType="NVarChar(20)")] string first_Name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Last_Name", DbType="NVarChar(20)")] string last_Name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_Image", DbType="VarBinary(MAX)")] System.Data.Linq.Binary acc_Image)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), username, password, first_Name, last_Name, acc_Image);
 			return ((int)(result.ReturnValue));
 		}
 	}

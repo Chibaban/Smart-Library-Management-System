@@ -243,7 +243,7 @@ namespace Smart_Library_Management_System
             }
             return byteArray;
         }
-        public BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
+        private BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
         {
             TempImageStorer.memStream.Position = 0;
             BitmapImage bitmapImage = new BitmapImage();
