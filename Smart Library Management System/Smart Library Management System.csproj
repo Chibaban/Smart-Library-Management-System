@@ -102,7 +102,7 @@
     <Compile Include="Member Windows\FindBook.xaml.cs">
       <DependentUpon>FindBook.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Member Windows\TakeAPhoto.xaml.cs">
+    <Compile Include="TakeAPhoto.xaml.cs">
       <DependentUpon>TakeAPhoto.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountList.cs" />
@@ -118,6 +118,7 @@
       <DependentUpon>Signup Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Logs.cs" />
+    <Compile Include="Models\TempImageStorer.cs" />
     <Compile Include="SLMS.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -183,7 +184,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Member Windows\TakeAPhoto.xaml">
+    <Page Include="TakeAPhoto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

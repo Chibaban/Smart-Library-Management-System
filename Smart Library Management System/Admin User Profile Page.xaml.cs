@@ -16,6 +16,9 @@ using System.IO;
 using System.Globalization;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using Smart_Library_Management_System.Member_Windows;
+using Smart_Library_Management_System.Models;
+using System.Drawing;
 
 namespace Smart_Library_Management_System
 {
@@ -30,7 +33,6 @@ namespace Smart_Library_Management_System
         {
             InitializeComponent();
         }
-
         public Admin_User_Profile_Page(string Acc_ID)
         {
             InitializeComponent();
@@ -134,7 +136,6 @@ namespace Smart_Library_Management_System
             Connections._slms.SubmitChanges();
             MessageBox.Show("Edited Successfully");
         }
-
         private byte[] ConvertImageToByteArray(ImageSource imageSource)
         {
             var bitmapSource = imageSource as BitmapSource;
@@ -203,7 +204,24 @@ namespace Smart_Library_Management_System
         }
         private void btnTakeAPhoto_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Take A Photo");
+            TakeAPhoto takeAPhoto = new TakeAPhoto();
+            takeAPhoto.ShowDialog();
+
+            if (TempImageStorer.image != null)
+            {
+                imagePicture.Source = ConvertBitmapToBitmapImage(TempImageStorer.image);
+            }
+        }
+        public BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
+        {
+            TempImageStorer.memStream.Position = 0;
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.StreamSource = TempImageStorer.memStream;
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.EndInit();
+
+            return bitmapImage;
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

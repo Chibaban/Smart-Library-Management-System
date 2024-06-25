@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Smart_Library_Management_System.Member_Windows;
 using Smart_Library_Management_System.Models;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,13 @@ namespace Smart_Library_Management_System
         }
         private void btnBookImageTakeAPhoto_Click(object sender, RoutedEventArgs e)
         {
+            TakeAPhoto takeAPhoto = new TakeAPhoto();
+            takeAPhoto.ShowDialog();
+
+            if (TempImageStorer.image != null)
+            {
+                imagePicture.Source = ConvertBitmapToBitmapImage(TempImageStorer.image);
+            }
         }
         private void lbBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -129,11 +137,23 @@ namespace Smart_Library_Management_System
 
                         imageQR.Source = bitmapImage;
                     }
-
-                    //imagePicture.Source = null;
-                    //imageQR.Source = null;
+                    else
+                    {
+                        imageQR.Source = null;
+                    }
                 }
             }
+        }
+        public BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
+        {
+            TempImageStorer.memStream.Position = 0;
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.StreamSource = TempImageStorer.memStream;
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.EndInit();
+
+            return bitmapImage;
         }
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
