@@ -57,6 +57,12 @@ namespace Smart_Library_Management_System
                     Acc_Image = acc.Acc_Image.ToArray(),
                 });
             }
+            tbAccountID.IsEnabled = false;
+            tbAccountType.IsEnabled = false;
+            tbFirstName.IsEnabled = false;
+            tbLastName.IsEnabled = false;
+            tbUsername.IsEnabled = false;
+            tbPassword.IsEnabled = false;
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {

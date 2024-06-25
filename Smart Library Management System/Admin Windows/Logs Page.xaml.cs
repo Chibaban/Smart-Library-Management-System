@@ -33,6 +33,7 @@ namespace Smart_Library_Management_System
         public Logs_Page(string acc_ID)
         {
             InitializeComponent();
+            accId = acc_ID;
             var LogList = from Logs in Connections._slms.Logs
                           select Logs.Log_ID;
             lbLogs.ItemsSource = LogList;

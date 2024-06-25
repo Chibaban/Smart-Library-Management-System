@@ -25,7 +25,6 @@ namespace Smart_Library_Management_System
     public partial class MainWindow : Window
     {
         bool loginFlag = false;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -41,7 +40,7 @@ namespace Smart_Library_Management_System
         private void cbShowPassword_Unchecked(object sender, RoutedEventArgs e)
         {
             pbPassword.Password = tbPasswordCheck.Text;
-            pbPassword.Visibility=Visibility.Visible;
+            pbPassword.Visibility = Visibility.Visible;
             tbPasswordCheck.Visibility=Visibility.Collapsed;
         }
 
@@ -83,7 +82,7 @@ namespace Smart_Library_Management_System
                             User.FirstName = login.First_Name;
                             User.LastName = login.Last_Name;
 
-                            MessageBox.Show("Welcome Admin!");
+                            MessageBox.Show($"Welcome, {login.First_Name} {login.Last_Name}!");
                             Admin_Homepage AH = new Admin_Homepage(login.Acc_ID);
                             AH.Show();
                             this.Close();
@@ -97,7 +96,7 @@ namespace Smart_Library_Management_System
                             User.FirstName = login.First_Name;
                             User.LastName = login.Last_Name;
 
-                            MessageBox.Show("Welcome User!");
+                            MessageBox.Show($"Welcome, {login.First_Name} {login.Last_Name}!");
                             User_Homepage UP = new User_Homepage(login.Acc_ID);
                             UP.Show();
                             this.Close();

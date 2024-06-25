@@ -39,7 +39,19 @@ namespace Smart_Library_Management_System
 
             if (TempImageStorer.image != null)
             {
-                imagePicture.Source = ConvertBitmapToBitmapImage(TempImageStorer.image);
+                BitmapImage bmpImg = ConvertBitmapToBitmapImage(TempImageStorer.image);
+
+                int cropWidth = 320; // Adjust as needed
+                int cropHeight = 300; // Adjust as needed
+                int cropX = (bmpImg.PixelWidth - cropWidth) / 2;
+                int cropY = (bmpImg.PixelHeight - cropHeight) / 2;
+
+                // Create a cropped version of the image
+                CroppedBitmap croppedImage = new CroppedBitmap(
+                    bmpImg,
+                    new Int32Rect(cropX, cropY, cropWidth, cropHeight)
+                );
+                imagePicture.Source = croppedImage;
             }
         }
 
@@ -71,12 +83,28 @@ namespace Smart_Library_Management_System
             }
             else 
             {
+                bool shouldAddAcc = true;
                 if (tbPassword.Text == tbRepeatPassword.Text)
                 {
                     BitmapSource img = imagePicture.Source as BitmapSource;
-                    _SLMS.Prod_CreateAccount(tbUsername.Text, tbPassword.Text, tbFirstName.Text, tbLastName.Text, BitmapSourceToByteArray(img));
-                    _SLMS.SubmitChanges();
-                    MessageBox.Show($"Your member account has been created successfully, {tbFirstName.Text} {tbLastName}.");
+                    var query = from a in _SLMS.Accounts
+                                select a;
+
+                    foreach (var acc in query)
+                    {
+                        if (acc.Username == tbUsername.Text || acc.First_Name == tbFirstName.Text)
+                        {
+                            MessageBox.Show("Your username and/or password already exists in the database.");
+                            shouldAddAcc = false;
+                            break;
+                        }
+                    }
+                    if (shouldAddAcc)
+                    {
+                        _SLMS.Prod_CreateAccount(tbUsername.Text, tbPassword.Text, tbFirstName.Text, tbLastName.Text, BitmapSourceToByteArray(img));
+                        _SLMS.SubmitChanges();
+                        MessageBox.Show($"Your member account has been created successfully, {tbFirstName.Text} {tbLastName.Text}.");
+                    }
                 }
                 else
                 {
@@ -84,6 +112,9 @@ namespace Smart_Library_Management_System
                     tbRepeatPassword.Text = string.Empty;
                 }
             }
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            this.Close();
         }
         private BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
         {
@@ -108,6 +139,33 @@ namespace Smart_Library_Management_System
                 byteArray = ms.ToArray();
             }
             return byteArray;
+        }
+
+        private void tbUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tbUsername.Text.Length > 8)
+            {
+                MessageBox.Show("Maximum of 8 characters only is allowed.");
+                tbUsername.Text = string.Empty;
+            }
+        }
+
+        private void tbPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tbPassword.Text.Length > 8) 
+            {
+                MessageBox.Show("Maximum of 8 characters only is allowed.");
+                tbPassword.Text = string.Empty;
+            }
+        }
+
+        private void tbRepeatPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tbRepeatPassword.Text.Length > 8)
+            {
+                MessageBox.Show("Maximum of 8 characters only is allowed.");
+                tbRepeatPassword.Text = string.Empty;
+            }
         }
     }
 }

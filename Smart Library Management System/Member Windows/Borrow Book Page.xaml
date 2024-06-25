@@ -10,7 +10,13 @@
         <ImageBrush ImageSource="\Pictures\BORROW BOOK (USER).png"/>
     </Window.Background>
     <Grid Margin="0,3,0,-3">
-        <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="72,220,0,0" VerticalAlignment="Top" Width="160"/>
+        <Image x:Name="imagePicture" 
+               HorizontalAlignment="Left" 
+               Height="170" 
+               Margin="60,210,0,0" 
+               VerticalAlignment="Top" 
+               Width="182"
+               Stretch="UniformToFill"/>
         <TextBox x:Name="tbBookTitle" HorizontalAlignment="Left" Height="26" Margin="463,288,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835" IsEnabled="False"/>
         <TextBox x:Name="tbAuthor" HorizontalAlignment="Left" Height="26" Margin="463,332,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835" IsEnabled="False"/>
         <TextBox x:Name="tbGenre" HorizontalAlignment="Left" Height="26" Margin="463,378,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" FontFamily="Verdana" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}" Foreground="#FF653835" IsEnabled="False"/>

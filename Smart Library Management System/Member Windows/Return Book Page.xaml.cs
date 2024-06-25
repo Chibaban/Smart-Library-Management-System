@@ -122,7 +122,19 @@ namespace Smart_Library_Management_System
 
             if (TempImageStorer.image != null)
             {
-                imagePicture.Source = ConvertBitmapToBitmapImage(TempImageStorer.image);
+                BitmapImage bmpImg = ConvertBitmapToBitmapImage(TempImageStorer.image);
+
+                int cropWidth = 320; // Adjust as needed
+                int cropHeight = 300; // Adjust as needed
+                int cropX = (bmpImg.PixelWidth - cropWidth) / 2;
+                int cropY = (bmpImg.PixelHeight - cropHeight) / 2;
+
+                // Create a cropped version of the image
+                CroppedBitmap croppedImage = new CroppedBitmap(
+                    bmpImg,
+                    new Int32Rect(cropX, cropY, cropWidth, cropHeight)
+                );
+                imagePicture.Source = croppedImage;
             }
         }
         private BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
@@ -159,9 +171,10 @@ namespace Smart_Library_Management_System
 
                 Connections._slms.Prod_ReturnBook(book_id, User.Account_ID, imageData, dt);
                 Connections._slms.SubmitChanges();
+                MessageBox.Show("You returned a book!");
 
                 SLMSDataContext slms = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
-
+                
                 this.Content = null;
                 Return_Book_Page rbp = new Return_Book_Page(acc_ID);
                 rbp.Show();
@@ -179,7 +192,7 @@ namespace Smart_Library_Management_System
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            User_Homepage UH = new User_Homepage();
+            User_Homepage UH = new User_Homepage(acc_ID);
             UH.Show();
             this.Close();
         }

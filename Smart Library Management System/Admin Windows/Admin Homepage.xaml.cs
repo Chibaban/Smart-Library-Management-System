@@ -64,8 +64,8 @@ namespace Smart_Library_Management_System
         }
         private void btLogs_Click(object sender, RoutedEventArgs e)
         {
-            Logs_Page LogsP = new Logs_Page(_acc_ID);
-            LogsP.Show();
+            Logs_Page logs_Page = new Logs_Page(_acc_ID);
+            logs_Page.Show();
             this.Close();
         }
         private void btAccountList_Click(object sender, RoutedEventArgs e)
