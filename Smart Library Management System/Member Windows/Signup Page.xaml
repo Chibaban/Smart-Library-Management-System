@@ -18,7 +18,9 @@
         <Button x:Name="btnTakeAPhoto" Content="Button" HorizontalAlignment="Left" Height="32" Margin="313,434,0,0" VerticalAlignment="Top" Width="111" Opacity="0.01" Click="btnTakeAPhoto_Click"/>
         <Button x:Name="btnUpload" Content="Button" HorizontalAlignment="Left" Height="32" Margin="174,434,0,0" VerticalAlignment="Top" Width="111" Opacity="0.01" Click="btnUpload_Click"/>
         <Button x:Name="btnAlreadyAMember" Content="Button" HorizontalAlignment="Left" Height="25" Margin="754,519,0,0" VerticalAlignment="Top" Width="165" Click="btnAlreadyAMember_Click" Opacity="0.01"/>
-        <Image x:Name="imagePicture" HorizontalAlignment="Left" Height="150" Margin="221,230,0,0" VerticalAlignment="Top" Width="160"/>
+        <Image x:Name="imagePicture" 
+               HorizontalAlignment="Left" 
+               Height="150" Margin="221,230,0,0" VerticalAlignment="Top" Width="160"/>
         <Button x:Name="btnSubmit" Content="Button" HorizontalAlignment="Left" Height="29" Margin="722,556,0,0" VerticalAlignment="Top" Width="121" Opacity="0.01" Click="btnSubmit_Click"/>
     </Grid>
 </Window>

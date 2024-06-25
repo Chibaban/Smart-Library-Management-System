@@ -60,7 +60,6 @@ namespace Smart_Library_Management_System.Member_Windows
 
             TempImageStorer.image = bmp;
 
-            MessageBox.Show("You successfully took a photo of the book!");
             if (vcd.IsRunning)
             {
                 vcd.SignalToStop();
@@ -68,6 +67,9 @@ namespace Smart_Library_Management_System.Member_Windows
                 GC.WaitForPendingFinalizers();
                 GC.Collect();
             }
+
+            MessageBox.Show("Image captured.");
+
             this.Close();
         }
         private void Vcd_NewFrame(object sender, NewFrameEventArgs eventArgs)
@@ -83,6 +85,14 @@ namespace Smart_Library_Management_System.Member_Windows
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
+            if (vcd.IsRunning)
+            {
+                vcd.SignalToStop();
+                vcd = null;
+
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
+            }
             this.Close();
         }
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -115,6 +125,5 @@ namespace Smart_Library_Management_System.Member_Windows
             }
             return byteArray;
         }
-
     }
 }

@@ -1,6 +1,9 @@
 ﻿using Microsoft.Win32;
+using Smart_Library_Management_System.Member_Windows;
+using Smart_Library_Management_System.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -31,7 +34,13 @@ namespace Smart_Library_Management_System
 
         private void btnTakeAPhoto_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Take a Photo");
+            TakeAPhoto takeAPhoto = new TakeAPhoto();
+            takeAPhoto.ShowDialog();
+
+            if (TempImageStorer.image != null)
+            {
+                imagePicture.Source = ConvertBitmapToBitmapImage(TempImageStorer.image);
+            }
         }
 
         private void btnUpload_Click(object sender, RoutedEventArgs e)
@@ -55,25 +64,50 @@ namespace Smart_Library_Management_System
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (tbPassword.Text == tbRepeatPassword.Text)
+            if (string.IsNullOrEmpty(tbFirstName.Text) || string.IsNullOrEmpty(tbLastName.Text) || string.IsNullOrEmpty(tbUsername.Text)
+                || string.IsNullOrEmpty(tbPassword.Text) || string.IsNullOrEmpty(tbRepeatPassword.Text) || imagePicture.Source == null)
             {
-                _SLMS.Prod_CreateAccount(tbUsername.Text, tbPassword.Text, tbFirstName.Text, tbLastName.Text, ConvertImageToByteArray(imagePicture));
+                MessageBox.Show("You must fill up all fields!");
             }
-            else
+            else 
             {
-                MessageBox.Show("Password does not match!");
-                tbRepeatPassword.Text = string.Empty;
+                if (tbPassword.Text == tbRepeatPassword.Text)
+                {
+                    BitmapSource img = imagePicture.Source as BitmapSource;
+                    _SLMS.Prod_CreateAccount(tbUsername.Text, tbPassword.Text, tbFirstName.Text, tbLastName.Text, BitmapSourceToByteArray(img));
+                    _SLMS.SubmitChanges();
+                    MessageBox.Show($"Your member account has been created successfully, {tbFirstName.Text} {tbLastName}.");
+                }
+                else
+                {
+                    MessageBox.Show("Password does not match!");
+                    tbRepeatPassword.Text = string.Empty;
+                }
             }
         }
-        private byte[] ConvertImageToByteArray(Image image)
+        private BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
         {
+            TempImageStorer.memStream.Position = 0;
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.StreamSource = TempImageStorer.memStream;
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.EndInit();
+
+            return bitmapImage;
+        }
+
+        private byte[] BitmapSourceToByteArray(BitmapSource bitmapSource)
+        {
+            byte[] byteArray;
             using (MemoryStream ms = new MemoryStream())
             {
                 BitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
+                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
                 encoder.Save(ms);
-                return ms.ToArray();
+                byteArray = ms.ToArray();
             }
+            return byteArray;
         }
     }
 }

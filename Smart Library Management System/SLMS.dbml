@@ -58,14 +58,6 @@
     <Parameter Name="Acc_Image" Parameter="acc_Image" Type="System.Data.Linq.Binary" DbType="Image" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.Prod_CreateAccount" Method="Prod_CreateAccount">
-    <Parameter Name="Username" Parameter="username" Type="System.String" DbType="Char(8)" />
-    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="VarChar(8)" />
-    <Parameter Name="First_Name" Parameter="first_Name" Type="System.String" DbType="NVarChar(20)" />
-    <Parameter Name="Last_Name" Parameter="last_Name" Type="System.String" DbType="NVarChar(20)" />
-    <Parameter Name="Acc_Image" Parameter="acc_Image" Type="System.Data.Linq.Binary" DbType="Image" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.Prod_BorrowBook" Method="Prod_BorrowBook">
     <Parameter Name="Book_ID" Parameter="book_ID" Type="System.String" DbType="VarChar(10)" />
     <Parameter Name="Acc_ID" Parameter="acc_ID" Type="System.String" DbType="VarChar(10)" />
@@ -105,6 +97,14 @@
     <Parameter Name="Acc_ID" Parameter="acc_ID" Type="System.String" DbType="VarChar(10)" />
     <Parameter Name="Return_Image" Parameter="return_Image" Type="System.Data.Linq.Binary" DbType="Image" />
     <Parameter Name="Return_Date" Parameter="return_Date" Type="System.DateTime" DbType="Date" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Prod_CreateAccount" Method="Prod_CreateAccount">
+    <Parameter Name="Username" Parameter="username" Type="System.String" DbType="Char(8)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="VarChar(8)" />
+    <Parameter Name="First_Name" Parameter="first_Name" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Last_Name" Parameter="last_Name" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Acc_Image" Parameter="acc_Image" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" />
     <Return Type="System.Int32" />
   </Function>
 </Database>
