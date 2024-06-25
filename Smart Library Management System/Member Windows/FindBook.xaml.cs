@@ -42,7 +42,6 @@ namespace Smart_Library_Management_System.Member_Windows
             acc_Id = acc_ID;
         }
 
-
         private void btnScan_Click(object sender, RoutedEventArgs e)
         {
             vcd = new VideoCaptureDevice(fic[cmbCamList.SelectedIndex].MonikerString);

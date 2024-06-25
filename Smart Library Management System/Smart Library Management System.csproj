@@ -251,9 +251,6 @@
     <Resource Include="Pictures\RETURN BOOK %28USER%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\BOOK DOCUMENTATION CLEAN.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Pictures\LOGS %28ADMIN%29.png" />
   </ItemGroup>
   <ItemGroup>
@@ -277,10 +274,10 @@
     <Resource Include="Pictures\TAKE PHOTO.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\BOOK DOCUMENTATION.png" />
+    <Resource Include="Pictures\UserImages\Profile Image.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\UserImages\Profile Image.png" />
+    <Resource Include="Pictures\BOOK DOCUMENTATION.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

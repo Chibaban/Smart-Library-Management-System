@@ -28,7 +28,7 @@ namespace Smart_Library_Management_System
     public partial class Admin_User_Profile_Page : Window
     {
         private string _AccId = "";
-
+        SLMSDataContext newContext = null;
         public Admin_User_Profile_Page()
         {
             InitializeComponent();
@@ -37,8 +37,8 @@ namespace Smart_Library_Management_System
         {
             InitializeComponent();
             _AccId = Acc_ID;
-
-            var accountType = from a in Connections._slms.Accounts
+            newContext = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
+            var accountType = from a in newContext.Accounts
                               where
                               a.Acc_ID == Acc_ID
                               select a;
@@ -117,13 +117,13 @@ namespace Smart_Library_Management_System
         }
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            var existingAccounts = Connections._slms.Accounts.FirstOrDefault(o => o.Acc_ID == tbAccountID.Text);
+            var existingAccounts = newContext.Accounts.FirstOrDefault(o => o.Acc_ID == tbAccountID.Text);
 
             if (existingAccounts != null)
             {
-                tbPassword.Text = existingAccounts.Password;
-                tbFirstName.Text = existingAccounts.First_Name;
-                tbLastName.Text = existingAccounts.Last_Name;
+                existingAccounts.Password = tbPassword.Text;
+                existingAccounts.First_Name = tbFirstName.Text;
+                existingAccounts.Last_Name = tbLastName.Text;
 
                 if (imagePicture.Source != null)
                 {
@@ -132,9 +132,16 @@ namespace Smart_Library_Management_System
                 }
             }
 
-            Connections._slms.Prod_UpdateAccount(tbAccountID.Text, tbAccountType.Text, tbUsername.Text, tbPassword.Text, tbFirstName.Text, tbLastName.Text, ConvertImageToByteArray(imagePicture.Source));
+            
+            Connections._slms.Prod_UpdateAccount(tbAccountID.Text, tbAccountType.Text, tbUsername.Text, existingAccounts.Password, existingAccounts.First_Name, existingAccounts.Last_Name, ConvertImageToByteArray(imagePicture.Source));
             Connections._slms.SubmitChanges();
             MessageBox.Show("Edited Successfully");
+
+            Admin_User_Profile_Page aupp = new Admin_User_Profile_Page(_AccId);
+            aupp.Show();
+            this.Close();
+
+
         }
         private byte[] ConvertImageToByteArray(ImageSource imageSource)
         {
@@ -209,7 +216,19 @@ namespace Smart_Library_Management_System
 
             if (TempImageStorer.image != null)
             {
-                imagePicture.Source = ConvertBitmapToBitmapImage(TempImageStorer.image);
+                BitmapImage bmpImg = ConvertBitmapToBitmapImage(TempImageStorer.image);
+
+                int cropWidth = 320; // Adjust as needed
+                int cropHeight = 300; // Adjust as needed
+                int cropX = (bmpImg.PixelWidth - cropWidth) / 2;
+                int cropY = (bmpImg.PixelHeight - cropHeight) / 2;
+
+                // Create a cropped version of the image
+                CroppedBitmap croppedImage = new CroppedBitmap(
+                    bmpImg,
+                    new Int32Rect(cropX, cropY, cropWidth, cropHeight)
+                );
+                imagePicture.Source = croppedImage;
             }
         }
         public BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
@@ -225,7 +244,7 @@ namespace Smart_Library_Management_System
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var accountType = from a in Connections._slms.Accounts
+            var accountType = from a in newContext.Accounts
                               where
                               a.Acc_ID == _AccId
                               select a;

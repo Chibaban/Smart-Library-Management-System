@@ -28,8 +28,14 @@ namespace Smart_Library_Management_System
                             select books.Title;
 
             lbBooks.ItemsSource = BooksList.ToList();
-        }
 
+            tbBookID.IsEnabled = false;
+            tbTitle.IsEnabled = false;
+            tbAuthor.IsEnabled = false;
+            tbGenre.IsEnabled = false;
+            tbPublishDate.IsEnabled = false;
+            tbStatus.IsEnabled = false;
+        }
         public Book_List_Page(string acc_id)
         {
             InitializeComponent();
@@ -38,14 +44,20 @@ namespace Smart_Library_Management_System
                             select books.Title;
 
             lbBooks.ItemsSource = BooksList.ToList();
+
+            tbBookID.IsEnabled = false;
+            tbTitle.IsEnabled = false;
+            tbAuthor.IsEnabled = false;
+            tbGenre.IsEnabled = false;
+            tbPublishDate.IsEnabled = false;
+            tbStatus.IsEnabled = false;
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            User_Homepage UH = new User_Homepage();
+            User_Homepage UH = new User_Homepage(acc_ID);
             UH.Show();
             this.Close();
         }
-
         private void lbBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbBooks.SelectedIndex >= 0 && lbBooks.SelectedIndex < lbBooks.Items.Count)
@@ -97,7 +109,6 @@ namespace Smart_Library_Management_System
                 }
             }
         }
-
         private void tbSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchEntry = tbSearchBar.Text;
@@ -124,7 +135,6 @@ namespace Smart_Library_Management_System
                 }
             }
         }
-
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             var BooksData = from books in Connections._slms.Books

@@ -1,5 +1,4 @@
-﻿using AForge.Math;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Smart_Library_Management_System.Member_Windows;
 using Smart_Library_Management_System.Models;
 using System;
@@ -12,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+
 
 namespace Smart_Library_Management_System
 {
@@ -70,7 +70,8 @@ namespace Smart_Library_Management_System
             Acc_ID = acc_ID;
             decodedMessage = Encoding.UTF8.GetString(convertedTitle);
 
-            var BooksList = from books in Connections._slms.Books
+            libContext = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
+            var BooksList = from books in libContext.Books
                             select books.Title;
 
             lbBooks.ItemsSource = BooksList.ToList();
@@ -81,9 +82,6 @@ namespace Smart_Library_Management_System
                     lbBooks.SelectedItem = bookTitle;
                 }
             }
-
-
-
         }
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
@@ -103,7 +101,20 @@ namespace Smart_Library_Management_System
 
             if (TempImageStorer.image != null)
             {
-                imagePicture.Source = ConvertBitmapToBitmapImage(TempImageStorer.image);
+                BitmapImage bmpImg = ConvertBitmapToBitmapImage(TempImageStorer.image);
+
+                int cropWidth = 320; // Adjust as needed
+                int cropHeight = 300; // Adjust as needed
+                int cropX = (bmpImg.PixelWidth - cropWidth) / 2;
+                int cropY = (bmpImg.PixelHeight - cropHeight) / 2;
+
+                // Create a cropped version of the image
+                CroppedBitmap croppedImage = new CroppedBitmap(
+                    bmpImg,
+                    new Int32Rect(cropX, cropY, cropWidth, cropHeight)
+                );
+
+                imagePicture.Source = croppedImage;
             }
         }
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
@@ -123,8 +134,8 @@ namespace Smart_Library_Management_System
                     }
                 }
 
-                BitmapImage bitImage = imagePicture.Source as BitmapImage;
-                byte[] imageData = ConvertImageToByteArray(bitImage);
+                BitmapSource bitImage = imagePicture.Source as BitmapSource;
+                byte[] imageData = BitmapSourceToByteArray(bitImage);
 
                 Connections._slms.Prod_BorrowBook(book_id, User.Account_ID, imageData, dt);
                 MessageBox.Show($"Borrowed book named {tbBookTitle.Text} successfully");
@@ -182,7 +193,7 @@ namespace Smart_Library_Management_System
                     tbStatus.Text = BookInfo.Status;
                     imagePicture.Source = null;
 
-                    if(tbStatus.Text == "Borrowed")
+                    if(tbStatus.Text != "Available")
                     {
                         DisableFields();
                     }
@@ -215,22 +226,22 @@ namespace Smart_Library_Management_System
 
             lbBooks.ItemsSource = BookDescription;
         }
-        private byte[] ConvertImageToByteArray(ImageSource imageSource)
-        {
-            var bitmapSource = imageSource as BitmapSource;
-            if (bitmapSource == null)
-            {
-                throw new ArgumentException("ImageSource must be a BitmapSource");
-            }
+        //private byte[] ConvertImageToByteArray(ImageSource imageSource)
+        //{
+        //    var bitmapSource = imageSource as BitmapSource;
+        //    if (bitmapSource == null)
+        //    {
+        //        throw new ArgumentException("ImageSource must be a BitmapSource");
+        //    }
 
-            using (MemoryStream ms = new MemoryStream())
-            {
-                BitmapEncoder encoder = new BmpBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-                encoder.Save(ms);
-                return ms.ToArray();
-            }
-        }
+        //    using (MemoryStream ms = new MemoryStream())
+        //    {
+        //        BitmapEncoder encoder = new BmpBitmapEncoder();
+        //        encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+        //        encoder.Save(ms);
+        //        return ms.ToArray();
+        //    }
+        //}
         private byte[] BitmapSourceToByteArray(BitmapSource bitmapSource)
         {
             byte[] byteArray;

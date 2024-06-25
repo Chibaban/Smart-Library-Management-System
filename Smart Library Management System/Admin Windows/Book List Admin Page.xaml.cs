@@ -42,7 +42,7 @@ namespace Smart_Library_Management_System
             var forBookClass = from books in Connections._slms.Books
                                select books;
 
-            foreach (var book in forBookClass) 
+            foreach (var book in forBookClass)
             {
                 books.Add(new BookList
                 {
@@ -88,7 +88,19 @@ namespace Smart_Library_Management_System
 
             if (TempImageStorer.image != null)
             {
-                imagePicture.Source = ConvertBitmapToBitmapImage(TempImageStorer.image);
+                BitmapImage bmpImg = ConvertBitmapToBitmapImage(TempImageStorer.image);
+
+                int cropWidth = 320; // Adjust as needed
+                int cropHeight = 300; // Adjust as needed
+                int cropX = (bmpImg.PixelWidth - cropWidth) / 2;
+                int cropY = (bmpImg.PixelHeight - cropHeight) / 2;
+
+                // Create a cropped version of the image
+                CroppedBitmap croppedImage = new CroppedBitmap(
+                    bmpImg,
+                    new Int32Rect(cropX, cropY, cropWidth, cropHeight)
+                );
+                imagePicture.Source = croppedImage;
             }
         }
         private void lbBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -144,7 +156,7 @@ namespace Smart_Library_Management_System
                 }
             }
         }
-        public BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
+        private BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
         {
             TempImageStorer.memStream.Position = 0;
             BitmapImage bitmapImage = new BitmapImage();
@@ -234,7 +246,7 @@ namespace Smart_Library_Management_System
             }
             else
             {
-                if(string.IsNullOrEmpty(tbTitle.Text) || string.IsNullOrEmpty(tbAuthor.Text) || string.IsNullOrEmpty(tbGenre.Text)
+                if (string.IsNullOrEmpty(tbTitle.Text) || string.IsNullOrEmpty(tbAuthor.Text) || string.IsNullOrEmpty(tbGenre.Text)
                     || string.IsNullOrEmpty(tbPublishDate.Text) || string.IsNullOrEmpty(tbStatus.Text)
                     || imagePicture.Source == null || imageQR.Source == null)
                 {
@@ -261,7 +273,7 @@ namespace Smart_Library_Management_System
                         {
                             BitmapImage bitmapImage = imagePicture.Source as BitmapImage;
                             imagePic = BitmapImageToByteArray(bitmapImage);
-                         }
+                        }
                         else
                         {
                             MessageBox.Show("Book image must not be empty!");
@@ -278,7 +290,7 @@ namespace Smart_Library_Management_System
                             ifNoError = false;
                         }
 
-                        foreach(string title in bookTitles)
+                        foreach (string title in bookTitles)
                         {
                             if (tbTitle.Text == title)
                             {
@@ -288,7 +300,7 @@ namespace Smart_Library_Management_System
                                 break;
                             }
                         }
-                        
+
 
                         Connections._slms.Prod_AddBook(acc_id, tbTitle.Text, tbAuthor.Text, tbGenre.Text, short.Parse(tbPublishDate.Text.ToString()), tbStatus.Text, imagePic, imageQRPath);
                         Connections._slms.SubmitChanges();
@@ -378,7 +390,7 @@ namespace Smart_Library_Management_System
         }
         private void btnGenerateQR_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (tbTitle.Text != "")
             {
                 string QRCodeText = tbTitle.Text;
@@ -395,7 +407,7 @@ namespace Smart_Library_Management_System
                    BitmapSizeOptions.FromEmptyOptions()
                    );
 
-                imageQR.Source = bitmapSource; 
+                imageQR.Source = bitmapSource;
             }
             else
             {
@@ -424,5 +436,26 @@ namespace Smart_Library_Management_System
                 imageQR.Source = new BitmapImage(new Uri(openDialog.FileName));
             }
         }
-    } 
+
+        private void tbPublishDate_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tbPublishDate.Text.Length > 4)
+            {
+                MessageBox.Show("A year is only 4 characters long!");
+                tbPublishDate.Text = string.Empty;
+            }
+            else
+            {
+                foreach (char c in tbPublishDate.Text)
+                {
+                    if (!char.IsDigit(c))
+                    {
+                        MessageBox.Show("You can't have a year with letters in it!");
+                        tbPublishDate.Text = string.Empty;
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }

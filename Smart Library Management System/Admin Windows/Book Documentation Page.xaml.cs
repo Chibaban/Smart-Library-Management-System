@@ -35,6 +35,7 @@ namespace Smart_Library_Management_System
             InitializeComponent();
             acc_Id = acc_ID;
             var BooksList = from books in Connections._slms.Book_Documentations
+                            orderby books.Doc_ID
                             select books.Doc_ID;
 
             lbBooks.ItemsSource = BooksList.ToList();
@@ -42,7 +43,7 @@ namespace Smart_Library_Management_System
         }
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            Admin_Homepage AH = new Admin_Homepage();
+            Admin_Homepage AH = new Admin_Homepage(acc_Id);
             AH.Show();
             this.Close();
         }
@@ -67,6 +68,7 @@ namespace Smart_Library_Management_System
         }
         private void lbBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            btnChangeStatus.IsEnabled = false;
             if (lbBooks.SelectedIndex >= 0 && lbBooks.SelectedIndex < lbBooks.Items.Count)
             {
                 string selectedBook = lbBooks.SelectedItem.ToString();
@@ -138,8 +140,9 @@ namespace Smart_Library_Management_System
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             var BookDocumentationData = from books in Connections._slms.Book_Documentations
-                              select books.Book_ID;
-
+                                        orderby books.Doc_ID
+                              select books.Doc_ID;
+            tbSearchBar.Text = string.Empty;
             lbBooks.ItemsSource = BookDocumentationData.ToList();
         }
         private void btnChangeStatus_Click(object sender, RoutedEventArgs e)
