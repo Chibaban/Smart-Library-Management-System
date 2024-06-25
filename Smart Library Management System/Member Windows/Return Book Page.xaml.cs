@@ -167,7 +167,7 @@ namespace Smart_Library_Management_System
 
                 byte[] imageData = null;
                 BitmapImage bitmapImage = imagePicture.Source as BitmapImage;
-                imageData = ConvertImageToByteArray(bitmapImage);
+                imageData = BitmapSourceToByteArray(bitmapImage);
 
                 Connections._slms.Prod_ReturnBook(book_id, User.Account_ID, imageData, dt);
                 Connections._slms.SubmitChanges();
@@ -240,22 +240,22 @@ namespace Smart_Library_Management_System
 
             lbBooks.ItemsSource = BookDescription;
         }
-        private byte[] ConvertImageToByteArray(ImageSource imageSource)
-        {
-            var bitmapSource = imageSource as BitmapSource;
-            if (bitmapSource == null)
-            {
-                throw new ArgumentException("ImageSource must be a BitmapSource");
-            }
+        //private byte[] ConvertImageToByteArray(ImageSource imageSource)
+        //{
+        //    var bitmapSource = imageSource as BitmapSource;
+        //    if (bitmapSource == null)
+        //    {
+        //        throw new ArgumentException("ImageSource must be a BitmapSource");
+        //    }
 
-            using (MemoryStream ms = new MemoryStream())
-            {
-                BitmapEncoder encoder = new BmpBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-                encoder.Save(ms);
-                return ms.ToArray();
-            }
-        }
+        //    using (MemoryStream ms = new MemoryStream())
+        //    {
+        //        BitmapEncoder encoder = new BmpBitmapEncoder();
+        //        encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+        //        encoder.Save(ms);
+        //        return ms.ToArray();
+        //    }
+        //}
         private byte[] BitmapSourceToByteArray(BitmapSource bitmapSource)
         {
             byte[] byteArray;
