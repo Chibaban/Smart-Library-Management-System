@@ -120,13 +120,6 @@ namespace Smart_Library_Management_System
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_ReturnBook")]
-		public int Prod_ReturnBook([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_ID", DbType="VarChar(10)")] string book_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Return_Image", DbType="Image")] System.Data.Linq.Binary return_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Return_Date", DbType="Date")] System.Nullable<System.DateTime> return_Date)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), book_ID, acc_ID, return_Image, return_Date);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_BorrowBook")]
 		public int Prod_BorrowBook([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_ID", DbType="VarChar(10)")] string book_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Borrow_Image", DbType="VarBinary(MAX)")] System.Data.Linq.Binary borrow_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Borrow_Date", DbType="Date")] System.Nullable<System.DateTime> borrow_Date)
 		{
@@ -145,6 +138,20 @@ namespace Smart_Library_Management_System
 		public int Prod_AddBook([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Title", DbType="NVarChar(50)")] string title, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Author", DbType="NVarChar(50)")] string author, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Genre", DbType="VarChar(50)")] string genre, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Publish_Year", DbType="SmallInt")] System.Nullable<short> publish_Year, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="VarChar(20)")] string status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_Image", DbType="VarBinary(MAX)")] System.Data.Linq.Binary book_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QR_Path", DbType="VarBinary(MAX)")] System.Data.Linq.Binary qR_Path)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), acc_ID, title, author, genre, publish_Year, status, book_Image, qR_Path);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_UpdateBookStatus")]
+		public int Prod_UpdateBookStatus([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_ID", DbType="VarChar(10)")] string book_ID)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), book_ID);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Prod_ReturnBook")]
+		public int Prod_ReturnBook([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Book_ID", DbType="VarChar(10)")] string book_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Acc_ID", DbType="VarChar(10)")] string acc_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Return_Image", DbType="Image")] System.Data.Linq.Binary return_Image, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Return_Date", DbType="Date")] System.Nullable<System.DateTime> return_Date)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), book_ID, acc_ID, return_Image, return_Date);
 			return ((int)(result.ReturnValue));
 		}
 	}

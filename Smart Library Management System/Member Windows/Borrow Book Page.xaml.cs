@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using AForge.Math;
+using Microsoft.Win32;
 using Smart_Library_Management_System.Member_Windows;
 using Smart_Library_Management_System.Models;
 using System;
@@ -19,6 +20,7 @@ namespace Smart_Library_Management_System
     /// </summary>
     public partial class Borrow_Book_Page : Window
     {
+        List <BookList> bookList = new List <BookList> ();  
         SLMSDataContext libContext = null;
         private string Acc_ID = "";
         private string decodedMessage = string.Empty;
@@ -35,11 +37,31 @@ namespace Smart_Library_Management_System
         {
             InitializeComponent();
             Acc_ID = acc_id;
+
             var BooksList = from books in Connections._slms.Books
                             orderby books.Title
                             select books.Title;
 
             lbBooks.ItemsSource = BooksList.ToList();
+            libContext = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
+            var booksFiller = from b in libContext.Books
+                              select b;
+
+            foreach(var book in booksFiller)
+            {
+                bookList.Add(new BookList
+                {
+                    bookID = book.Book_ID,
+                    bookTitle = book.Title,
+                    author = book.Author,
+                    genre = book.Genre,
+                    publishYear = (int)book.Publish_Year,
+                    status = book.Status,
+                    book_Image = book.Book_Image.ToArray(),
+                    qr_Image = book.QR_Path.ToArray()
+                });
+            }
+
             DisableFields();
         }
         public Borrow_Book_Page(byte[] convertedTitle, string acc_ID)
@@ -107,6 +129,29 @@ namespace Smart_Library_Management_System
                 Connections._slms.Prod_BorrowBook(book_id, User.Account_ID, imageData, dt);
                 MessageBox.Show($"Borrowed book named {tbBookTitle.Text} successfully");
                 Connections._slms.SubmitChanges();
+
+                //SLMSDataContext newLibContext = new SLMSDataContext(Properties.Settings.Default.LibWonderConnectionString);
+                
+                //var query = from b in newLibContext.Books
+                //            select b;
+                //foreach(var book in query)
+                //{
+                //    bookList.Add(new BookList
+                //    {
+                //        bookID = book.Book_ID,
+                //        bookTitle = book.Title,
+                //        author = book.Author,
+                //        genre = book.Genre,
+                //        publishYear = (int) book.Publish_Year,
+                //        status = book.Status,
+                //        book_Image = book.Book_Image.ToArray(),
+                //        qr_Image = book.QR_Path.ToArray()
+                //    });
+                //}
+                this.Content = null;
+                Borrow_Book_Page bbp = new Borrow_Book_Page(Acc_ID);
+                bbp.Show();
+                this.Close();
             }
             else
             {
@@ -126,7 +171,8 @@ namespace Smart_Library_Management_System
             {
                 var selectedBook = lbBooks.SelectedItem.ToString();
                 
-                var BookInfo = Connections._slms.Books.FirstOrDefault(o => o.Title == selectedBook);
+                
+                var BookInfo = libContext.Books.FirstOrDefault(o => o.Title == selectedBook);
                 if (BookInfo != null)
                 {
                     tbBookTitle.Text = BookInfo.Title;
