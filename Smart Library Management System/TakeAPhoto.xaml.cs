@@ -16,6 +16,7 @@ namespace Smart_Library_Management_System.Member_Windows
     /// </summary>
     public partial class TakeAPhoto : Window
     {
+        private IDisposable iD = null;
         private string acc_Id = string.Empty;
         FilterInfoCollection fic = null;
         VideoCaptureDevice vcd = null;
@@ -48,16 +49,16 @@ namespace Smart_Library_Management_System.Member_Windows
 
             TempImageStorer.image = bmp;
 
-            if (vcd.IsRunning)
-            {
-                vcd.SignalToStop();
-                vcd.Stop();
-                vcd = null;
-                GC.WaitForPendingFinalizers();
-                GC.Collect();
-            }
+            vcd.SignalToStop();
+            vcd.WaitForStop();
+            vcd = null;
 
             MessageBox.Show("Image captured.");
+
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+
 
             this.Close();
         }
@@ -94,13 +95,8 @@ namespace Smart_Library_Management_System.Member_Windows
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (vcd.IsRunning)
-            {
-                vcd.SignalToStop();
-                vcd = null;
-                GC.WaitForPendingFinalizers();
-                GC.Collect();
-            }
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
         }
         private byte[] BitmapImageToByteArray(BitmapSource bitmapSource)
         {

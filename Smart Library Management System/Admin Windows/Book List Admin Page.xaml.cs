@@ -237,6 +237,7 @@ namespace Smart_Library_Management_System
                                 book.qr_Image = imageQRPath;
                             }
                         }
+                        EmptyFields();
                     }
                     else
                     {
@@ -383,10 +384,14 @@ namespace Smart_Library_Management_System
         }
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
+            lbBooksList.ItemsSource = null;
+            lbBooksList.Items.Clear();
+
             var BooksData = from books in Connections._slms.Books
                             select books.Title;
 
             lbBooksList.ItemsSource = BooksData.ToList();
+            EmptyFields();
         }
         private void btnGenerateQR_Click(object sender, RoutedEventArgs e)
         {
@@ -436,7 +441,6 @@ namespace Smart_Library_Management_System
                 imageQR.Source = new BitmapImage(new Uri(openDialog.FileName));
             }
         }
-
         private void tbPublishDate_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (tbPublishDate.Text.Length > 4)
@@ -456,6 +460,18 @@ namespace Smart_Library_Management_System
                     }
                 }
             }
+        }
+        private void EmptyFields()
+        {
+            tbBookID.Text = string.Empty;
+            tbTitle.Text = string.Empty;
+            tbAuthor.Text = string.Empty;
+            tbGenre.Text = string.Empty;
+            tbPublishDate.Text = string.Empty;
+            tbStatus.Text = string.Empty;
+            imagePicture.Source = null;
+            imageQR.Source = null;
+            tbSearchBar.Text = string.Empty;
         }
     }
 }
